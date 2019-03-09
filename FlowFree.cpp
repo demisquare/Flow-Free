@@ -1,5 +1,5 @@
 /*creare un display*/
-#include "Menu.h"
+#include "Level.h"
 
 int main()
 {
@@ -38,7 +38,7 @@ int main()
     al_use_transform(&trans);
   }
 
-    Menu myMenu;
+    Level Mylevel;
 
     al_rest(5.0); //attendi 5 secondi
 

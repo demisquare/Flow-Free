@@ -1,10 +1,10 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef LEVEL_H
+#define LEVEL_H
 
 #include <allegro5/allegro_image.h>
 #include "GameMap.h"
 
-class Menu
+class Level
 {
 private:
   ALLEGRO_BITMAP* title;
@@ -12,7 +12,7 @@ private:
   GameMap myMap;
 
 public:
-  Menu():title(NULL)
+  Level():title(NULL)
   {
     if(!al_init_image_addon())
       cerr << "failed to initialize menu!\n";
@@ -31,14 +31,14 @@ public:
                               0                                    // flags
                             );*/
 
-        myMap.draw(50, 50);
+        myMap.draw(50, 50, "level1.txt");
 
         al_flip_display(); //aggiorna display
       }
 
   }
 
-  ~Menu()
+  ~Level()
   {
     al_destroy_bitmap(title); //distruggi prima le bitmap
 
