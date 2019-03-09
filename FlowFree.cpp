@@ -1,6 +1,8 @@
 /*creare un display*/
 #include "Menu.h"
 
+const int abc = 3;
+
 int main()
 {
   if(!al_init())
