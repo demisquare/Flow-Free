@@ -8,12 +8,12 @@ class GameMap
 {
 private:
   ALLEGRO_BITMAP* grid;
-  unsigned n;
+  const unsigned n = 5;
   GameObj*** map;
-  type t;
+  unsigned x, y;
 
 public:
-  GameMap(const unsigned &dim):grid(NULL), n(dim), map(new GameObj**[n])
+  GameMap():grid(NULL), map(new GameObj**[n])
   {
 
     //dichiara la matrice...
@@ -28,24 +28,25 @@ public:
 
   }
 
-  void draw()
+  void draw(const unsigned &x, const unsigned &y)
   {
     //disegna la mappa...
-    /*grid = al_load_bitmap("grid5x5.png"); //grid...
+    grid = al_load_bitmap("grid5x5.png"); //grid...
     al_draw_scaled_bitmap(grid,
                           0, 0,                               // source origin
                           al_get_bitmap_width(grid),          // source width
                           al_get_bitmap_height(grid),         // source height
-                          50, 50,                             // target origin
+                          x, y,                               // target origin
                           al_get_bitmap_width(grid)*0.5,      // source width
                           al_get_bitmap_height(grid)*0.5,     // target dimensions
                           0                                   // flags
-                        );*/
+                        );
 
+    //disegna le palline...
     for(unsigned i = 0; i < n; i++)
       for(unsigned j = 0; j < n; j++)
       {
-        map[i][j] = new Ball(i*20, j*20, 10, RED); //rivedere il costruttore...
+        map[i][j] = new Ball(85+i*(x+20), 85+j*(y+20), 30, RED); //rivedere il costruttore...
         map[i][j]->draw();
       }
   }

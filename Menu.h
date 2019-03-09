@@ -9,6 +9,8 @@ class Menu
 private:
   ALLEGRO_BITMAP* title;
 
+  GameMap myMap;
+
 public:
   Menu():title(NULL)
   {
@@ -29,8 +31,7 @@ public:
                               0                                    // flags
                             );*/
 
-        GameMap myMap(5);
-        myMap.draw();
+        myMap.draw(50, 50);
 
         al_flip_display(); //aggiorna display
       }
@@ -40,6 +41,8 @@ public:
   ~Menu()
   {
     al_destroy_bitmap(title); //distruggi prima le bitmap
+
+    myMap.~GameMap(); //distruggi la mappa
   }
 
 };

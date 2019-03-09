@@ -17,10 +17,8 @@ protected:
   type t;
   ALLEGRO_COLOR color;
 public:
-  GameObj(const unsigned &x, const unsigned &y, const ALLEGRO_COLOR &c):
+  GameObj(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):
     source_x(x), source_y(y), color(c){}
-
-  virtual ~GameObj();
 
   void clear(){color = BLACK;}
 
@@ -39,7 +37,7 @@ class Ball:public GameObj
 private:
   unsigned radius;
 public:
-  Ball(const unsigned &x, const unsigned &y, const unsigned &r, const ALLEGRO_COLOR &c):
+  Ball(const unsigned x, const unsigned y, const unsigned r, const ALLEGRO_COLOR c):
   GameObj(x, y, c), radius(r){t = BALL;}
 
   void draw()
@@ -61,7 +59,7 @@ class Path:public GameObj
 private:
   direction dir;
 public:
-  Path(const unsigned &x, const unsigned &y, const ALLEGRO_COLOR &c):GameObj(x, y, c){t = PATH;}
+  Path(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):GameObj(x, y, c){t = PATH;}
 
   void draw()
   {

@@ -40,9 +40,9 @@ int main()
 
     Menu myMenu;
 
-    al_rest(2.0); //attendi 2 secondi
+    al_rest(5.0); //attendi 5 secondi
 
     al_destroy_display(display); //distruggi display
-
+    
     return 0;
 }
