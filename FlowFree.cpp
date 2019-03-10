@@ -22,8 +22,6 @@ int main()
   }
   else
   {
-
-
     windowWidth = al_get_display_width(display);
     windowHeight = al_get_display_height(display);
 
@@ -38,11 +36,12 @@ int main()
     al_use_transform(&trans);
   }
 
-    Level Mylevel;
+    Level myLevel;
 
-    al_rest(5.0); //attendi 5 secondi
-
+    al_rest(2.0); //attendi 2 secondi
+    myLevel.~Level();
     al_destroy_display(display); //distruggi display
-    
+    al_uninstall_system();
+
     return 0;
 }

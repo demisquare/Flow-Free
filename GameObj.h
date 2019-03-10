@@ -51,7 +51,7 @@ public:
 
   unsigned getRadius()const{return radius;}
 
-  virtual type getType()const {return t;}
+  type getType()const {return BALL;}
 };
 
 class Path:public GameObj
@@ -72,7 +72,7 @@ public:
     }
   }
 
-  type getType()const {return t;}
+  type getType()const {return PATH;}
 };
 
 #endif
