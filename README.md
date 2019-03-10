@@ -1,6 +1,14 @@
 # Flow-Free
 **Flow Free** for OOP University Project, written in C++ using ALLEGRO 5 by **Team Photoshop**.
 
+## Requires:
+ - g++/gcc/MinGW compiler
+ - Allegro 5
+
+## Compiling:
+```bash
+g++ Flow-Free.cpp -lallegro -lallegro_image -lallegro_primitives -g
+```
 ## History:
 #### 10-03-19:
 - Fixed ball position.
