@@ -9,8 +9,6 @@ int main()
    return -1;
   }
 
-  //mi chiamo virgola, sono un gattino
-
   ALLEGRO_DISPLAY* display;
 
   float windowWidth = 640, windowHeight = 480;
