@@ -14,7 +14,7 @@ int main()
   float windowWidth = 640, windowHeight = 480;
   al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
   display = al_create_display(windowWidth, windowHeight);
-  // bnbnbn
+  
   if(!display)
   {
    cerr << "failed to initialize allegro!\n";
