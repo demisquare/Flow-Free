@@ -78,7 +78,7 @@ public:
         cout << levelmap[i][j];
         if(levelmap[i][j]!='0')
           delete[] map[i][j];
-      }
+      } //j
       delete[] map[i];
       cout << endl;
     }
