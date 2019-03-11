@@ -30,10 +30,10 @@ public:
   {
     //dichiara la matrice...
     for(unsigned i = 0; i < n; i++)
-      map[i] = new GameObj*;
-
-    for(unsigned i = 0; i < n; i++)
-      levelmap[i] = new char;
+      {
+        map[i] = new GameObj*;
+        levelmap[i] = new char;
+      }
 
   }
 
@@ -76,17 +76,17 @@ public:
       for(unsigned j = 0; j < n; j++)
       {
         cout << levelmap[i][j];
-        if(levelmap[i][j]!='0')
-          delete[] map[i][j];
-      } //jj
+        if(map[i][j]!=nullptr)
+          delete map[i][j];
+      }
       delete[] map[i];
       cout << endl;
     }
-    delete map;
+    delete[] map;
 
     for(unsigned i = 0; i < n; i++)
       delete[] levelmap[i];
-    delete levelmap;
+    delete[] levelmap;
   }
 
   unsigned size()const{return n;}
