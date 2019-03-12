@@ -39,9 +39,7 @@ int main()
     Level myLevel;
 
     al_rest(2.0); //attendi 2 secondi
-    myLevel.~Level();
     al_destroy_display(display); //distruggi display
-    al_uninstall_system();
 
     return 0;
 }

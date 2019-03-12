@@ -44,7 +44,7 @@ public:
   ~Level()
   {
     al_destroy_bitmap(grid); //distruggi bitmap
-    myMap.~GameMap(); //distruggi mappa
+    //myMap.~GameMap(); //distruggi mappa
   }
 
 };
