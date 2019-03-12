@@ -5,9 +5,9 @@
  - g++/gcc/MinGW compiler
  - Allegro 5
 
-## to Compile and Execute:
+## Run Game:
 ```bash
-g++ Flow-Free.cpp -lallegro -lallegro_image -lallegro_primitives -g
+g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 ./a.out
 ```
 ## History:
