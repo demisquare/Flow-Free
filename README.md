@@ -5,11 +5,16 @@
  - g++/gcc/MinGW compiler
  - Allegro 5
 
-## Compiling:
+## Run Game:
 ```bash
-g++ Flow-Free.cpp -lallegro -lallegro_image -lallegro_primitives -g
+g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
+./a.out
 ```
 ## History:
+#### 12-03-19:
+- Fixed Core Dump errors.
+- Minor bugfixes.
+
 #### 10-03-19:
 - Fixed ball position.
 - Renamed Menu.h in Level.h.
@@ -21,8 +26,12 @@ g++ Flow-Free.cpp -lallegro -lallegro_image -lallegro_primitives -g
 - Added text file input to generate the levelmap.
 
 ## Next changes:
-- Fix ~GameMap().
+- Screen, Score, Game, Path, Menu, Music classes.
+- Mouse events.
+- Game music.
+- Timed Level mode.
 
 ## Authors:
 
 * **demisquare** - (https://github.com/demisquare)
+* **MartinaCanonPh** - (https://github.com/MartinaCanonPh)
