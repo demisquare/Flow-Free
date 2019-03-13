@@ -11,6 +11,12 @@ g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 ./a.out
 ```
 ## History:
+#### 13-03-19:
+- Added Yellow color.
+- Added ScreenSettings class
+- Added MouseEvents Class
+- Minor bugfixes.
+
 #### 12-03-19:
 - Fixed Core Dump errors.
 - Minor bugfixes.
