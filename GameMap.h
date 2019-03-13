@@ -62,6 +62,11 @@ public:
              map[i][j]->draw();
              break;
 
+          case 'y':
+             map[i][j] = new Ball(85+j*(x+20), 85+i*(y+20), 30, YELLOW);
+             map[i][j]->draw();
+             break;
+
           default:
              map[i][j] = nullptr;
              break; 
