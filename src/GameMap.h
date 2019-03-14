@@ -113,6 +113,16 @@ public:
     return colors.size();*/
   }
 
+  bool isFull()const
+  {
+    //restituisce vero se la mappa è riempita (nessuna cella vuota)
+    /*for(unsigned i = 0; i < n; i++)
+      for(unsigned j = 0; j < n; j++)
+        if(map[i][j]==NULL)
+          return false;
+    return true;*/
+  }
+
 };
 
 #endif
