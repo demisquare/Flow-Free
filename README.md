@@ -44,9 +44,8 @@ Stop with **Escape** key.
 - Added text file input to generate the levelmap.
 
 ## Next changes:
-- Adding Score, Path, Menu, Music.
+- Adding Score, Path, Menu, Game music.
 - Mouse events.
-- Game music.
 - Timed Level mode.
 
 ## Authors:
