@@ -10,8 +10,14 @@
 g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 ./a.out
 ```
+Stop with **Escape** key.
+
 ## History:
 #### 14-03-19:
+- Reduced code lines in main().
+- Moved all headers in src folder.
+- Added gameLoop.
+- Renamed GameSettings.h to Setup.h.
 - Added Mouse and Keyboard Events.
 - Added Level.run() method.
 - Removed MouseEvents Class.
@@ -38,7 +44,7 @@ g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 - Added text file input to generate the levelmap.
 
 ## Next changes:
-- Screen, Score, Game, Path, Menu, Music classes.
+- Adding Score, Path, Menu, Music.
 - Mouse events.
 - Game music.
 - Timed Level mode.
