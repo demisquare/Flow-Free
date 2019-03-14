@@ -17,10 +17,11 @@ public:
   {
     if(!al_init_image_addon())
       cerr << "failed to initialize menu!\n";
+  }
 
-    else
-      {
-        al_clear_to_color(BLACK);
+  void run()
+  {
+    al_clear_to_color(BLACK);
 
         //disegna la mappa...
         grid = al_load_bitmap("Images/grid5x5.png"); //grid...
@@ -37,8 +38,6 @@ public:
         myMap.draw(x, y, "level1.txt");
 
         al_flip_display(); //aggiorna display
-      }
-
   }
 
   ~Level()
