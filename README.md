@@ -11,10 +11,16 @@ g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 ./a.out
 ```
 ## History:
+#### 14-03-19:
+- Added Mouse and Keyboard Events.
+- Added Level.run() method.
+- Removed MouseEvents Class.
+- Minor bugfixes.
+
 #### 13-03-19:
 - Added Yellow color.
-- Added ScreenSettings class
-- Added MouseEvents Class
+- Added ScreenSettings class.
+- Added MouseEvents Class.
 - Minor bugfixes.
 
 #### 12-03-19:
