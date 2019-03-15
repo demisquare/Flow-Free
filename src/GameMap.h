@@ -36,40 +36,48 @@ public:
       }
 
   }
-
+  
   void draw(const unsigned &x, const unsigned &y, const char* lvl)
   {
     //apri un file di testo e leggi il contenuto...
     readLevel(lvl);
 
+    unsigned pos = 90;
+    unsigned offset = 140;
+    unsigned r = 65;
+
     //disegna le palline...
     for(unsigned i = 0; i < n; i++)
       for(unsigned j = 0; j < n; j++)
-        switch (levelmap[i][j])
         {
-          case 'r':
-             map[i][j] = new Ball(85+j*(x+20), 85+i*(y+20), 30, RED);
-             map[i][j]->draw();
-             break;
+          //disegna la griglia...
+          al_draw_rectangle(x, y, x+offset*(i+1), y+offset*(j+1), WHITE, 4);
+          switch (levelmap[i][j])
+          {
+            case 'r':
+               map[i][j] = new Ball(pos+i*(offset), pos+j*(offset), r, RED);
+               map[i][j]->draw();
+               break;
 
-          case 'g':
-             map[i][j] = new Ball(85+j*(x+20), 85+i*(y+20), 30, GREEN);
-             map[i][j]->draw();
-             break;
+            case 'g':
+               map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, GREEN);
+               map[i][j]->draw();
+               break;
 
-          case 'b':
-             map[i][j] = new Ball(85+j*(x+20), 85+i*(y+20), 30, BLUE);
-             map[i][j]->draw();
-             break;
+            case 'b':
+               map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, BLUE);
+               map[i][j]->draw();
+               break;
 
-          case 'y':
-             map[i][j] = new Ball(85+j*(x+20), 85+i*(y+20), 30, YELLOW);
-             map[i][j]->draw();
-             break;
+            case 'y':
+               map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
+               map[i][j]->draw();
+               break;
 
-          default:
-             map[i][j] = nullptr;
-             break; 
+            default:
+               map[i][j] = nullptr;
+               break; 
+          }
         }
   }
 
