@@ -7,12 +7,12 @@ class Level
 {
 private:
   GameMap myMap;
-  ALLEGRO_BITMAP* grid;
+  //ALLEGRO_BITMAP* grid;
 
   const unsigned x = 20, y = 20;
 
 public:
-  Level():grid(NULL){}
+  Level()/*:grid(NULL)*/{}
 
   void run(const char* lvl)
   {
@@ -35,7 +35,8 @@ public:
 
   ~Level()
   {
-    al_destroy_bitmap(grid); //distruggi bitmap
+    al_clear_to_color(BLACK);
+    //al_destroy_bitmap(grid); //distruggi bitmap
   }
 
 };
