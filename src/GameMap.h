@@ -55,7 +55,7 @@ public:
           switch (levelmap[i][j])
           {
             case 'r':
-               map[i][j] = new Ball(pos+i*(offset), pos+j*(offset), r, RED);
+               map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, RED);
                map[i][j]->draw();
                break;
 
