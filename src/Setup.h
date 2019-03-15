@@ -115,30 +115,35 @@ public:
           //cattura eventi...
           ALLEGRO_EVENT events;
           al_wait_for_event(event_queue, &events);
-          if(events.type == ALLEGRO_EVENT_KEY_DOWN)
-          {
-            if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-            done = true; 
-          }
-          //evento hover del mouse...
-          else if(events.type == ALLEGRO_EVENT_MOUSE_AXES)
-          {
-          	unsigned x = events.mouse.x,
-          	         y = events.mouse.y;
 
-            cout << "(" << x << " - " << y << ")" << endl;
+          switch(events.type)
+          {
+            //eventi tastiera...
+            case ALLEGRO_EVENT_KEY_DOWN:
+              if(events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+                done = true; 
+              break;
+
+            //evento hover del mouse...
+            case ALLEGRO_EVENT_MOUSE_AXES:
+          	  unsigned x = events.mouse.x,
+          	           y = events.mouse.y;
+
+              cout << "(" << x << " - " << y << ")" << endl;
+              break;
+            
+            //evento click del mouse...
+            case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+              //tasto sx mouse...
+              if(events.mouse.button& 1)
+            	{
+              }
+              //tasto dx mouse...
+            	else if(events.mouse.button& 2)
+            	{
+              }
+              break;
           }
-          //click del mouse...
-          /*else if(events.type==ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
-        	{
-            		if(events.mouse.button& 1)
-            	    {
-                    done = true;
-                  }
-            		else if(events.mouse.button& 2)
-            	    {
-                  }
-          }*/
         }
     }
 
