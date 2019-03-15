@@ -14,6 +14,10 @@ Stop with **Escape** key.
 
 ## History:
 #### 15-03-19:
+- Fixed Ball positions.
+- Fixed dynamic resolution on fullscreen.
+- Grid map is now a primitive.
+- Added Path class.
 - Added a Switch case in Event Queue.
 
 #### 14-03-19:
