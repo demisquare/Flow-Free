@@ -18,9 +18,6 @@ public:
   GameObj(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):
     source_x(x), source_y(y), color(c){}
 
-  void clear(){color = BLACK;}
-
-
   unsigned getX()const{return source_x;}
   unsigned getY()const{return source_y;}
   ALLEGRO_COLOR getColor()const{return color;}
@@ -41,7 +38,6 @@ public:
 
   void clear(){color = BLACK;}
 
-
   unsigned getX()const{return source_x;}
   unsigned getY()const{return source_y;}
   ALLEGRO_COLOR getColor()const{return color;}
@@ -58,6 +54,20 @@ public:
     else
       al_draw_filled_circle(source_x, source_y, radius, color);
   }
+
+};
+
+class Path:public GameObj
+{
+public:
+  Path(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):
+  GameObj(x, y, c){}
+
+  unsigned getX()const{return source_x;}
+  unsigned getY()const{return source_y;}
+  ALLEGRO_COLOR getColor()const{return color;}
+
+  type getType()const{return PATH;}
 
 };
 

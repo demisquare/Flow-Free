@@ -36,15 +36,21 @@ private:
             windowWidth = al_get_display_width(display);
             windowHeight = al_get_display_height(display);
 
-            int screenWidth = WIDTH, screenHeight = HEIGHT;
+            float sx = windowWidth/(float)WIDTH;
+            float sy = windowHeight/(float)HEIGHT;
 
-            float sx = windowWidth/(float)screenWidth;
-            float sy = windowHeight/(float)screenHeight;
+            int scale = std::min(sx, sy);
 
-            ALLEGRO_TRANSFORM trans;
+            int scaleW = WIDTH * scale;
+            int scaleH = HEIGHT * scale;
+
+            int scaleX = (windowWidth - scaleW)/2;
+            int scaleY = (windowHeight - scaleH)/2;
+
+            /*ALLEGRO_TRANSFORM trans;
             al_identity_transform(&trans);
             al_scale_transform(&trans, sx, sy);
-            al_use_transform(&trans);
+            al_use_transform(&trans);*/
         }
     }
 
@@ -126,10 +132,7 @@ public:
 
             //evento hover del mouse...
             case ALLEGRO_EVENT_MOUSE_AXES:
-          	  unsigned x = events.mouse.x,
-          	           y = events.mouse.y;
-
-              cout << "(" << x << " - " << y << ")" << endl;
+              cout << "(" << events.mouse.x << " - " << events.mouse.y << ")" << endl;
               break;
             
             //evento click del mouse...
@@ -137,12 +140,17 @@ public:
               //tasto sx mouse...
               if(events.mouse.button& 1)
             	{
+                break;
               }
+              
               //tasto dx mouse...
-            	else if(events.mouse.button& 2)
+            	if(events.mouse.button& 2)
             	{
+                break;
               }
+            default:
               break;
+              
           }
         }
     }
