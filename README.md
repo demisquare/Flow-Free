@@ -13,6 +13,9 @@ g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
 Stop with **Escape** key.
 
 ## History:
+#### 15-03-19:
+- Added a Switch case in Event Queue.
+
 #### 14-03-19:
 - Reduced code lines in main().
 - Moved all headers in src folder.
