@@ -19,14 +19,14 @@ public:
     al_clear_to_color(BLACK);
 
         //disegna la mappa...
-        grid = al_load_bitmap("images/grid5x5.png"); //grid...
+        grid = al_load_bitmap("images/GridLevel.png"); //grid...
         al_draw_scaled_bitmap(grid,
                           0, 0,                               // source origin
                           al_get_bitmap_width(grid),          // source width
                           al_get_bitmap_height(grid),         // source height
                           x, y,                             // target origin
-                          al_get_bitmap_width(grid)*0.5,      // source width
-                          al_get_bitmap_height(grid)*0.5,     // target dimensions
+                          al_get_bitmap_width(grid)*0.735,      // source width
+                          al_get_bitmap_height(grid)*0.735,     // target dimensions
                           0);                                 // flags
 
         myMap.draw(x, y, lvl);
