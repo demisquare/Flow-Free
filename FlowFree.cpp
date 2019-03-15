@@ -5,10 +5,12 @@
 int main()
 {
   Setup mySetup;
-  /*Menu myMenu;
-  myMenu.run();*/
-  Level myLevel;
-  myLevel.run("level1.txt");
+
+  Menu myMenu;
+  myMenu.run();
+
+  /*Level myLevel;
+  myLevel.run("level1.txt");*/
 
   mySetup.gameLoop();
   

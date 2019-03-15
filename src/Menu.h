@@ -17,7 +17,9 @@ public:
 
         //disegna la mappa...
         menu = al_load_bitmap("images/background.png"); //grid...
-        al_draw_bitmap(menu, 0, 0, 0);                                 
+        al_draw_bitmap(menu,
+                      200, 0,                               // source origin
+                      0);                                 // flags*/                                 
 
         
         al_flip_display(); //aggiorna display
