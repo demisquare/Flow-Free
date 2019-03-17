@@ -34,8 +34,6 @@ public:
       cerr << "failed to create event queue!\n";
     }
     al_register_event_source(queue, al_get_mouse_event_source());
-    al_register_event_source(queue, al_get_keyboard_event_source());
-    ALLEGRO_BITMAP *btp = al_create_bitmap(140, 40);
     while(true)
     {
       ALLEGRO_EVENT ev;
