@@ -17,7 +17,14 @@ public:
 
         //disegna il menu...
         menu = al_load_bitmap("images/background.png");
-        al_draw_bitmap(menu, 200, 0, 0);
+        //al_draw_bitmap(menu, 0, 0, 0);
+        al_draw_scaled_bitmap(menu, 0, 0,
+                            al_get_bitmap_width(menu),
+                            al_get_bitmap_height(menu),
+                            0, 0,
+                            al_get_bitmap_width(menu)*0.73,
+                            al_get_bitmap_height(menu)*0.73,
+                            0);
         al_flip_display(); //aggiorna display
 
     //creo una coda di eventi per gestire le scelte del menu
