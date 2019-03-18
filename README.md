@@ -6,13 +6,20 @@
  - Allegro 5
 
 ## Run Game:
+Navigate into src folder, then open terminal and type:
 ```bash
-g++ FlowFree.cpp -lallegro -lallegro_image -lallegro_primitives -g
+g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -g
 ./a.out
 ```
-Stop with **Escape** key.
+Quit game with **Escape** key.
 
 ## History:
+#### 18-03-19:
+- Separated headers from implementations.
+- Menu class fixes.
+- Added GraphicManager class.
+- Removed Setup and Victory classes.
+
 #### 15-03-19:
 - Fixed Ball positions.
 - Fixed dynamic resolution on fullscreen.
