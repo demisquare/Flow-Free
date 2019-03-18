@@ -1,43 +1,29 @@
-#ifndef GAMEMAP_H
-#define GAMEMAP_H
+#include "../head/GameMap.h"
+#include <iostream>
+using namespace std;
 
-#include "GameObj.h"
-#include <fstream>
 
-//crea una matrice di oggetti (palline o percorsi)
-class GameMap
-{
-private:
-  const unsigned n = 5;
-  GameObj*** map;
-  char** levelmap;
-  unsigned x, y;
 
-  void readLevel(const char* lvl)
+  /*void GameMap:: readLevel(const char* lvl)
   {
     ifstream OpenFile(lvl);
-
     while(!OpenFile.eof())
       for(unsigned i = 0; i < n; i++)
         for(unsigned j = 0; j < n; j++)
-          OpenFile >> levelmap[i][j];
-  
+          OpenFile >> levelmap[i][j];  
     OpenFile.close();
-  }
+  }*/
 
-public:
-  GameMap():map(new GameObj**[n]), levelmap(new char*[n])
+  GameMap::GameMap():map(new GameObj**[n]), levelmap(new char*[n])
   {
-    //dichiara la matrice...
     for(unsigned i = 0; i < n; i++)
       {
         map[i] = new GameObj*[n];
         levelmap[i] = new char;
       }
-
   }
   
-  void draw(const unsigned &x, const unsigned &y, const char* lvl)
+  void GameMap:: draw(const unsigned &x, const unsigned &y, const char* lvl)
   {
     //apri un file di testo e leggi il contenuto...
     readLevel(lvl);
@@ -81,7 +67,7 @@ public:
         }
   }
 
- ~GameMap()
+ GameMap::~GameMap()
   {
     //distruggi tutti i puntatori...
     for(unsigned i = 0; i < n; i++)
@@ -99,38 +85,4 @@ public:
     delete[] levelmap;
   }
 
-  unsigned size()const{return n;}
-
-  //GameObj* getObj(const unsigned &x, const unsigned &y) const{return map[x][y];}
-
-  unsigned getColors()const
-  {
-    //restituisce il numero distinto di colori presenti sulla mappa...
-    /*list<ALLEGRO_COLOR> colors;
-
-    for(unsigned i = 0; i < n; i++)
-      for(unsigned j = 0; j < n; j++)
-        {
-          bool ok = true;
-          for(auto c: colors)
-            if(map[i][j]->getColor() == c) //manca operator== per ALLEGRO_COLOR
-              ok = false;
-          colors.push_back(map[i][j]->getColor());
-        }
-
-    return colors.size();*/
-  }
-
-  bool isFull()const
-  {
-    //restituisce vero se la mappa è riempita (nessuna cella vuota)
-    /*for(unsigned i = 0; i < n; i++)
-        for(unsigned j = 0; j < n; j++)
-          if(map[i][j]==nullptr)
-           return false;
-      return true;*/
-  }
-
-};
-
-#endif
+  unsigned GameMap:: size()const{return n;}
