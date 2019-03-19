@@ -1,29 +1,30 @@
 #include "../head/GameMap.h"
-#include <iostream>
-using namespace std;
 
-
-
-  /*void GameMap:: readLevel(const char* lvl)
+void GameMap::readLevel(const char* lvl)
   {
     ifstream OpenFile(lvl);
+
     while(!OpenFile.eof())
       for(unsigned i = 0; i < n; i++)
         for(unsigned j = 0; j < n; j++)
-          OpenFile >> levelmap[i][j];  
+          OpenFile >> levelmap[i][j];
+  
     OpenFile.close();
-  }*/
+  }
+
 
   GameMap::GameMap():map(new GameObj**[n]), levelmap(new char*[n])
   {
+    //dichiara la matrice...
     for(unsigned i = 0; i < n; i++)
       {
         map[i] = new GameObj*[n];
         levelmap[i] = new char;
       }
+
   }
   
-  void GameMap:: draw(const unsigned &x, const unsigned &y, const char* lvl)
+  void GameMap::draw(const unsigned &x, const unsigned &y, const char* lvl)
   {
     //apri un file di testo e leggi il contenuto...
     readLevel(lvl);
@@ -85,4 +86,4 @@ using namespace std;
     delete[] levelmap;
   }
 
-  unsigned GameMap:: size()const{return n;}
+  unsigned GameMap::size()const{return n;}
