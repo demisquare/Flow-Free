@@ -110,21 +110,55 @@ void Setup::drawMenu()
     al_clear_to_color(al_map_rgb(0, 0, 0));
     al_draw_bitmap(menu, 0, 0, 0);
 
+    //al_draw_filled_rectangle(633, 423, 736, 460, PINK);
+
     ALLEGRO_EVENT ev;
     al_wait_for_event(event_queue, &ev);
+
+    unsigned mouseX = ev.mouse.x-365;
+    unsigned mouseY = ev.mouse.y-140;
 
     switch (ev.type)
     {
       case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
-        
+      //al_draw_filled_circle(ev.mouse.x, ev.mouse.y, 1, WHITE);
+      //al_draw_filled_circle(mouseX, mouseY, 7, RED);
+
       //sono su "Play!"
-      if (ev.mouse.x / (scaleW / WIDTH)  >= 275 &&
-          ev.mouse.x / (scaleW / WIDTH)  <= 370 &&
-          ev.mouse.y / (scaleH / HEIGHT) >= 283 &&
-          ev.mouse.y / (scaleH / HEIGHT) <= 315)
+      if(mouseX >= 275 &&
+         mouseX <= 370 &&
+         mouseY >= 283 &&
+         mouseY <= 315)
       
 	      al_draw_filled_circle(252, 300, 7, PINK);
+
       
+        else if (mouseX >= 260 &&
+                 mouseX <= 379 &&
+                 mouseY >= 330 &&
+                 mouseY <= 363)
+        
+          al_draw_filled_circle(252, 350, 7, GREEN);
+        
+        
+        //sono su "Quit"
+        else if (mouseX >= 283 &&
+                 mouseX <= 356 &&
+                 mouseY >= 421 &&
+                 mouseX <= 460)
+        
+					al_draw_filled_circle(267, 444, 7, RED);
+            
+            
+        else
+          al_set_target_bitmap(buffer);
+            
+      break;
+      
+      /*case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+       cout << "(" << ev.mouse.x << " - " << ev.mouse.y << ")\n";
+      break;*/
+
       case ALLEGRO_EVENT_KEY_DOWN:
       if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
            done = true;
