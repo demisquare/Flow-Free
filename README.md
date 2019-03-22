@@ -14,6 +14,11 @@ g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -g
 Quit game with **Escape** key.
 
 ## History:
+#### 22-03-19:
+- GraphicManager is now Setup.
+- Removed Menu class.
+- Fixed _Play!_ button.
+
 #### 18-03-19:
 - Separated headers from implementations.
 - Menu class fixes.
