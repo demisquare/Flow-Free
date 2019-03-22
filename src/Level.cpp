@@ -1,17 +1,5 @@
 #include "../head/Level.h"
 
-<<<<<<< HEAD
-  Level::Level(){}
-
-  void Level:: run(const char* lvl)
-  {
-    al_clear_to_color(BLACK);
-    myMap.draw(x, y, lvl);
-    al_flip_display();
-  }
-
-  Level::~Level(){al_clear_to_color(BLACK);}
-=======
 Level::Level(ALLEGRO_BITMAP* b, int x, int y):
 timer(NULL), event_queue(NULL), buffer(b), scaleX(x), scaleY(y)
 {
@@ -98,4 +86,3 @@ Level::~Level()
   al_destroy_timer(timer);
   al_destroy_event_queue(event_queue);
 }
->>>>>>> master
