@@ -10,7 +10,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 
-#include "Color.h"
+#include "Level.h"
 
 using namespace std;
 
@@ -33,6 +33,7 @@ private:
 public:
     Setup();
     void drawMenu();
+    void drawOptions();
     ~Setup();
 };
 
