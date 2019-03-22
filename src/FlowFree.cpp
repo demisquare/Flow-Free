@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
@@ -107,4 +108,19 @@ int main()
     al_destroy_display(display);
 
     return 0;
+=======
+#include "../head/Setup.h"
+#include "../head/Menu.h"
+
+
+int main()
+{
+  Setup mySetup;
+  mySetup.drawMenu();
+
+  //Level myLevel;
+  //myLevel.run("../levels/level1.txt");
+  
+  return 0;
+>>>>>>> master
 }
