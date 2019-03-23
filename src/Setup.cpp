@@ -70,7 +70,6 @@ void Setup::drawMenu()
     cout<<"Failed to load buffer!\n";
     exit(-1);
   }
-
   al_set_target_bitmap(buffer);
 
   ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -166,7 +165,7 @@ void Setup::drawMenu()
 	           {
               al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, scaleX, scaleY);
+              Level myLevel(buffer, scaleX, scaleY,0);
               myLevel.run("../levels/level1.txt");
              }
         
@@ -218,21 +217,22 @@ void Setup::drawOptions()
 {
   if(!buffer)
   {
-    cout<<"Fatal error";
+    cout<<"Failed to load buffer!\n";
     exit(-1);
   }
   al_set_target_bitmap(buffer);
 
   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-  if(!event_queue){
-    cout<<"Failed to create the event queue";
+  if(!event_queue)
+  {
+    cout<<"Failed to create the event queue!\n";
     exit(-1);
   }
-  ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
 
+  ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
   if(!options){
-    cout<<"Failed to load the options bitmap";
+    cout<<"Failed to load the options bitmap!\n";
     exit(-1);
   }
   al_clear_to_color(BLACK);
@@ -241,15 +241,13 @@ void Setup::drawOptions()
   al_set_target_bitmap(al_get_backbuffer(display));
 
   al_clear_to_color(BLACK);
-
   al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-
-  al_flip_display();
-
-  al_set_target_bitmap(buffer);
+  al_flip_display();  
 
   al_register_event_source(event_queue, al_get_mouse_event_source());
   al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+  al_set_target_bitmap(buffer);
 
   bool done = false;
   
@@ -257,8 +255,9 @@ void Setup::drawOptions()
   {
     options = al_load_bitmap("../images/GameMode.png");
 
+    if(!options)
+      exit(-1);
     al_clear_to_color(BLACK);
-
     al_draw_bitmap(options, 0, 0, 0);
 
     ALLEGRO_EVENT ev;
@@ -296,12 +295,69 @@ void Setup::drawOptions()
                  mouseY <= 348)
                     	
 		 	      al_draw_filled_circle(243, 316, 8, AQUA);
-        
-        else
+
+        //sono su "Back"
+        else if (mouseX >= 283 &&
+               mouseX <= 356 &&
+               mouseY >= 421 &&
+               mouseX <= 460)
+
+            al_draw_filled_circle(267, 435, 7, RED);
+
+      else
             al_set_target_bitmap(buffer);
         
         break;
+
+    case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
+      
+      //sono su "Classic"
+           if(mouseX >= 243 &&
+              mouseX <= 395 &&
+              mouseY >= 132 &&
+              mouseY <= 188)
+	           {
+              al_destroy_event_queue(event_queue);
+               
+              Level myLevel(buffer, scaleX, scaleY,0);
+              myLevel.run("../levels/level1.txt");
+             }
         
+
+      //sono su "Moves"
+      else if (mouseX >= 243 &&
+               mouseX <= 395 &&
+               mouseY >= 212 &&
+               mouseY <= 268)
+        
+          {
+            al_destroy_event_queue(event_queue);
+               
+              Level myLevel(buffer, scaleX, scaleY,1);
+              myLevel.run("../levels/level1.txt");
+          }
+
+      //sono su "Timer"
+      else if (mouseX >= 259 &&
+               mouseX <= 376 &&
+               mouseY >= 292 &&
+               mouseX <= 348)
+            {
+            al_destroy_event_queue(event_queue);
+               
+              Level myLevel(buffer, scaleX, scaleY,2);
+              myLevel.run("../levels/level1.txt");
+            }
+
+      //sono su "Back"
+      else if (mouseX >= 283 &&
+               mouseX <= 356 &&
+               mouseY >= 421 &&
+               mouseX <= 460)
+				exit(1);
+
+      break;
+
     case ALLEGRO_EVENT_KEY_DOWN:
         if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
           done = true;

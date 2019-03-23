@@ -2,6 +2,8 @@
 #define GAMEMAP_H
 
 #include "GameObj.h"
+#include "Ball.h"
+#include "Path.h"
 #include <fstream>
 
 //crea una matrice di oggetti (palline o percorsi)
@@ -19,16 +21,12 @@ public:
   GameMap();
   
   void draw(const unsigned &, const unsigned &, const char*);
-
  ~GameMap();
-  
-
   unsigned size()const;
 
   //GameObj* getObj(const unsigned &, const unsigned &);
 
   unsigned getColors()const;
-
   bool isFull()const;
 
 };

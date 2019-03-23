@@ -1,7 +1,7 @@
 #include "../head/Level.h"
 
-Level::Level(ALLEGRO_BITMAP* b, int x, int y):
-timer(NULL), event_queue(NULL), buffer(b), scaleX(x), scaleY(y)
+Level::Level(ALLEGRO_BITMAP* b, int x, int y, int mode):
+timer(NULL), event_queue(NULL), buffer(b), scaleX(x), scaleY(y), gameMode(mode)
 {
     timer = al_create_timer(1.0/FPS);
     if(!timer)

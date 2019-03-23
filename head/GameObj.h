@@ -8,7 +8,7 @@
 using namespace std;
 
 enum type { BALL, PATH };
-
+//classe astratta; implementare i metodi getType() e draw() nelle classi figlie
 class GameObj
 {
 protected:
@@ -26,49 +26,7 @@ public:
 
   virtual void draw() = 0;
 
-};
-
-class Ball:public GameObj
-{
-protected:
-  unsigned radius;
-public:
-  Ball(const unsigned x, const unsigned y, const unsigned r, const ALLEGRO_COLOR c):
-  GameObj(x, y, c), radius(r){}
-
-  void clear(){color = BLACK;}
-
-  unsigned getX()const{return source_x;}
-  unsigned getY()const{return source_y;}
-  ALLEGRO_COLOR getColor()const{return color;}
-
-  unsigned getRadius()const{return radius;}
-
-  type getType()const{return BALL;}
-
-  void draw()
-  {
-    //disegna una pallina...
-    if(!al_init_primitives_addon())
-      cerr << "failed to initialize Ball!\n";
-    else
-      al_draw_filled_circle(source_x, source_y, radius, color);
-  }
+  //forse andrebbe aggiunto il metodo clear() come in Ball.h
 
 };
-
-class Path:public GameObj
-{
-public:
-  Path(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):
-  GameObj(x, y, c){}
-
-  unsigned getX()const{return source_x;}
-  unsigned getY()const{return source_y;}
-  ALLEGRO_COLOR getColor()const{return color;}
-
-  type getType()const{return PATH;}
-
-};
-
 #endif
