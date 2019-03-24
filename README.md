@@ -14,12 +14,16 @@ g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -g
 Quit game with **Escape** key.
 
 ## History:
+#### 24-03-19:
+- Fixed Back botton in drawOptions().
+
 #### 23-03-19:
 - Fixed GameMode.png with a new option 'Back'.
 - Added a Back botton in drawOptions().
 - Added an integer gameMode field in Level. 0 means Classic; 1 means Moves mode; 2 means Timer mode.
 - Fixed the abstract class GameObj
 - Added class Ball and Path with implemented abstract methods eredited from GameObj.
+
 #### 22-03-19:
 - GraphicManager is now Setup.
 - Removed Menu class.
