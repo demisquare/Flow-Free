@@ -18,6 +18,19 @@ timer(NULL), event_queue(NULL), buffer(b), scaleX(x), scaleY(y), gameMode(mode)
       exit(-1);
     }
 }
+
+//Level run in base a gameMode
+/*
+  switch(gameMode)
+  {
+    case 0:
+      //livello classico
+    case 1:
+      //conteggio mosse
+    case 2:
+      //aggiungi un timer
+  }
+*/
 void Level::run(const char* lvl)
 {
     ALLEGRO_BITMAP* prev_target = al_get_target_bitmap();
