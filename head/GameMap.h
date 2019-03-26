@@ -11,6 +11,10 @@ class GameMap
 {
 private:
   const unsigned n = 5;
+  const unsigned pos = 90;
+  const unsigned offset = 140;
+  const unsigned r = 65;
+
   GameObj*** map;
   char** levelmap;
   unsigned x, y;
@@ -20,7 +24,8 @@ private:
 public:
   GameMap();
   
-  void draw(const unsigned &, const unsigned &, const char*);
+  void load(const char*);
+  void draw(const unsigned &, const unsigned &);
  ~GameMap();
   unsigned size()const;
 

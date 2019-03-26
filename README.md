@@ -14,15 +14,22 @@ g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -g
 Quit game with **Escape** key.
 
 ## History:
+#### 26-03-19:
+- Fixed GameMap.draw() and added GameMap.load().
+- Fixed mouse coordinates in game.
+
 #### 24-03-19:
-- Fixed Back botton in drawOptions().
+- Fixed Back button in drawOptions().
 
 #### 23-03-19:
-- Fixed GameMode.png with a new option 'Back'.
-- Added a Back botton in drawOptions().
-- Added an integer gameMode field in Level. 0 means Classic; 1 means Moves mode; 2 means Timer mode.
-- Fixed the abstract class GameObj
-- Added class Ball and Path with implemented abstract methods eredited from GameObj.
+- Fixed GameMode.png with _Back_ new label.
+- Added a _Back_ button in drawOptions().
+- Added an integer gameMode field in Level.
+    - - 0 for Classic mode;
+    - - 1 for Moves mode;
+    - - 2 for Timer mode.
+- Fixed abstract class GameObj
+- Added class Ball and Path cpp and header files.
 
 #### 22-03-19:
 - GraphicManager is now Setup.
@@ -73,9 +80,9 @@ Quit game with **Escape** key.
 - Added text file input to generate the levelmap.
 
 ## Next changes:
-- Adding Score, Path, Menu, Game music.
+- Adding Score, Path, Music.
 - Mouse events.
-- Timed Level mode.
+- Timer Level mode.
 
 ## Authors:
 

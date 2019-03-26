@@ -38,7 +38,9 @@ void Level::run(const char* lvl)
     al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 
     al_clear_to_color(BLACK);
-    myMap.draw(x, y, lvl);
+
+    myMap.load(lvl);
+    myMap.draw(x, y);
 
     al_flip_display();
   
@@ -58,12 +60,12 @@ void Level::run(const char* lvl)
     
     while(true)
     {
+      //al_clear_to_color(BLACK);
+      //myMap.draw(x, y);
+
       //cattura eventi...
       ALLEGRO_EVENT ev;
       al_wait_for_event(event_queue, &ev);
-
-      int mouseX = ev.mouse.x - scaleX;
-      int mouseY = ev.mouse.y - scaleY;
 
       switch(ev.type)
       {
@@ -74,11 +76,22 @@ void Level::run(const char* lvl)
           break;
         //evento hover del mouse...
         case ALLEGRO_EVENT_MOUSE_AXES:
-          al_draw_filled_circle(mouseX, mouseY, 3, RED);
+          cout << ev.mouse.x << " - " << ev.mouse.y << endl;
+          
+          prev_target = al_get_target_bitmap();
+          al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+
+          al_clear_to_color(BLACK);
+          myMap.draw(x, y);
+
+          al_draw_filled_circle(ev.mouse.x, ev.mouse.y, 7, WHITE);
+
+          al_flip_display();
+          al_set_target_bitmap(buffer);
           break;
         
         //evento click del mouse...
-        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+        /*case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
           //tasto sx mouse...
           if(ev.mouse.button& 1)
             break;
@@ -86,11 +99,20 @@ void Level::run(const char* lvl)
           //tasto dx mouse...
         	if(ev.mouse.button& 2)
             break;
-          
+        */  
         default:
           break;
           
       }
+      prev_target = al_get_target_bitmap();
+      al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+
+      al_clear_to_color(BLACK);
+      myMap.draw(x, y);
+
+      al_flip_display();
+      al_set_target_bitmap(buffer);
+
       al_flush_event_queue(event_queue);
     }
 }
