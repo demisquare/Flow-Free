@@ -15,12 +15,10 @@ private:
   //nuovo parametro aggiunto gameMode
   int gameMode;
 
-  int scaleX, scaleY;
-
   const unsigned x = 20, y = 20;
 
 public:
-  Level(ALLEGRO_BITMAP* b, int x, int y, int mode);
+  Level(ALLEGRO_BITMAP* b, int mode);
   void run(const char*);
   ~Level();
 

@@ -1,7 +1,7 @@
 #include "../head/Level.h"
 
-Level::Level(ALLEGRO_BITMAP* b, int x, int y, int mode):
-timer(NULL), event_queue(NULL), buffer(b), scaleX(x), scaleY(y), gameMode(mode)
+Level::Level(ALLEGRO_BITMAP* b, int mode):
+timer(NULL), event_queue(NULL), buffer(b), gameMode(mode)
 {
     timer = al_create_timer(1.0/FPS);
     if(!timer)
@@ -92,7 +92,7 @@ void Level::run(const char* lvl)
         
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-            cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y);
+            cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y) << "\n";
             break;
           
         default:

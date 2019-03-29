@@ -165,7 +165,7 @@ void Setup::drawMenu()
 	           {
               al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, scaleX, scaleY,0);
+              Level myLevel(buffer, 0);
               myLevel.run("../levels/level1.txt");
              }
         
@@ -319,7 +319,7 @@ void Setup::drawOptions()
 	           {
               al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, scaleX, scaleY,0);
+              Level myLevel(buffer, 0);
               myLevel.run("../levels/level1.txt");
              }
         
@@ -333,7 +333,7 @@ void Setup::drawOptions()
           {
             al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, scaleX, scaleY,1);
+              Level myLevel(buffer, 1);
               myLevel.run("../levels/level1.txt");
           }
 
@@ -345,7 +345,7 @@ void Setup::drawOptions()
             {
             al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, scaleX, scaleY,2);
+              Level myLevel(buffer, 2);
               myLevel.run("../levels/level1.txt");
             }
 

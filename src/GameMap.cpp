@@ -82,9 +82,10 @@ void GameMap::readLevel(const char* lvl)
     delete[] levelmap;
   }
 
-  string GameMap::getCoordinates(const int &x, const int &y)
+  string GameMap::getCoordinates(const int &mouseX, const int &mouseY)
   {
-
+    //trovare una formula per ottenere le coordinate della mappa da mouse...
+    return mouseX + " - " + mouseY;
   }
 
   unsigned GameMap::size()const{return n;}
