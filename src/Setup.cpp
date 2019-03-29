@@ -298,9 +298,9 @@ void Setup::drawOptions()
 
         //sono su "Back"
         else if (mouseX >= 278 &&
-               mouseX <= 361 &&
-               mouseY >= 417 &&
-               mouseX <= 450)
+                 mouseX <= 361 &&
+                 mouseY >= 417 &&
+                 mouseY <= 450)
 
             al_draw_filled_circle(267, 435, 7, RED);
 
@@ -338,22 +338,22 @@ void Setup::drawOptions()
           }
 
       //sono su "Timer"
-      /*else if (mouseX >= 259 &&
+      else if (mouseX >= 259 &&
                mouseX <= 376 &&
                mouseY >= 292 &&
-               mouseX <= 340)
+               mouseY <= 340)
             {
             al_destroy_event_queue(event_queue);
                
               Level myLevel(buffer, scaleX, scaleY,2);
               myLevel.run("../levels/level1.txt");
-            }*/
+            }
 
       //sono su "Back"
       else if (mouseX >= 278 &&
                mouseX <= 361 &&
                mouseY >= 417 &&
-               mouseX <= 450)
+               mouseY <= 450)
 				done = true;
 
       break;

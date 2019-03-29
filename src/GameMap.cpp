@@ -24,35 +24,32 @@ void GameMap::readLevel(const char* lvl)
     //apri un file di testo e leggi il contenuto...
     readLevel(lvl);
     //disegna le palline logicamente...
-    ALLEGRO_COLOR c;
     for(unsigned i = 0; i < n; i++)
+    {
       for(unsigned j = 0; j < n; j++)
       {
         switch (levelmap[i][j])
-          {
-            case 'r':
-               c = RED;
-               break;
-
-            case 'g':
-               c = GREEN;
-               break;
-
-            case 'b':
-               c = BLUE;
-               break;
-
-            case 'y':
-               c = YELLOW;
-               break;
-
-            default:
-               map[i][j] = nullptr;
-               break; 
-          }
-        if(map[i][j]!=nullptr)
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, c);
-      }   
+        {
+          case 'r':
+             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, RED);
+             break;
+          case 'g':
+             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, GREEN);
+             break;
+          case 'b':
+             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, BLUE);
+             break;
+          case 'y':
+             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
+             break;
+          default:
+             map[i][j] = nullptr;
+             break; 
+        }
+        /*if(map[i][j] != nullptr)
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, c);*/
+      }  
+    }   
   }
   void GameMap::draw(const unsigned &x, const unsigned &y)
   {
@@ -83,6 +80,11 @@ void GameMap::readLevel(const char* lvl)
     for(unsigned i = 0; i < n; i++)
       delete levelmap[i];
     delete[] levelmap;
+  }
+
+  string GameMap::getCoordinates(const int &x, const int &y)
+  {
+
   }
 
   unsigned GameMap::size()const{return n;}

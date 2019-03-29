@@ -91,15 +91,10 @@ void Level::run(const char* lvl)
           break;
         
         //evento click del mouse...
-        /*case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-          //tasto sx mouse...
-          if(ev.mouse.button& 1)
+        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+            cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y);
             break;
           
-          //tasto dx mouse...
-        	if(ev.mouse.button& 2)
-            break;
-        */  
         default:
           break;
           
