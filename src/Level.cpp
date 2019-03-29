@@ -76,8 +76,9 @@ void Level::run(const char* lvl)
           break;
         //evento hover del mouse...
         case ALLEGRO_EVENT_MOUSE_AXES:
-          cout << ev.mouse.x << " - " << ev.mouse.y << endl;
+          //cout << ev.mouse.x << " - " << ev.mouse.y << endl;
           
+          //disegna una pallina bianca per capire dove siamo col mouse...
           prev_target = al_get_target_bitmap();
           al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
 
@@ -92,7 +93,7 @@ void Level::run(const char* lvl)
         
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-            cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y) << "\n";
+            //cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y) << "\n";
             break;
           
         default:
