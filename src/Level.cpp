@@ -95,8 +95,10 @@ void Level::run(const char* lvl)
         case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
             if(myMap.inMap(ev.mouse.x, ev.mouse.y))
               cout << myMap.get(ev.mouse.y) << " - " << myMap.get(ev.mouse.x) << endl;
-              /*if(myMap.getObj(ev.mouse.x, ev.mouse.y)->getType() == BALL)
-                  cout << "BALL" << endl;*/
+              if(myMap.getObj(ev.mouse.x, ev.mouse.y)!=nullptr)
+                  cout << "BALL" << endl;
+              else
+                  cout << "NOPE" << endl;
 
             break;
           
