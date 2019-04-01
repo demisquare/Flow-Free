@@ -13,6 +13,7 @@ private:
   ALLEGRO_BITMAP* buffer;
 
   //nuovo parametro aggiunto gameMode
+  //rimuoverlo e creare due classi figlie LevelMoves e LevelTimer
   int gameMode;
 
   const unsigned x = 20, y = 20;

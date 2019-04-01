@@ -60,7 +60,7 @@ void GameMap::readLevel(const char* lvl)
           al_draw_rectangle(x, y, x+offset*(i+1), y+offset*(j+1), WHITE, 4);
           //disegna le palline...
           if(map[i][j]!=nullptr)
-             map[i][j]->draw();
+             map[i][j]->draw();   //chiama il metodo draw() di Ball.cpp
         }
   }
 
@@ -85,6 +85,7 @@ void GameMap::readLevel(const char* lvl)
   string GameMap::getCoordinates(const int &mouseX, const int &mouseY)
   {
     //trovare una formula per ottenere le coordinate della mappa da mouse...
+    //data una posizione del mouse stampare la cella (i,j) della mappa
     return mouseX + " - " + mouseY;
   }
 
