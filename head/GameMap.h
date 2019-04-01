@@ -29,7 +29,11 @@ public:
  ~GameMap();
   unsigned size()const;
 
-  string getCoordinates(const int&, const int&);
+  void getCoordinates(int, int);
+
+  int get(const int&)const;
+  GameObj* getObj(const int&, const int&)const;
+  bool inMap(const int&, const int&)const;
 
   unsigned getColors()const;
   bool isFull()const;

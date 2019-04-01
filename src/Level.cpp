@@ -92,8 +92,12 @@ void Level::run(const char* lvl)
           break;
         
         //evento click del mouse...
-        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-            //cout << myMap.getCoordinates(ev.mouse.x, ev.mouse.y) << "\n";
+        case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+            if(myMap.inMap(ev.mouse.x, ev.mouse.y))
+              cout << myMap.get(ev.mouse.y) << " - " << myMap.get(ev.mouse.x) << endl;
+              /*if(myMap.getObj(ev.mouse.x, ev.mouse.y)->getType() == BALL)
+                  cout << "BALL" << endl;*/
+
             break;
           
         default:
