@@ -86,6 +86,14 @@ void GameMap::readLevel(const char* lvl)
   {
     //trovare una formula per ottenere le coordinate della mappa da mouse...
     //data una posizione del mouse stampare la cella (i,j) della mappa
+    /* for(unsigned i = 0; i < n; i++)
+    {
+      for(unsigned j = 0; j < n; j++)
+        if(map[i][j]!=nullptr)
+        //se click con il mouse
+        cout<< "COORDINATE:  [" << i << "," << j << "]" << endl;
+        cout<< "MOUSE:   " << mouseX << " - " << mouseY << endl;
+    }*/
     return mouseX + " - " + mouseY;
   }
 
