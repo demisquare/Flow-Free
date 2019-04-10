@@ -8,12 +8,21 @@
 ## Run Game:
 Navigate into src folder, then open terminal and type:
 ```bash
-g++ *.cpp -lallegro -lallegro_image -lallegro_primitives -g
-./a.out
+make
+```
+And then type:
+```bash
+./FlowFree
 ```
 Quit game with **Escape** key.
 
 ## History:
+#### 10-04-19:
+- Added Makefile.
+
+#### 01-04-19:
+- Added get method for mouse coordinates.
+
 #### 26-03-19:
 - Fixed GameMap.draw() and added GameMap.load().
 - Fixed mouse coordinates in game.
