@@ -2,8 +2,10 @@
 
 int main()
 {
-  Setup mySetup;
-  mySetup.drawMenu();
+  Setup* mySetup = new Setup();
+  mySetup->menu();
+
+  delete mySetup;
   
   return 0;
 }

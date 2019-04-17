@@ -1,10 +1,8 @@
-CC = g++
-
-CFLAGS = -lallegro -lallegro_image -lallegro_primitives -g
+COMP = g++
+ALG = -lallegro -lallegro_image -lallegro_primitives
 
 TARGET = FlowFree
-
 all: $(TARGET)
 
 $(TARGET) : *.cpp
-				$(CC) -o $(TARGET) *.cpp $(CFLAGS)
+				$(COMP) -o $(TARGET) *.cpp $(ALG) -g

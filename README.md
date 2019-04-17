@@ -8,11 +8,7 @@
 ## Run Game:
 Navigate into src folder, then open terminal and type:
 ```bash
-make
-```
-And then type:
-```bash
-./FlowFree
+make && ./FlowFree
 ```
 Quit game with **Escape** key.
 

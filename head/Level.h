@@ -2,15 +2,14 @@
 #define LEVEL_H
 
 #include "GameMap.h"
-#include "Setup.h"
+#include "GameEngine.h"
 
-class Level
+class Level:public GameEngine
 {
 private:
   GameMap myMap;
-  ALLEGRO_TIMER* timer;
-  ALLEGRO_EVENT_QUEUE* event_queue;
-  ALLEGRO_BITMAP* buffer;
+  
+  bool mouse_down = false;
 
   //nuovo parametro aggiunto gameMode
   //rimuoverlo e creare due classi figlie LevelMoves e LevelTimer
@@ -18,8 +17,12 @@ private:
 
   const unsigned x = 20, y = 20;
 
+  void redraw();
+  void cursor(ALLEGRO_COLOR);
+  void drawPath();
+
 public:
-  Level(ALLEGRO_BITMAP* b, int mode);
+  Level(int mode);
   void run(const char*);
   ~Level();
 

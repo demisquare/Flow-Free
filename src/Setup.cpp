@@ -37,7 +37,7 @@ void Setup::init_display()
   al_clear_to_color(BLACK);
 }
 
-Setup::Setup():display(NULL), buffer(NULL)
+Setup::Setup()
 {
   if(!al_init())
   {
@@ -65,66 +65,7 @@ Setup::Setup():display(NULL), buffer(NULL)
 
 void Setup::drawMenu()
 {
-  if(!buffer)
-  {
-    cout<<"Failed to load buffer!\n";
-    exit(-1);
-  }
-  al_set_target_bitmap(buffer);
-
-  ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
-
-  if(!event_queue)
-  {
-      cout<<"Failed to load event queue!\n";
-      exit(-1);
-  }
-
-  ALLEGRO_BITMAP *menu = al_load_bitmap("../images/background.png");
-  if(!menu)
-  {
-      cout<<"Failed to load menu bitmap!\n";
-      exit(-1);
-  }
-
-  al_clear_to_color(BLACK);
-  al_draw_bitmap(menu, 0, 0, 0);
-
-  al_set_target_bitmap(al_get_backbuffer(display));
-
-  al_clear_to_color(BLACK);
-  al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-  al_flip_display();
-
-  al_register_event_source(event_queue, al_get_mouse_event_source());
-  al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-  al_set_target_bitmap(buffer);
-
-
-  while(true)
-  {
-    menu = al_load_bitmap("../images/background.png");
-
-    if(!menu)
-      exit(-1);
-
-    al_clear_to_color(BLACK);
-    al_draw_bitmap(menu, 0, 0, 0);
-
-    ALLEGRO_EVENT ev;
-    al_wait_for_event(event_queue, &ev);
-
-    int mouseX = ev.mouse.x - scaleX;
-    int mouseY = ev.mouse.y - scaleY;
-
-    switch (ev.type)
-    {
-      case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
-      //al_draw_filled_circle(ev.mouse.x, ev.mouse.y, 7, WHITE); //coordinate effettive
-      //al_draw_filled_circle(mouseX, mouseY, 3, RED); //coordinate traslate
-
-            //sono su "Play!"
+      //sono su "Play!"
             if(mouseX >= 275 &&
                mouseX <= 370 &&
                mouseY >= 283 &&
@@ -149,13 +90,89 @@ void Setup::drawMenu()
       
 				al_draw_filled_circle(267, 444, 7, RED);
           
-          
-      else
-        al_set_target_bitmap(buffer);
+}
+
+void Setup::menu()
+{
+  if(!buffer)
+  {
+    cout<<"Failed to load buffer!\n";
+    exit(-1);
+  }
+  al_set_target_bitmap(buffer);
+
+  event_queue = al_create_event_queue();
+  if(!event_queue)
+  {
+      cout<<"Failed to load event queue!\n";
+      exit(-1);
+  }
+
+  timer = al_create_timer(1.0/FPS);
+  if(!timer)
+  {
+      cout<<"Failed to load timer!\n";
+      exit(-1);
+  }
+
+  ALLEGRO_BITMAP *menu = al_load_bitmap("../images/background.png");
+  if(!menu)
+  {
+      cout<<"Failed to load menu bitmap!\n";
+      exit(-1);
+  }
+
+  //primo frame...
+  al_clear_to_color(BLACK);
+  al_draw_bitmap(menu, 0, 0, 0);
+
+  al_set_target_bitmap(al_get_backbuffer(display));
+
+  al_clear_to_color(BLACK);
+  al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
+  al_flip_display();
+
+  al_register_event_source(event_queue, al_get_mouse_event_source());
+  al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+  al_set_target_bitmap(buffer);
+
+
+  //avvia il timer...
+  al_start_timer(timer);
+
+  while(true)
+  { 
+    menu = al_load_bitmap("../images/background.png");
+
+    if(!menu)
+      exit(-1);
+
+    al_clear_to_color(BLACK);
+    al_draw_bitmap(menu, 0, 0, 0);
+
+    ALLEGRO_EVENT ev;
+    al_wait_for_event(event_queue, &ev);
+
+    
+    switch (ev.type)
+    {
+      case ALLEGRO_EVENT_TIMER:
+          has_redraw = true;
+          break;
+
+      case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
+      //al_draw_filled_circle(ev.mouse.x, ev.mouse.y, 7, WHITE); //coordinate effettive
+      //al_draw_filled_circle(mouseX, mouseY, 3, RED); //coordinate traslate
+
+      mouseX = ev.mouse.x - scaleX;
+      mouseY = ev.mouse.y - scaleY;
             
       break;
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
+
+      cout << mouseX << " - " << mouseY << endl;
       
       //sono su "Play!"
            if(mouseX >= 275 &&
@@ -165,7 +182,7 @@ void Setup::drawMenu()
 	           {
               al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, 0);
+              Level myLevel(0);
               myLevel.run("../levels/level1.txt");
              }
         
@@ -178,7 +195,7 @@ void Setup::drawMenu()
         
           {
             al_destroy_event_queue(event_queue);
-            drawOptions();
+            options();
           }
 
       //sono su "Quit"
@@ -198,79 +215,32 @@ void Setup::drawMenu()
       default:
         break;
     }
-    
-    al_set_target_bitmap(al_get_backbuffer(display));
-    al_clear_to_color(BLACK);
 
-    al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-    al_flip_display();
-
-    al_set_target_bitmap(buffer);
-    al_clear_to_color(BLACK);
-    
     al_flush_event_queue(event_queue);
+
+    if(has_redraw && al_is_event_queue_empty(event_queue))
+    {
+      drawMenu();
+      al_set_target_bitmap(al_get_backbuffer(display));
+      al_clear_to_color(BLACK);
+
+      al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
+      al_flip_display();
+
+      al_set_target_bitmap(buffer);
+      al_clear_to_color(BLACK);
+
+      al_flush_event_queue(event_queue);
+
+    }
+   
   }
   al_destroy_event_queue(event_queue);
 }
 
 void Setup::drawOptions()
 {
-  if(!buffer)
-  {
-    cout<<"Failed to load buffer!\n";
-    exit(-1);
-  }
-  al_set_target_bitmap(buffer);
-
-  ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-
-  if(!event_queue)
-  {
-    cout<<"Failed to create the event queue!\n";
-    exit(-1);
-  }
-
-  ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
-  if(!options){
-    cout<<"Failed to load the options bitmap!\n";
-    exit(-1);
-  }
-  al_clear_to_color(BLACK);
-  al_draw_bitmap(options, 0, 0, 0);
-
-  al_set_target_bitmap(al_get_backbuffer(display));
-
-  al_clear_to_color(BLACK);
-  al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-  al_flip_display();  
-
-  al_register_event_source(event_queue, al_get_mouse_event_source());
-  al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-  al_set_target_bitmap(buffer);
-
-  bool done = false;
-  
-  while (!done)
-  {
-    options = al_load_bitmap("../images/GameMode.png");
-
-    if(!options)
-      exit(-1);
-    al_clear_to_color(BLACK);
-    al_draw_bitmap(options, 0, 0, 0);
-
-    ALLEGRO_EVENT ev;
-    al_wait_for_event(event_queue, &ev);
-
-    int mouseX = ev.mouse.x - scaleX;
-    int mouseY = ev.mouse.y - scaleY;
-    
-    switch (ev.type)
-    {
-    case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
-    
-    //se sono su "Classic"
+     //se sono su "Classic"
         if (mouseX >= 243 &&
             mouseX <= 395 &&
             mouseY >= 132 &&
@@ -304,10 +274,83 @@ void Setup::drawOptions()
 
             al_draw_filled_circle(267, 435, 7, RED);
 
-      else
-            al_set_target_bitmap(buffer);
-        
-        break;
+}
+
+void Setup::options()
+{
+  if(!buffer)
+  {
+    cout<<"Failed to load buffer!\n";
+    exit(-1);
+  }
+  al_set_target_bitmap(buffer);
+
+  event_queue = al_create_event_queue();
+
+  if(!event_queue)
+  {
+    cout<<"Failed to create the event queue!\n";
+    exit(-1);
+  }
+
+  timer = al_create_timer(1.0/FPS);
+  if(!timer)
+  {
+    cout<<"Failed to create timer!\n";
+    exit(-1);
+  }
+
+  ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
+  if(!options)
+  {
+    cout<<"Failed to load the options bitmap!\n";
+    exit(-1);
+  }
+
+  //primo frame...
+  al_clear_to_color(BLACK);
+  al_draw_bitmap(options, 0, 0, 0);
+
+  al_set_target_bitmap(al_get_backbuffer(display));
+
+  al_clear_to_color(BLACK);
+  al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
+  al_flip_display();  
+
+  al_register_event_source(event_queue, al_get_mouse_event_source());
+  al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+  al_set_target_bitmap(buffer);
+
+  bool done = false;
+
+  al_start_timer(timer);
+  
+  while(!done)
+  {
+    options = al_load_bitmap("../images/GameMode.png");
+    
+    if(!options)
+      exit(-1);
+
+    al_clear_to_color(BLACK);
+    al_draw_bitmap(options, 0, 0, 0);
+
+    ALLEGRO_EVENT ev;
+    al_wait_for_event(event_queue, &ev);
+ 
+    switch (ev.type)
+    {
+    case ALLEGRO_EVENT_TIMER:
+      has_redraw = true;
+      break;
+
+    case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
+    
+      mouseX = ev.mouse.x - scaleX;
+      mouseY = ev.mouse.y - scaleY;
+
+      break;
 
     case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
       
@@ -319,7 +362,7 @@ void Setup::drawOptions()
 	           {
               al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, 0);
+              Level myLevel(0);
               myLevel.run("../levels/level1.txt");
              }
         
@@ -331,9 +374,9 @@ void Setup::drawOptions()
                mouseY <= 268)
         
           {
-            al_destroy_event_queue(event_queue);
+              al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, 1);
+              Level myLevel(1);
               myLevel.run("../levels/level1.txt");
           }
 
@@ -343,9 +386,9 @@ void Setup::drawOptions()
                mouseY >= 292 &&
                mouseY <= 340)
             {
-            al_destroy_event_queue(event_queue);
+              al_destroy_event_queue(event_queue);
                
-              Level myLevel(buffer, 2);
+              Level myLevel(2);
               myLevel.run("../levels/level1.txt");
             }
 
@@ -366,27 +409,32 @@ void Setup::drawOptions()
     default:
         break;
     }
-    al_set_target_bitmap(al_get_backbuffer(display));
-    al_clear_to_color(BLACK);
 
-    al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-    al_flip_display();
-
-    al_set_target_bitmap(buffer);
-    al_clear_to_color(BLACK);
-    
     al_flush_event_queue(event_queue);
+
+    if(has_redraw && al_is_event_queue_empty(event_queue))
+    {
+      drawOptions();
+
+      al_set_target_bitmap(al_get_backbuffer(display));
+      al_clear_to_color(BLACK);
+
+      al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
+      
+      al_flip_display();
+
+      al_set_target_bitmap(buffer);
+      al_clear_to_color(BLACK);
+    }
+    
+    
+    
   }
   if(done)
   {
     al_destroy_event_queue(event_queue);
-    drawMenu();
+    menu();
   }
 }
-Setup::~Setup()
-{
-  al_destroy_bitmap(buffer);
-  al_uninstall_keyboard();
-  al_uninstall_mouse();
-  al_destroy_display(display);
-}
+
+Setup::~Setup(){}
