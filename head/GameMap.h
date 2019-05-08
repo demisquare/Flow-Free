@@ -4,6 +4,7 @@
 #include "GameObj.h"
 #include "Ball.h"
 #include "Path.h"
+#include "Empty.h"
 #include <fstream>
 
 //crea una matrice di oggetti (palline o percorsi)
@@ -29,7 +30,8 @@ public:
  ~GameMap();
   unsigned size()const;
 
-  void getCoordinates(int, int);
+  void add(GameObj*&, const int&, const int&);
+  void remove(const int&, const int&);
 
   int get(const int&)const;
   GameObj* getObj(const int&, const int&)const;

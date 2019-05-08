@@ -172,7 +172,8 @@ void Setup::menu()
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
 
-      cout << mouseX << " - " << mouseY << endl;
+      //cout << mouseX << " - " << mouseY << endl;
+      
       
       //sono su "Play!"
            if(mouseX >= 275 &&

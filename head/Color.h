@@ -13,4 +13,13 @@
 #define BLACK al_map_rgb(0,0,0)
 #define WHITE al_map_rgb(255, 255, 255)
 
+//"ridefinizione" operator ==...
+static bool operator ==(const ALLEGRO_COLOR &left, const ALLEGRO_COLOR &right)
+{
+    return left.a == right.a
+        && left.r == right.r
+        && left.g == right.g
+        && left.b == right.b;
+}
+
 #endif

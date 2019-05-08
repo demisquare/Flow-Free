@@ -13,6 +13,13 @@ make && ./FlowFree
 Quit game with **Escape** key.
 
 ## History:
+
+####08-05-19:
+- Added Empty (extends GameObj) Class.
+- Added Color operator==.
+- Added GameMap.add() and GameMap.remove().
+- Minor bugfixes.
+
 #### 10-04-19:
 - Added Makefile.
 
@@ -86,7 +93,6 @@ Quit game with **Escape** key.
 
 ## Next changes:
 - Adding Score, Path, Music.
-- Mouse events.
 - Timer Level mode.
 
 ## Authors:

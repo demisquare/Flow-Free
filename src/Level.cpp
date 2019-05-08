@@ -26,26 +26,46 @@ void Level::redraw()
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(WHITE);
 
-  if(mouse_down)
-    drawPath();
+  drawPath();
 }
 
 void Level::drawPath()
 {
-  GameObj* start;
-  if(myMap.inMap(mouseX, mouseY))
+  if(myMap.inMap(mouseX, mouseY) && mouse_down)
   {
-    if(myMap.getObj(mouseX, mouseY)!=nullptr
-    && myMap.getObj(mouseX, mouseY)->getType()==BALL)
+    if(myMap.getObj(mouseX, mouseY)->getType()==BALL)
     {
       cursor(PINK);
-
+      //valuta prima cella...
       start = myMap.getObj(mouseX, mouseY);
     }
-    al_draw_filled_rectangle(start->getX(),
-                             start->getY(),
-                             mouseX, mouseY,
-                             AQUA);
+    if(myMap.getObj(mouseX, mouseY)->getType()!=BALL)
+    { 
+      //valuta prossima cella...     
+      next = myMap.getObj(mouseX, mouseY);
+     
+      //se incontro celle adiacenti...
+      if( (start->getX() ==  next->getX()) || (start->getY() ==  next->getY()) )
+        
+        /*TODO: aggiungi un segnaposto Path.
+         *      aggiungi le coordinate ad una lista.
+         *      isola la parte grafica nella classe Path.
+         */
+        
+        //traccia percorso...
+        al_draw_line(start->getX(),
+                     start->getY(),
+                     next->getX(),
+                     next->getY(),
+                     start->getColor(), 20);
+      
+    }
+    if(next->getType() == BALL && next->getColor() == start->getColor())
+    {
+      //TODO: chiudi il percorso...
+    }
+
+    
   }
 }
 
@@ -96,6 +116,9 @@ void Level::run(const char* lvl)
           mouseX = ev.mouse.x;
           mouseY = ev.mouse.y;
 
+          /*if(myMap.inMap(mouseX, mouseY) && mouse_down)
+            cout << myMap.get(mouseY) << " - " << myMap.get(mouseX) << endl;*/
+
           break;
         
         case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
@@ -105,8 +128,8 @@ void Level::run(const char* lvl)
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
           mouse_down = false;
-          if(myMap.inMap(mouseX, mouseY))
-            cout << myMap.get(mouseY) << " - " << myMap.get(mouseX) << endl;
+          
+            
           break;
           
         default:

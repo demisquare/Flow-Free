@@ -7,7 +7,7 @@
 
 using namespace std;
 
-enum type { BALL, PATH };
+enum type { BALL, PATH, EMPTY };
 //classe astratta; implementare i metodi getType() e draw() nelle classi figlie
 class GameObj
 {

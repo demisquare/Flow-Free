@@ -15,6 +15,9 @@ private:
   //rimuoverlo e creare due classi figlie LevelMoves e LevelTimer
   int gameMode;
 
+  GameObj* start;
+  GameObj* next;
+
   const unsigned x = 20, y = 20;
 
   void redraw();

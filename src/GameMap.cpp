@@ -42,7 +42,7 @@ void GameMap::load(const char* lvl)
              map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
              break;
           default:
-             map[i][j] = nullptr;
+             map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
              break; 
         }
         /*if(map[i][j] != nullptr)
@@ -53,6 +53,7 @@ void GameMap::load(const char* lvl)
 
 void GameMap::draw(const unsigned &x, const unsigned &y)
 {
+    this->x = x; this->y = y;
     for(unsigned i = 0; i < n; i++)
       for(unsigned j = 0; j < n; j++)
         {
@@ -60,7 +61,7 @@ void GameMap::draw(const unsigned &x, const unsigned &y)
           al_draw_rectangle(x, y, x+offset*(i+1), y+offset*(j+1), WHITE, 4);
 
           //disegna le palline...
-          if(map[i][j]!=nullptr)
+          if(map[i][j]->getType()!=EMPTY)
              map[i][j]->draw();   //chiama il metodo draw() di Ball.cpp
         }
 }
@@ -71,7 +72,7 @@ GameMap::~GameMap()
     for(unsigned i = 0; i < n; i++)
     {
       for(unsigned j = 0; j < n; j++)
-        if(map[i][j]!=nullptr)
+        //if(map[i][j]!=nullptr)
           delete map[i][j];
       
       delete[] map[i];
@@ -82,6 +83,20 @@ GameMap::~GameMap()
     for(unsigned i = 0; i < n; i++)
       delete levelmap[i];
     delete[] levelmap;
+}
+
+//aggiunge un oggetto alla mappa, sostituendo il precedente, in posizione (i, j)
+void GameMap::add(GameObj* &g, const int &i, const int &j)
+{
+  delete map[i][j];
+  map[i][j] = g;
+}
+
+//rimuove l'oggetto con coordinate (i,j)
+void GameMap::remove(const int &i, const int &j)
+{
+  delete map[i][j];
+  map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
 }
 
 //ottieni coordinate della mappa con il mouse...

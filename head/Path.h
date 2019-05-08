@@ -12,7 +12,7 @@ public:
 
   type getType()const;
 
-   //implementare il metodo draw() in base agli eventi del mouse
+   //implementare il metodo draw() in base agli eventi del mouse e alla direzione
    void draw();
 
   //forse andrebbe aggiunto un metodo clear()
