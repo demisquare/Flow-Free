@@ -60,10 +60,10 @@ void Level::drawPath()
                      start->getColor(), 20);
       
     }
-    if(next->getType() == BALL && next->getColor() == start->getColor())
+    /*if(next->getType() == BALL && next->getColor() == start->getColor())
     {
       //TODO: chiudi il percorso...
-    }
+    }*/
 
     
   }
