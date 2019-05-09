@@ -14,7 +14,7 @@ Quit game with **Escape** key.
 
 ## History:
 
-####08-05-19:
+#### 08-05-19:
 - Added Empty (extends GameObj) Class.
 - Added Color operator==.
 - Added GameMap.add() and GameMap.remove().
