@@ -21,7 +21,7 @@ Level::Level(int mode):gameMode(mode)
 void Level::redraw()
 {
   //disegna la mappa...
-  myMap.draw(x, y);
+  myMap.draw();
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(WHITE);
@@ -42,32 +42,49 @@ void Level::drawPath()
         {
           path_list.push_back(start);
           cout << "start: " <<
-            path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
+            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
         }
     }
     if(myMap.getObj(mouseX, mouseY)->getType()!=BALL)
     { 
       //valuta prossima cella...     
-      next = myMap.getObj(mouseX, mouseY);
+      current = myMap.getObj(mouseX, mouseY);
      
       //se incontro celle adiacenti...
-      if( (start->getX() ==  next->getX()) || (start->getY() ==  next->getY()) )
+      if( (start->getLogicX() ==  current->getLogicX()) || (start->getLogicY() ==  current->getLogicY()) )
       {
         //se non ho segnato il percorso...
         if(find(path_list.begin(), path_list.end(), next) == path_list.end())
         {
-          path_list.push_back(next);
-          cout << "aggiunto percorso: " <<
-            path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
+          path_list.push_back(current);
+          cout << "current: " <<
+            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
         }
+      }
+        //valuta prossima cella...    
+        next = myMap.getObj(mouseX, mouseY);
+        //cout << "ho preso next! " << next->getLogicY() << " - " << next->getLogicX() << endl;
 
+        //se incontro celle adiacenti...
+        if( (current->getLogicX() ==  next->getLogicX()) || (current->getLogicY() ==  next->getLogicY()) )
+        {
+          //se non ho segnato il percorso...
+          if(find(path_list.begin(), path_list.end(), next) == path_list.end())
+          {
+            path_list.push_back(next);
+            cout << "next: " <<
+              path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
+          }
+
+          //current = next;
+        }
         //traccia percorso...
-        al_draw_line(start->getX(),
+        /* al_draw_line(start->getX(),
                      start->getY(),
                      next->getX(),
                      next->getY(),
                      start->getColor(), 20);
-        
+         */
         for(int i = 0; i<path_list.size(); i++)
         {
           al_draw_filled_circle(path_list[i]->getX(),
@@ -76,7 +93,7 @@ void Level::drawPath()
                                 AQUA);
         }
           
-      }
+      
         
     if(next != nullptr && next->getType() == BALL && next->getColor() == start->getColor())
     {

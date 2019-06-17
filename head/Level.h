@@ -16,12 +16,11 @@ private:
   int gameMode;
 
   GameObj* start = nullptr;
+  GameObj* current = nullptr;
   GameObj* next = nullptr;
   GameObj* end = nullptr;
 
   vector<GameObj*> path_list;
-
-  const unsigned x = 20, y = 20;
 
   void redraw();
   void cursor(ALLEGRO_COLOR);

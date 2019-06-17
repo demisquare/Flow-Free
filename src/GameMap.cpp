@@ -51,14 +51,13 @@ void GameMap::load(const char* lvl)
     }   
 }
 
-void GameMap::draw(const unsigned &x, const unsigned &y)
+void GameMap::draw()
 {
-    this->x = x; this->y = y;
     for(unsigned i = 0; i < n; i++)
       for(unsigned j = 0; j < n; j++)
         {
           //disegna la griglia...
-          al_draw_rectangle(x, y, x+offset*(i+1), y+offset*(j+1), WHITE, 4);
+          al_draw_rectangle(gap, gap, gap+offset*(i+1), gap+offset*(j+1), WHITE, 4);
 
           //disegna le palline...
           if(map[i][j]->getType()!=EMPTY)
@@ -100,7 +99,7 @@ void GameMap::remove(const int &i, const int &j)
 }
 
 //ottieni coordinate della mappa con il mouse...
-int GameMap::get(const int &mouse)const{return (int(mouse-x)/offset);}
+int GameMap::get(const int &mouse)const{return (int(mouse-gap)/offset);}
 
 //restituisce l'oggetto in corrispondenza del mouse...
 GameObj* GameMap::getObj(const int &mouseX, const int &mouseY)const

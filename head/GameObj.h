@@ -5,6 +5,11 @@
 #include <allegro5/allegro_primitives.h>
 #include "Color.h"
 
+static const unsigned pos = 90;
+static const unsigned offset = 140;
+static const unsigned r = 65;
+static const unsigned gap = 20;
+
 using namespace std;
 
 enum type { BALL, PATH, EMPTY };
@@ -20,6 +25,10 @@ public:
 
   unsigned getX()const{return source_x;}
   unsigned getY()const{return source_y;}
+  
+  unsigned getLogicX()const{return (int(source_x-gap)/offset);} 
+  unsigned getLogicY()const{return (int(source_y-gap)/offset);}
+
   ALLEGRO_COLOR getColor()const{return color;}
 
   virtual type getType()const = 0;
