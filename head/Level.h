@@ -15,8 +15,11 @@ private:
   //rimuoverlo e creare due classi figlie LevelMoves e LevelTimer
   int gameMode;
 
-  GameObj* start;
-  GameObj* next;
+  GameObj* start = nullptr;
+  GameObj* next = nullptr;
+  GameObj* end = nullptr;
+
+  vector<GameObj*> path_list;
 
   const unsigned x = 20, y = 20;
 

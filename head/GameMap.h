@@ -30,7 +30,7 @@ public:
  ~GameMap();
   unsigned size()const;
 
-  void add(GameObj*&, const int&, const int&);
+  void add(GameObj*, const int&, const int&);
   void remove(const int&, const int&);
 
   int get(const int&)const;

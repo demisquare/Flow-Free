@@ -86,7 +86,7 @@ GameMap::~GameMap()
 }
 
 //aggiunge un oggetto alla mappa, sostituendo il precedente, in posizione (i, j)
-void GameMap::add(GameObj* &g, const int &i, const int &j)
+void GameMap::add(GameObj* g, const int &i, const int &j)
 {
   delete map[i][j];
   map[i][j] = g;

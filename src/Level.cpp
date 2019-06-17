@@ -38,6 +38,12 @@ void Level::drawPath()
       cursor(PINK);
       //valuta prima cella...
       start = myMap.getObj(mouseX, mouseY);
+      if(find(path_list.begin(), path_list.end(), start) == path_list.end())
+        {
+          path_list.push_back(start);
+          cout << "start: " <<
+            path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
+        }
     }
     if(myMap.getObj(mouseX, mouseY)->getType()!=BALL)
     { 
@@ -46,26 +52,47 @@ void Level::drawPath()
      
       //se incontro celle adiacenti...
       if( (start->getX() ==  next->getX()) || (start->getY() ==  next->getY()) )
-        
-        /*TODO: aggiungi un segnaposto Path.
-         *      aggiungi le coordinate ad una lista.
-         *      isola la parte grafica nella classe Path.
-         */
-        
+      {
+        //se non ho segnato il percorso...
+        if(find(path_list.begin(), path_list.end(), next) == path_list.end())
+        {
+          path_list.push_back(next);
+          cout << "aggiunto percorso: " <<
+            path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
+        }
+
         //traccia percorso...
         al_draw_line(start->getX(),
                      start->getY(),
                      next->getX(),
                      next->getY(),
                      start->getColor(), 20);
-      
-    }
-    /*if(next->getType() == BALL && next->getColor() == start->getColor())
+        
+        for(int i = 0; i<path_list.size(); i++)
+        {
+          al_draw_filled_circle(path_list[i]->getX(),
+                                path_list[i]->getY(),
+                                5,
+                                AQUA);
+        }
+          
+      }
+        
+    if(next != nullptr && next->getType() == BALL && next->getColor() == start->getColor())
     {
       //TODO: chiudi il percorso...
-    }*/
-
-    
+      cursor(AQUA);
+      end = next;
+       if(find(path_list.begin(), path_list.end(), end) == path_list.end())
+        {
+          path_list.push_back(end);
+          cout << "end: " <<
+            path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
+        }
+      cout << "chiuso!" << endl;
+    }
+      
+    }
   }
 }
 
@@ -128,6 +155,7 @@ void Level::run(const char* lvl)
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
           mouse_down = false;
+          path_list.clear();
           
             
           break;
