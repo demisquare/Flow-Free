@@ -6,6 +6,7 @@
 #include "Path.h"
 #include "Empty.h"
 #include <fstream>
+#include <vector>
 
 //crea una matrice di oggetti (palline o percorsi)
 class GameMap
@@ -13,15 +14,15 @@ class GameMap
 private:
   const unsigned n = 5;
 
-  GameObj*** map;
-  char** levelmap;
+  //GameObj*** map;
+  vector<vector<GameObj*> > map;
+  vector<vector<char> > levelmap;
   unsigned x, y;
 
   void readLevel(const char*);
 
-public:
+public:  
   GameMap();
-  
   void load(const char*);
   void draw();
  ~GameMap();

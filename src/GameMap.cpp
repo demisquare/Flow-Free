@@ -1,23 +1,23 @@
 #include "../head/GameMap.h"
 void GameMap::readLevel(const char* lvl)
 {
-    ifstream OpenFile(lvl);
-    while(!OpenFile.eof())
-      for(unsigned i = 0; i < n; i++)
-        for(unsigned j = 0; j < n; j++)
-          OpenFile >> levelmap[i][j];  
-    OpenFile.close();
-}
-
-GameMap::GameMap():map(new GameObj**[n]), levelmap(new char*[n])
-{
+  ifstream OpenFile(lvl);
+  while(!OpenFile.eof())
     for(unsigned i = 0; i < n; i++)
-      {
-        map[i] = new GameObj*[n];
-        levelmap[i] = new char;
-      }
+      for(unsigned j = 0; j < n; j++)
+        OpenFile >> levelmap[i][j];  
+  OpenFile.close();
 }
+GameMap::GameMap()
+{
+  levelmap.resize(n);
+  for(int i = 0; i < n; i++)
+    levelmap[i].resize(n);
 
+  map.resize(n);
+  for(int i = 0; i < n; i++)
+    map[i].resize(n);
+}
 void GameMap::load(const char* lvl)
 {
     //apri un file di testo e leggi il contenuto...
@@ -67,21 +67,10 @@ void GameMap::draw()
 
 GameMap::~GameMap()
 {
-    //distruggi palline e percorsi...
-    for(unsigned i = 0; i < n; i++)
-    {
-      for(unsigned j = 0; j < n; j++)
-        //if(map[i][j]!=nullptr)
-          delete map[i][j];
-      
-      delete[] map[i];
-    }
-    delete[] map;
-
-    //distruggi la mappa dei colori...
-    for(unsigned i = 0; i < n; i++)
-      delete levelmap[i];
-    delete[] levelmap;
+  //distruggi palline e percorsi...
+  for(unsigned i = 0; i < n; i++)
+    for(unsigned j = 0; j < n; j++)
+      delete map[i][j];
 }
 
 //aggiunge un oggetto alla mappa, sostituendo il precedente, in posizione (i, j)
