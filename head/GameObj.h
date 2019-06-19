@@ -35,11 +35,12 @@ public:
 
   virtual void draw() = 0;
 
-  bool operator==(const GameObj& g)
+  bool operator==(GameObj* g)const
   {
-    return source_x == g.getX() &&
-           source_y == g.getY() &&
-           color == g.getColor();
+    return (this->getLogicX() == g->getLogicX() &&
+            this->getLogicY() == g->getLogicY() &&
+            this->getColor() == g->getColor());
+            
   }
 
   //forse andrebbe aggiunto il metodo clear() come in Ball.h
