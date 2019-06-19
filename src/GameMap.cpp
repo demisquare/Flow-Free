@@ -59,9 +59,8 @@ void GameMap::draw()
           //disegna la griglia...
           al_draw_rectangle(gap, gap, gap+offset*(i+1), gap+offset*(j+1), WHITE, 4);
 
-          //disegna le palline...
-          if(map[i][j]->getType()!=EMPTY)
-             map[i][j]->draw();   //chiama il metodo draw() di Ball.cpp
+          //disegna le palline e i percorsi...
+            map[i][j]->draw();   //chiama il metodo draw() di Ball e Path
         }
 }
 
@@ -73,18 +72,29 @@ GameMap::~GameMap()
       delete map[i][j];
 }
 
-//aggiunge un oggetto alla mappa, sostituendo il precedente, in posizione (i, j)
-void GameMap::add(GameObj* g, const int &i, const int &j)
+//aggiunge un percorso alla mappa in posizione (i, j)
+void GameMap::addPath(const int &i, const int &j, ALLEGRO_COLOR color)
 {
   delete map[i][j];
-  map[i][j] = g;
+  map[i][j] = new Path(pos+j*(offset), pos+i*(offset), color);
+  cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
 }
 
-//rimuove l'oggetto con coordinate (i,j)
-void GameMap::remove(const int &i, const int &j)
+//rimuove un percorso con coordinate (i, j)
+void GameMap::removePath(const int &i, const int &j)
 {
-  delete map[i][j];
-  map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
+  if(map[i][j]->getType()==PATH)
+  {
+    delete map[i][j];
+    map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
+  }
+}
+
+void GameMap::clearPath()
+{
+  for(unsigned i = 0; i < n; i++)
+    for(unsigned j = 0; j < n; j++)
+      removePath(i, j);
 }
 
 //ottieni coordinate della mappa con il mouse...

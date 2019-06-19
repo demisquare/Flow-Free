@@ -17,8 +17,7 @@ private:
   //GameObj*** map;
   vector<vector<GameObj*> > map;
   vector<vector<char> > levelmap;
-  unsigned x, y;
-
+  
   void readLevel(const char*);
 
 public:  
@@ -28,8 +27,9 @@ public:
  ~GameMap();
   unsigned size()const;
 
-  void add(GameObj*, const int&, const int&);
-  void remove(const int&, const int&);
+  void addPath(const int&, const int&, ALLEGRO_COLOR);
+  void removePath(const int&, const int&);
+  void clearPath();
 
   int get(const int&)const;
   GameObj* getObj(const int&, const int&)const;

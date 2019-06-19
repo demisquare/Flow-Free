@@ -5,4 +5,4 @@ Empty::Empty(const unsigned x, const unsigned y):
 
 type Empty::getType()const{return EMPTY;}
 
-void Empty::draw(){}
+void Empty::draw(){return;}

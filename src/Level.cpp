@@ -61,7 +61,7 @@ void Level::drawPath()
         }
     }
 
-    if(myMap.getObj(mouseX, mouseY)->getType()!=BALL)
+    if(myMap.getObj(mouseX, mouseY)->getType()==EMPTY)
     { 
       //valuta la cella corrente   
       current = myMap.getObj(mouseX, mouseY);
@@ -74,12 +74,12 @@ void Level::drawPath()
         {
           path_list.push_back(current);
           cout << "current: " <<
-            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
+            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << " ";
+          myMap.addPath(path_list.back()->getLogicY(), path_list.back()->getLogicX(), start->getColor());
         }      
       }
       //valuta prossima cella...    
       next = myMap.getObj(mouseX, mouseY);
-      //cout << "ho preso next! " << next->getLogicY() << " - " << next->getLogicX() << endl;
       
       //se incontro celle adiacenti...
       if( (current->getLogicX() ==  next->getLogicX()) || (current->getLogicY() ==  next->getLogicY()) )
@@ -89,25 +89,10 @@ void Level::drawPath()
         {
           path_list.push_back(next);
           cout << "next: " <<
-            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
+            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << " ";
+          myMap.addPath(path_list.back()->getLogicY(), path_list.back()->getLogicX(), start->getColor());
         }
-      
       }
-        //traccia percorso...
-        /* al_draw_line(start->getX(),
-                     start->getY(),
-                     next->getX(),
-                     next->getY(),
-                     start->getColor(), 20);
-         */
-        //pallina appartenente al percorso
-        for(int i = 0; i<path_list.size(); i++)
-        {
-          al_draw_filled_circle(path_list[i]->getX(),
-                                path_list[i]->getY(),
-                                5,
-                                AQUA);
-        }
     } //!=BALL
   } //&& mouse_down
 }
@@ -171,10 +156,11 @@ void Level::run(const char* lvl)
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
           mouse_down = false;
-          path_list.clear();
-          start=nullptr;
-          current=nullptr;
-          next=nullptr;          
+          //path_list.clear();
+          myMap.clearPath();
+          start = nullptr;
+          current = nullptr;
+          next = nullptr;          
             
           break;
           
