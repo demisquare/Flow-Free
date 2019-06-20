@@ -76,7 +76,7 @@ void GameMap::addPath(const int &i, const int &j, ALLEGRO_COLOR color)
   {
     delete map[i][j];
     map[i][j] = new Path(pos+j*(offset), pos+i*(offset), color);
-    cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
+    //cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
   }
 }
 

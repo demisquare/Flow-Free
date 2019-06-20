@@ -24,7 +24,7 @@ void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
     if(find(colors.begin(), colors.end(), color) == colors.end())
     {
         colors.push_back(color);
-        cout << "colors: " << colors.size() << endl;
+        //cout << "colors: " << colors.size() << endl;
     }
 }
 
