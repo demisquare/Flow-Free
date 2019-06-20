@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Color.h"
+#include "GameMap.h"
 
 using namespace std;
 
@@ -19,7 +20,9 @@ private:
 public:  
   PathMap();
   void add(const int&, const int&, ALLEGRO_COLOR);
-  pair<int, int> getLastCoords(){return map.back().back();}
+  pair<int, int> getLastCoords();
+  bool isClosed(const GameMap&, vector<pair<int,int> > ) const;
+  bool victory(const GameMap &gameMap) const;
 };
 
 #endif

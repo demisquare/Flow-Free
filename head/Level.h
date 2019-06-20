@@ -22,8 +22,6 @@ private:
   GameObj* next = nullptr;
   GameObj* end = nullptr;
 
-  vector<GameObj*> path_list;
-
   void redraw();
   void cursor(ALLEGRO_COLOR);
   void drawPath();

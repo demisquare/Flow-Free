@@ -53,10 +53,7 @@ void Level::drawPath()
       //cursor(PINK);
       //valuta prima cella...
       start = myMap.getObj(mouseX, mouseY);
-      myPaths.add(start->getLogicY(), start->getLogicX(), start->getColor());
-          /*cout << "start: " <<
-           myPaths.getLastCoords().first << " - " << myPaths.getLastCoords().second << endl;*/
-        
+      myPaths.add(start->getLogicY(), start->getLogicX(), start->getColor());        
     }
 
     if(myMap.getObj(mouseX, mouseY)->getType()==EMPTY)
@@ -144,7 +141,6 @@ void Level::run(const char* lvl)
         //evento click del mouse...
         case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
           mouse_down = false;
-          //path_list.clear();
           myMap.clearPath();
           start = nullptr;
           current = nullptr;

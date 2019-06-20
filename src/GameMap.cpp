@@ -20,48 +20,45 @@ GameMap::GameMap()
 }
 void GameMap::load(const char* lvl)
 {
-    //apri un file di testo e leggi il contenuto...
-    readLevel(lvl);
-    //disegna le palline logicamente...
-    for(unsigned i = 0; i < n; i++)
+  //apri un file di testo e leggi il contenuto...
+  readLevel(lvl);
+  //disegna le palline logicamente...
+  for(unsigned i = 0; i < n; i++)
+  {
+    for(unsigned j = 0; j < n; j++)
     {
-      for(unsigned j = 0; j < n; j++)
+      switch (levelmap[i][j])
       {
-        switch (levelmap[i][j])
-        {
-          case 'r':
-             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, RED);
-             break;
-          case 'g':
-             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, GREEN);
-             break;
-          case 'b':
-             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, BLUE);
-             break;
-          case 'y':
-             map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
-             break;
-          default:
-             map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
-             break; 
-        }
-        /*if(map[i][j] != nullptr)
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, c);*/
-      }  
-    }   
+        case 'r':
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, RED);
+           break;
+        case 'g':
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, GREEN);
+           break;
+        case 'b':
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, BLUE);
+           break;
+        case 'y':
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
+           break;
+        default:
+           map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
+           break; 
+      }
+    }  
+  }   
 }
 
 void GameMap::draw()
 {
-    for(unsigned i = 0; i < n; i++)
-      for(unsigned j = 0; j < n; j++)
-        {
-          //disegna la griglia...
-          al_draw_rectangle(gap, gap, gap+offset*(i+1), gap+offset*(j+1), WHITE, 4);
-
-          //disegna le palline e i percorsi...
-            map[i][j]->draw();   //chiama il metodo draw() di Ball e Path
-        }
+  for(unsigned i = 0; i < n; i++)
+    for(unsigned j = 0; j < n; j++)
+      {
+        //disegna la griglia...
+        al_draw_rectangle(gap, gap, gap+offset*(i+1), gap+offset*(j+1), WHITE, 4);
+        //disegna le palline e i percorsi...
+          map[i][j]->draw();   //chiama il metodo draw() di Ball e Path
+      }
 }
 
 GameMap::~GameMap()
@@ -75,9 +72,12 @@ GameMap::~GameMap()
 //aggiunge un percorso alla mappa in posizione (i, j)
 void GameMap::addPath(const int &i, const int &j, ALLEGRO_COLOR color)
 {
-  delete map[i][j];
-  map[i][j] = new Path(pos+j*(offset), pos+i*(offset), color);
-  cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
+  if(map[i][j]->getType() == EMPTY)
+  {
+    delete map[i][j];
+    map[i][j] = new Path(pos+j*(offset), pos+i*(offset), color);
+    cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
+  }
 }
 
 //rimuove un percorso con coordinate (i, j)
@@ -109,3 +109,13 @@ bool GameMap::inMap(const int &mouseX, const int &mouseY)const
 {return get(mouseX) < n && get(mouseY) < n;}
 
 unsigned GameMap::size()const{return n;}
+
+//verifica se la mappa è piena...
+bool GameMap::isFull()const
+{
+  for(unsigned i = 0; i < n; i++)
+    for(unsigned j = 0; j < n; j++)
+      if(map[i][j]->getType() == EMPTY)
+        return false;
+  return true;
+}

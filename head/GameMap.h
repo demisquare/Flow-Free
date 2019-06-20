@@ -35,7 +35,6 @@ public:
   GameObj* getObj(const int&, const int&)const;
   bool inMap(const int&, const int&)const;
 
-  unsigned getColors()const;
   bool isFull()const;
 
 };
