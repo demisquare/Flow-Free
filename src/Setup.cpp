@@ -59,6 +59,11 @@ Setup::Setup()
     cerr << "failed to initialize menu!\n";
     exit(-1);
   }
+  if(!al_init_primitives_addon())
+  {
+    cerr << "failed to initialize primitives!\n";
+    exit(-1);
+  }
   
   init_display();
 }
