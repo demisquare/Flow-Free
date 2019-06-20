@@ -13,6 +13,20 @@ make && ./FlowFree
 Quit game with **Escape** key.
 
 ## History:
+#### 20-06-19:
+- Added PathMap class
+- Added victory conditions
+- Fixed colors list update
+- Now paths should close correctly
+
+#### 19-06-19:
+- Added AddPath method in GameMap class
+- Added operator== for GameObj objects
+- Path creation improvements
+
+#### 17-06-19:
+- Changed GameObj*** to vector<vector<GameObj*> >
+- Path creation improvements
 
 #### 08-05-19:
 - Added Empty (extends GameObj) Class.
@@ -92,10 +106,9 @@ Quit game with **Escape** key.
 - Added text file input to generate the levelmap.
 
 ## Next changes:
-- Adding Score, Path, Music.
-- Timer Level mode.
+- Adding Score, Music.
+- Timer and Moves Level mode.
 
 ## Authors:
-
 * **demisquare** - (https://github.com/demisquare)
 * **MartinaCanonPh** - (https://github.com/MartinaCanonPh)
