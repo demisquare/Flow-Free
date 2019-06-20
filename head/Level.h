@@ -2,12 +2,14 @@
 #define LEVEL_H
 
 #include "GameMap.h"
+#include "PathMap.h"
 #include "GameEngine.h"
 
 class Level:public GameEngine
 {
 private:
   GameMap myMap;
+  PathMap myPaths;
   
   bool mouse_down = false;
 

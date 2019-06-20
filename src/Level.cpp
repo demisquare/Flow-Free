@@ -34,7 +34,7 @@ void Level::drawPath()
   if(myMap.inMap(mouseX, mouseY) && mouse_down)
   {
     //PERCORSO CHIUSO
-    if(next != nullptr && next->getType() == BALL && next->getColor() == start->getColor())
+    /* if(next != nullptr && next->getType() == BALL && next->getColor() == start->getColor())
     {
       //TODO: chiudi il percorso...
       //cursor(AQUA);
@@ -46,19 +46,17 @@ void Level::drawPath()
             path_list.back()->getX() << " - " << path_list.back()->getY() << endl;
         }
       cout << "chiuso!" << endl;
-    }
+    }*/
 
-    if(myMap.getObj(mouseX, mouseY)->getType()==BALL && path_list.empty())
+    if(myMap.getObj(mouseX, mouseY)->getType()==BALL)
     {
       //cursor(PINK);
       //valuta prima cella...
       start = myMap.getObj(mouseX, mouseY);
-      if(find(path_list.begin(), path_list.end(), start) == path_list.end())
-        {
-          path_list.push_back(start);
-          cout << "start: " <<
-            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << endl;
-        }
+      myPaths.add(start->getLogicY(), start->getLogicX(), start->getColor());
+          /*cout << "start: " <<
+           myPaths.getLastCoords().first << " - " << myPaths.getLastCoords().second << endl;*/
+        
     }
 
     if(myMap.getObj(mouseX, mouseY)->getType()==EMPTY)
@@ -70,28 +68,18 @@ void Level::drawPath()
       if( (start->getLogicX() ==  current->getLogicX()) || (start->getLogicY() ==  current->getLogicY()) )
       {
         //se non ho segnato il percorso...
-        if(find(path_list.begin(), path_list.end(), current) == path_list.end())
-        {
-          path_list.push_back(current);
-          cout << "current: " <<
-            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << " ";
-          myMap.addPath(path_list.back()->getLogicY(), path_list.back()->getLogicX(), start->getColor());
-        }      
+        myPaths.add(current->getLogicY(), current->getLogicX(), start->getColor());
+        myMap.addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
       }
       //valuta prossima cella...    
       next = myMap.getObj(mouseX, mouseY);
       
       //se incontro celle adiacenti...
-      if( (current->getLogicX() ==  next->getLogicX()) || (current->getLogicY() ==  next->getLogicY()) )
+      if((current->getLogicX() ==  next->getLogicX()) || (current->getLogicY() ==  next->getLogicY()) )
       {
         //se non ho segnato il percorso...
-        if(find(path_list.begin(), path_list.end(), next) == path_list.end())
-        {
-          path_list.push_back(next);
-          cout << "next: " <<
-            path_list.back()->getLogicY() << " - " << path_list.back()->getLogicX() << " ";
-          myMap.addPath(path_list.back()->getLogicY(), path_list.back()->getLogicX(), start->getColor());
-        }
+        myPaths.add(next->getLogicY(), next->getLogicX(), start->getColor());
+        myMap.addPath(next->getLogicY(), next->getLogicX(), next->getColor());   
       }
     } //!=BALL
   } //&& mouse_down
