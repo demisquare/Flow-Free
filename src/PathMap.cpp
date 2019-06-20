@@ -19,6 +19,9 @@ void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
     }
 
     //aggiunge alla lista dei colori...
-    colors.push_back(color);
-    unique(colors.begin(), colors.end()); 
+    if(find(colors.begin(), colors.end(), color) == colors.end())
+    {
+        colors.push_back(color);
+        cout << "colors: " << colors.size() << endl;
+    }
 }
