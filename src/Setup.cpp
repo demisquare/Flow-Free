@@ -2,6 +2,9 @@
 
 void Setup::init_display()
 {
+  al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
+  al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
+  al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
   al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
 
   display = al_create_display(WIDTH, HEIGHT);
@@ -19,19 +22,19 @@ void Setup::init_display()
   }
   
   //operazione di resize...
-   windowHeight = al_get_display_height(display);
-   windowWidth = al_get_display_width(display);
+  windowHeight = al_get_display_height(display);
+  windowWidth = al_get_display_width(display);
 
-   sx = windowWidth / float(WIDTH);
-   sy = windowHeight / float(HEIGHT);
+  sx = windowWidth / float(WIDTH);
+  sy = windowHeight / float(HEIGHT);
 
-   scale = std::min(sx, sy);
+  scale = std::min(sx, sy);
 
-   scaleW = WIDTH * scale;
-   scaleH = HEIGHT * scale;
-
-   scaleX = (windowWidth - scaleW) / 2;
-   scaleY = (windowHeight - scaleH) / 2;
+  scaleW = WIDTH * scale;
+  scaleH = HEIGHT * scale;
+  
+  scaleX = (windowWidth - scaleW) / 2;
+  scaleY = (windowHeight - scaleH) / 2;
 
   al_set_target_bitmap(buffer);
   al_clear_to_color(BLACK);
