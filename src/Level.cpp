@@ -20,55 +20,59 @@ Level::Level(int mode):gameMode(mode)
 
 void Level::redraw()
 {
+  al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+  al_clear_to_color(BLACK);
+  
   //disegna la mappa...
-  myMap.draw();
-  myPaths.draw(myMap);
+  map.draw();
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(WHITE);
+      
+  al_flip_display();
 }
 
 void Level::drawPath()
 {
-  if(myMap.inMap(mouseX, mouseY) && mouse_down)
+  if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
   {
-    if(myMap.getObj(mouseX, mouseY)->getType()==BALL)
+    if(map.getLogic().getObj(mouseX, mouseY)->getType()==BALL)
     {
       //chiudi percorso...
-      if(start!=nullptr && current != nullptr && next != nullptr)
+      if(start != nullptr && current != nullptr && next != nullptr)
       {
-        end = myMap.getObj(mouseX, mouseY);
-        myPaths.add(end->getLogicY(), end->getLogicX(), end->getColor());
+        end = map.getLogic().getObj(mouseX, mouseY);
+        map.add(end->getLogicY(), end->getLogicX(), end->getColor());
       } 
       else
       {
         //valuta prima cella...
-        start = myMap.getObj(mouseX, mouseY);
-        myPaths.add(start->getLogicY(), start->getLogicX(), start->getColor());
-        }
+        start = map.getLogic().getObj(mouseX, mouseY);
+        map.add(start->getLogicY(), start->getLogicX(), start->getColor());
+      }
     }
 
-    if(myMap.getObj(mouseX, mouseY)->getType()==EMPTY)
+    if(map.getLogic().getObj(mouseX, mouseY)->getType()==EMPTY)
     { 
       //valuta la cella corrente   
-      current = myMap.getObj(mouseX, mouseY);
+      current = map.getLogic().getObj(mouseX, mouseY);
      
       //se incontro celle adiacenti...
-      if( (start->getLogicX() ==  current->getLogicX()) || (start->getLogicY() ==  current->getLogicY()) )
+      if( (start->getLogicX() == current->getLogicX()) || (start->getLogicY() == current->getLogicY()) )
       {
         //se non ho segnato il percorso...
-        myPaths.add(current->getLogicY(), current->getLogicX(), start->getColor());
-        myMap.addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
+        map.add(current->getLogicY(), current->getLogicX(), start->getColor());
+        map.getLogic().addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
       }
       //valuta prossima cella...    
-      next = myMap.getObj(mouseX, mouseY);
+      next = map.getLogic().getObj(mouseX, mouseY);
       
       //se incontro celle adiacenti...
-      if((current->getLogicX() ==  next->getLogicX()) || (current->getLogicY() ==  next->getLogicY()) )
+      if((current->getLogicX() == next->getLogicX()) || (current->getLogicY() == next->getLogicY()) )
       {
         //se non ho segnato il percorso...
-        myPaths.add(next->getLogicY(), next->getLogicX(), start->getColor());
-        myMap.addPath(next->getLogicY(), next->getLogicX(), start->getColor());   
+        map.add(next->getLogicY(), next->getLogicX(), start->getColor());
+        map.getLogic().addPath(next->getLogicY(), next->getLogicX(), start->getColor());   
       }
     } //!=BALL
   } //&& mouse_down
@@ -81,7 +85,7 @@ void Level::cursor(ALLEGRO_COLOR c)
 
 void Level::run(const char* lvl)
 {
-  myMap.load(lvl);
+  map.getLogic().load(lvl);
   //registra evento del timer...
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
   //registra eventi sul display...
@@ -94,8 +98,6 @@ void Level::run(const char* lvl)
   al_hide_mouse_cursor(al_get_current_display());
   //avvia il timer...
   al_start_timer(timer);
-
-  cout << myPaths.victory(myMap) << endl;
   
   while(true)
   {
@@ -118,8 +120,8 @@ void Level::run(const char* lvl)
       case ALLEGRO_EVENT_MOUSE_AXES:
         mouseX = ev.mouse.x;
         mouseY = ev.mouse.y;
-        /*if(myMap.inMap(mouseX, mouseY) && mouse_down)
-          cout << myMap.get(mouseY) << " - " << myMap.get(mouseX) << endl;*/
+        /*if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
+          cout << map.getLogic().get(mouseY) << " - " << map.getLogic().get(mouseX) << endl;*/
         break;
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
@@ -142,11 +144,7 @@ void Level::run(const char* lvl)
     {
       drawPath();
       has_redraw = false;
-      al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
-      al_clear_to_color(BLACK);
       redraw();
-      
-      al_flip_display();
     }
   }
 }

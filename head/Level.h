@@ -1,15 +1,13 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
-#include "GameMap.h"
 #include "PathMap.h"
 #include "GameEngine.h"
 
 class Level:public GameEngine
 {
 private:
-  GameMap myMap;
-  PathMap myPaths;
+  PathMap map;
   
   bool mouse_down = false;
 
@@ -24,7 +22,6 @@ private:
 
   void redraw();
   void cursor(ALLEGRO_COLOR);
-  void draw();
   void drawPath();
 
 public:

@@ -6,32 +6,39 @@ PathMap::PathMap()
     map.resize(1);
 }
 
-pair<int, int> PathMap::getLastCoords(){return map.back().back();}
+pair<int, int> PathMap::getLastCoords(){return currentPath.back();}
+
+GameMap& PathMap::getLogic(){return gm;}
 
 void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
 {
    //creiamo un percorso...
    pair<int, int> coord(i, j);
 
-    //aggiunge la coordinata...
-    if(find(map.back().begin(), map.back().end(), coord) == map.back().end())
-    {
-        map.back().push_back(coord);
-        cout << coord.first << " - " << coord.second << endl;
-    }
+    //if(!isClosed(currentPath))
+   //{
+        //aggiunge la coordinata...
+        if(find(map.back().begin(), map.back().end(), coord) == map.back().end())
+        {
+            map.back().push_back(coord);
+            cout << coord.first << " - " << coord.second << endl;
+        }
 
-    //aggiunge alla lista dei colori...
-    if(find(colors.begin(), colors.end(), color) == colors.end())
-    {
-        colors.push_back(color);
-        //cout << "colors: " << colors.size() << endl;
-    }
+        //aggiunge alla lista dei colori...
+        if(find(colors.begin(), colors.end(), color) == colors.end())
+        {
+            colors.push_back(color);
+            //cout << "colors: " << colors.size() << endl;
+        }
+    //}
 }
 
 vector<vector<pair<int, int> > > PathMap::getPaths(){return map;}
 
-void PathMap::draw(const GameMap& gm)
+void PathMap::draw()
 {    
+    gm.draw();
+
     //scorri per tutti i percorsi...
     for(auto path: map)    
         if(path.size() >= 2)
@@ -54,26 +61,20 @@ void PathMap::draw(const GameMap& gm)
         }
 }
 
-bool PathMap::isClosed(const GameMap &gm, vector<pair<int,int> > path) const
+bool PathMap::isClosed(vector<pair<int,int> > path) const
 {
-    cout << ((gm.getObj(path.front().first, path.front().second)->getType()
-         ==   gm.getObj(path.back().first, path.back().second)->getType() == BALL)
-
-         && (gm.getObj(path.front().first, path.front().second)->getColor()
-         ==  gm.getObj(path.back().first, path.back().second)->getColor())) << endl;
-
     //un percorso è chiuso se gli estremi di un percorso sono Ball e se hanno lo stesso colore...
-    return ((gm.getObj(path.front().first, path.front().second)->getType()
-        ==   gm.getObj(path.back().first, path.back().second)->getType() == BALL)
+    return ((gm.getLogicObj(path.front().first, path.front().second)->getType()
+        ==   gm.getLogicObj(path.back().first, path.back().second)->getType() == BALL)
 
-        && (gm.getObj(path.front().first, path.front().second)->getColor()
-        ==  gm.getObj(path.back().first, path.back().second)->getColor()));
+        && (gm.getLogicObj(path.front().first, path.front().second)->getColor()
+        ==  gm.getLogicObj(path.back().first, path.back().second)->getColor()));
 }
 
 //condizione di vittoria: tutti i percorsi sono chiusi e la mappa è piena...
-bool PathMap::victory(const GameMap &gm) const
+bool PathMap::victory() const
 {
-    //se la mappa è piena...
+    /* //se la mappa è piena...
     if(gm.isFull())
     {
         //se tutti i percorsi sono chiusi...
@@ -81,6 +82,8 @@ bool PathMap::victory(const GameMap &gm) const
         if(!isClosed(gm, map.at(i)))
             return false;
     }
-    return true;
+    return true; */
+
+    return colors.size() == map.size();
     
 }

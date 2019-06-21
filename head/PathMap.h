@@ -5,7 +5,6 @@
 #include <utility>
 #include <algorithm>
 #include <iostream>
-#include "Color.h"
 #include "GameMap.h"
 
 using namespace std;
@@ -15,16 +14,19 @@ class PathMap
 {
 private:
   vector<vector<pair<int, int> > > map;
+  vector<pair<int, int> > currentPath;
   vector<ALLEGRO_COLOR> colors;
+  GameMap gm;
 
 public:  
   PathMap();
+  GameMap& getLogic();
   void add(const int&, const int&, ALLEGRO_COLOR);
-  void draw(const GameMap&);
+  void draw();
   vector<vector<pair<int, int> > > getPaths();
   pair<int, int> getLastCoords();
-  bool isClosed(const GameMap&, vector<pair<int,int> > ) const;
-  bool victory(const GameMap &gameMap) const;
+  bool isClosed(vector<pair<int,int> > ) const;
+  bool victory() const;
 };
 
 #endif
