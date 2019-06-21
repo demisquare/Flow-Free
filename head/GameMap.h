@@ -33,6 +33,7 @@ public:
 
   int get(const int&)const;
   GameObj* getObj(const int&, const int&)const;
+  GameObj* getLogicObj(const int&, const int&)const;
   bool inMap(const int&, const int&)const;
 
   bool isFull()const;

@@ -24,6 +24,7 @@ private:
 
   void redraw();
   void cursor(ALLEGRO_COLOR);
+  void draw();
   void drawPath();
 
 public:

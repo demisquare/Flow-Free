@@ -20,6 +20,8 @@ private:
 public:  
   PathMap();
   void add(const int&, const int&, ALLEGRO_COLOR);
+  void draw(const GameMap&);
+  vector<vector<pair<int, int> > > getPaths();
   pair<int, int> getLastCoords();
   bool isClosed(const GameMap&, vector<pair<int,int> > ) const;
   bool victory(const GameMap &gameMap) const;

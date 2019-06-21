@@ -22,6 +22,7 @@ void Level::redraw()
 {
   //disegna la mappa...
   myMap.draw();
+  myPaths.draw(myMap);
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(WHITE);

@@ -104,6 +104,10 @@ int GameMap::get(const int &mouse)const{return (int(mouse-gap)/offset);}
 GameObj* GameMap::getObj(const int &mouseX, const int &mouseY)const
 {return map[get(mouseY)][get(mouseX)];}
 
+//restituisce l'oggetto attraverso le coordinate logiche...
+GameObj* GameMap::getLogicObj(const int &i, const int &j)const
+{return map[i][j];}
+
 //verifica se siamo sulla mappa o no...
 bool GameMap::inMap(const int &mouseX, const int &mouseY)const
 {return get(mouseX) < n && get(mouseY) < n;}
