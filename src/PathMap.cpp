@@ -1,47 +1,70 @@
 #include "../head/PathMap.h"
 
-PathMap::PathMap()
-{
-    //se non è stato inserito nessun percorso, la matrice è vuota...
-    map.resize(1);
-}
-
 pair<int, int> PathMap::getLastCoords(){return currentPath.back();}
 
 GameMap& PathMap::getLogic(){return gm;}
+
+//verifica se è la coordinata è stata già inserita...
+bool PathMap::isSigned(pair<int, int> coord)
+{
+    if(map.empty())
+        return false;
+    else
+    {
+    bool ok = false;
+        for(auto path:map)
+            if(find(path.begin(), path.end(), coord) != path.end())
+                ok = true;
+    return ok;
+    }
+}
+
+//verifica se il percorso è stato già inserito...
+bool PathMap::isUnique()
+{
+    if(map.empty())
+        return true;
+    else
+    {
+        bool unique = true;
+        for(auto path:map)
+            for(auto p:currentPath)
+                if(find(path.begin(), path.end(), p) != path.end())
+                    unique = false;
+        return unique;
+    }
+}
 
 void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
 {
    //creiamo un percorso...
    pair<int, int> coord(i, j);
-
-    //if(!isClosed(currentPath))
-   //{
+    
+    if(!isSigned(coord))
+    {
         //aggiunge la coordinata...
-        if(find(map.back().begin(), map.back().end(), coord) == map.back().end())
+        if(find(currentPath.begin(), currentPath.end(), coord) == currentPath.end())
         {
-            map.back().push_back(coord);
+            currentPath.push_back(coord);
             cout << coord.first << " - " << coord.second << endl;
-        }
-
-        //aggiunge alla lista dei colori...
-        if(find(colors.begin(), colors.end(), color) == colors.end())
+        }  
+    
+        if(isClosed(currentPath) && isUnique())
         {
-            colors.push_back(color);
-            //cout << "colors: " << colors.size() << endl;
+            cout << "closed!" << endl;
+
+            map.push_back(currentPath);
+            cout << "map: " << map.size() << endl;
+            currentPath.clear();            
         }
-    //}
+    }
 }
 
 vector<vector<pair<int, int> > > PathMap::getPaths(){return map;}
 
-void PathMap::draw()
-{    
-    gm.draw();
-
-    //scorri per tutti i percorsi...
-    for(auto path: map)    
-        if(path.size() >= 2)
+void PathMap::drawPath(vector<pair<int,int> > path)
+{
+    if(path.size() >= 2)
         {
             ALLEGRO_COLOR color = gm.getLogicObj(path.front().first, path.front().second)->getColor();
             
@@ -61,29 +84,30 @@ void PathMap::draw()
         }
 }
 
-bool PathMap::isClosed(vector<pair<int,int> > path) const
+void PathMap::draw()
+{    
+    gm.draw();
+
+    
+    drawPath(currentPath);
+    //scorri per tutti i percorsi...
+    for(auto path: map)
+        drawPath(path);    
+        
+}
+
+bool PathMap::isClosed(vector<pair<int,int> > path)
 {
     //un percorso è chiuso se gli estremi di un percorso sono Ball e se hanno lo stesso colore...
-    return ((gm.getLogicObj(path.front().first, path.front().second)->getType()
-        ==   gm.getLogicObj(path.back().first, path.back().second)->getType() == BALL)
+    return ((gm.getLogicObj(path.front().first, path.front().second)->getType() == BALL
+        &&   gm.getLogicObj(path.back().first, path.back().second)->getType() == BALL)
 
         && (gm.getLogicObj(path.front().first, path.front().second)->getColor()
-        ==  gm.getLogicObj(path.back().first, path.back().second)->getColor()));
+        ==  gm.getLogicObj(path.back().first, path.back().second)->getColor()) && path.size() >= 2);
 }
 
 //condizione di vittoria: tutti i percorsi sono chiusi e la mappa è piena...
-bool PathMap::victory() const
+bool PathMap::victory()
 {
-    /* //se la mappa è piena...
-    if(gm.isFull())
-    {
-        //se tutti i percorsi sono chiusi...
-        for(unsigned i = 0; i < map.size(); i++)
-        if(!isClosed(gm, map.at(i)))
-            return false;
-    }
-    return true; */
-
-    return colors.size() == map.size();
-    
+    return (map.size() == gm.getColors()) && gm.isFull();
 }

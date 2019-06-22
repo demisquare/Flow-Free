@@ -7,6 +7,7 @@
 #include "Empty.h"
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 //crea una matrice di oggetti (palline o percorsi)
 class GameMap
@@ -26,6 +27,7 @@ public:
   void draw();
  ~GameMap();
   unsigned size()const;
+  unsigned getColors()const;
 
   void addPath(const int&, const int&, ALLEGRO_COLOR);
   void removePath(const int&, const int&);

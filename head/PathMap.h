@@ -1,9 +1,7 @@
 #ifndef PATHMAP_H
 #define PATHMAP_H
 
-#include <vector>
 #include <utility>
-#include <algorithm>
 #include <iostream>
 #include "GameMap.h"
 
@@ -18,15 +16,18 @@ private:
   vector<ALLEGRO_COLOR> colors;
   GameMap gm;
 
+  void drawPath(vector<pair<int,int> > );
+  bool isClosed(vector<pair<int,int> > );
+  bool isSigned(pair<int, int>);
+  bool isUnique();
+
 public:  
-  PathMap();
   GameMap& getLogic();
   void add(const int&, const int&, ALLEGRO_COLOR);
   void draw();
   vector<vector<pair<int, int> > > getPaths();
   pair<int, int> getLastCoords();
-  bool isClosed(vector<pair<int,int> > ) const;
-  bool victory() const;
+  bool victory();
 };
 
 #endif

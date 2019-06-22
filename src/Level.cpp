@@ -52,7 +52,7 @@ void Level::drawPath()
       }
     }
 
-    if(map.getLogic().getObj(mouseX, mouseY)->getType()==EMPTY)
+    if(map.getLogic().getObj(mouseX, mouseY)->getType()==EMPTY && start!=nullptr)
     { 
       //valuta la cella corrente   
       current = map.getLogic().getObj(mouseX, mouseY);
@@ -99,7 +99,7 @@ void Level::run(const char* lvl)
   //avvia il timer...
   al_start_timer(timer);
   
-  while(true)
+  while(!map.victory())
   {
     //cattura eventi...
     ALLEGRO_EVENT ev;
@@ -107,6 +107,8 @@ void Level::run(const char* lvl)
     switch(ev.type)
     {
       case ALLEGRO_EVENT_TIMER:
+        drawPath();
+        
         has_redraw = true;
         break;
 
@@ -142,11 +144,12 @@ void Level::run(const char* lvl)
     al_flush_event_queue(event_queue);
     if(has_redraw && al_is_event_queue_empty(event_queue))
     {
-      drawPath();
       has_redraw = false;
       redraw();
     }
   }
+  cout << "you win!" << endl;
+  exit(1);
 }
 Level::~Level()
 {

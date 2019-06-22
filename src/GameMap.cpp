@@ -114,6 +114,21 @@ bool GameMap::inMap(const int &mouseX, const int &mouseY)const
 
 unsigned GameMap::size()const{return n;}
 
+//restituisce il numero distinto di colori presenti...
+unsigned GameMap::getColors()const
+{
+  vector<ALLEGRO_COLOR> colors;
+  for(unsigned i = 0; i < n; i++)
+    for(unsigned j = 0; j < n; j++)
+      if(find(colors.begin(), colors.end(), map[i][j]->getColor()) == colors.end())
+        colors.push_back(map[i][j]->getColor());
+    
+
+  return colors.size();
+            
+    
+}
+
 //verifica se la mappa è piena...
 bool GameMap::isFull()const
 {
