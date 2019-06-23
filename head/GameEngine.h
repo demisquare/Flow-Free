@@ -19,7 +19,7 @@ class GameEngine
 {
     protected:
     ALLEGRO_DISPLAY* display;
-    ALLEGRO_BITMAP * buffer;
+    ALLEGRO_BITMAP* buffer;
     ALLEGRO_TIMER* timer;
     ALLEGRO_EVENT_QUEUE* event_queue;
 
@@ -29,11 +29,14 @@ class GameEngine
     public:
     GameEngine():display(NULL), buffer(NULL), timer(NULL), event_queue(NULL){};
 
+    void cursor(int mouseX, int mouseY)
+    {
+        al_draw_filled_circle(mouseX, mouseY, 7, WHITE);
+    }
+
     ~GameEngine()
     {
         al_destroy_bitmap(buffer);
-        al_uninstall_keyboard();
-        al_uninstall_mouse();
         al_destroy_display(display);
     }
     

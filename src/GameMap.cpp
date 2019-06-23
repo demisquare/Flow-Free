@@ -1,7 +1,7 @@
 #include "../head/GameMap.h"
-void GameMap::readLevel(const char* lvl)
+void GameMap::readLevel(const int& lvl)
 {
-  ifstream OpenFile(lvl);
+  ifstream OpenFile("../levels/level" + to_string(lvl) + ".txt");
   while(!OpenFile.eof())
     for(unsigned i = 0; i < n; i++)
       for(unsigned j = 0; j < n; j++)
@@ -18,7 +18,7 @@ GameMap::GameMap()
   for(int i = 0; i < n; i++)
     map[i].resize(n);
 }
-void GameMap::load(const char* lvl)
+void GameMap::load(const int& lvl)
 {
   //apri un file di testo e leggi il contenuto...
   readLevel(lvl);
@@ -40,6 +40,9 @@ void GameMap::load(const char* lvl)
            break;
         case 'y':
            map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
+           break;
+        case 'o':
+           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, ORANGE);
            break;
         default:
            map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
@@ -111,8 +114,6 @@ GameObj* GameMap::getLogicObj(const int &i, const int &j)const
 //verifica se siamo sulla mappa o no...
 bool GameMap::inMap(const int &mouseX, const int &mouseY)const
 {return get(mouseX) < n && get(mouseY) < n;}
-
-unsigned GameMap::size()const{return n;}
 
 //restituisce il numero distinto di colori presenti...
 unsigned GameMap::getColors()const

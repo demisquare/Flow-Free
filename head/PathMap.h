@@ -5,8 +5,6 @@
 #include <iostream>
 #include "GameMap.h"
 
-using namespace std;
-
 //crea una matrice di percorsi
 class PathMap
 {
@@ -23,6 +21,7 @@ private:
 
 public:  
   GameMap& getLogic();
+  void load(const int&);
   void add(const int&, const int&, ALLEGRO_COLOR);
   void draw();
   vector<vector<pair<int, int> > > getPaths();

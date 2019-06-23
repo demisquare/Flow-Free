@@ -21,12 +21,11 @@ private:
   GameObj* end = nullptr;
 
   void redraw();
-  void cursor(ALLEGRO_COLOR);
   void drawPath();
 
 public:
   Level(int mode);
-  void run(const char*);
+  void run(const int&);
   ~Level();
 
 };

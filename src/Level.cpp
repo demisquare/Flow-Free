@@ -2,22 +2,20 @@
 
 Level::Level(int mode):gameMode(mode)
 {
-    timer = al_create_timer(1.0/FPS);
-    if(!timer)
-      {
-        cerr << "failed to create timer!\n";
-        exit(-1);
-      }
-
-
-    event_queue = al_create_event_queue();
-    if(!event_queue)
+  timer = al_create_timer(1.0/FPS);
+  if(!timer)
     {
-      cerr << "failed to create event queue!\n";
+      cerr << "failed to create timer!\n";
       exit(-1);
     }
-}
 
+  event_queue = al_create_event_queue();
+  if(!event_queue)
+  {
+    cerr << "failed to create event queue!\n";
+    exit(-1);
+  }
+}
 void Level::redraw()
 {
   al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
@@ -27,11 +25,10 @@ void Level::redraw()
   map.draw();
 
   //disegna una pallina bianca per capire dove siamo col mouse...
-  cursor(WHITE);
+  cursor(mouseX, mouseY);
       
   al_flip_display();
 }
-
 void Level::drawPath()
 {
   if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
@@ -77,13 +74,7 @@ void Level::drawPath()
     } //!=BALL
   } //&& mouse_down
 }
-
-void Level::cursor(ALLEGRO_COLOR c)
-{
-  al_draw_filled_circle(mouseX, mouseY, 7, c);
-}
-
-void Level::run(const char* lvl)
+void Level::run(const int& lvl)
 {
   map.getLogic().load(lvl);
   //registra evento del timer...
@@ -122,8 +113,6 @@ void Level::run(const char* lvl)
       case ALLEGRO_EVENT_MOUSE_AXES:
         mouseX = ev.mouse.x;
         mouseY = ev.mouse.y;
-        /*if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
-          cout << map.getLogic().get(mouseY) << " - " << map.getLogic().get(mouseX) << endl;*/
         break;
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
@@ -149,10 +138,9 @@ void Level::run(const char* lvl)
     }
   }
   cout << "you win!" << endl;
-  exit(1);
+  al_destroy_event_queue(event_queue);
 }
 Level::~Level()
 {
   al_destroy_timer(timer);
-  al_destroy_event_queue(event_queue);
 }

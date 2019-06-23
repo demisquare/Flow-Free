@@ -19,6 +19,10 @@ private:
     void drawMenu();
     void drawOptions();
 
+    vector<Level> levels;
+    int nLevels = 3;
+    void runLevel(int);
+
 
 public:
     Setup();

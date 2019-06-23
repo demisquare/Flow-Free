@@ -69,6 +69,39 @@ Setup::Setup()
   }
   
   init_display();
+
+  al_hide_mouse_cursor(display);
+}
+
+void Setup::runLevel(int mode)
+{
+  al_destroy_event_queue(event_queue);
+
+  /* int i = 1;
+  while(i!=nLevels+1)
+  {
+    Level level(mode);
+    levels.push_back(level);
+    levels.back().run(i);
+    ++i;
+  } */
+
+  Level level_a(mode);
+  level_a.run(1);
+
+  //Level level_b(mode);
+  //level_b.run(2);
+
+  //Level level_c(mode);
+  //level_c.run(3);
+
+  //torna al menu
+  this->menu();
+
+  al_register_event_source(event_queue, al_get_mouse_event_source());
+  al_register_event_source(event_queue, al_get_keyboard_event_source());
+  
+  al_set_target_bitmap(al_get_backbuffer(display));
 }
 
 void Setup::drawMenu()
@@ -189,10 +222,8 @@ void Setup::menu()
               mouseY >= 283 &&
               mouseY <= 315)
 	           {
-              al_destroy_event_queue(event_queue);
-               
-              Level myLevel(0);
-              myLevel.run("../levels/level1.txt");
+              runLevel(0);
+              break;
              }
         
 
@@ -230,6 +261,7 @@ void Setup::menu()
     if(has_redraw && al_is_event_queue_empty(event_queue))
     {
       drawMenu();
+      cursor(mouseX, mouseY);
       al_set_target_bitmap(al_get_backbuffer(display));
       al_clear_to_color(BLACK);
 
@@ -369,10 +401,8 @@ void Setup::options()
               mouseY >= 132 &&
               mouseY <= 188)
 	           {
-              al_destroy_event_queue(event_queue);
-               
-              Level myLevel(0);
-              myLevel.run("../levels/level1.txt");
+              runLevel(0);
+              done = true;
              }
         
 
@@ -383,10 +413,8 @@ void Setup::options()
                mouseY <= 268)
         
           {
-              al_destroy_event_queue(event_queue);
-               
-              Level myLevel(1);
-              myLevel.run("../levels/level1.txt");
+              runLevel(1);
+              done = true;
           }
 
       //sono su "Timer"
@@ -395,10 +423,8 @@ void Setup::options()
                mouseY >= 292 &&
                mouseY <= 340)
             {
-              al_destroy_event_queue(event_queue);
-               
-              Level myLevel(2);
-              myLevel.run("../levels/level1.txt");
+              runLevel(2);
+              done = true;
             }
 
       //sono su "Back"
@@ -424,6 +450,7 @@ void Setup::options()
     if(has_redraw && al_is_event_queue_empty(event_queue))
     {
       drawOptions();
+      cursor(mouseX, mouseY);
 
       al_set_target_bitmap(al_get_backbuffer(display));
       al_clear_to_color(BLACK);
@@ -446,4 +473,9 @@ void Setup::options()
   }
 }
 
-Setup::~Setup(){}
+Setup::~Setup()
+{
+  al_destroy_timer(timer);
+  al_uninstall_keyboard();
+  al_uninstall_mouse();
+}

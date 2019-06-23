@@ -19,14 +19,13 @@ private:
   vector<vector<GameObj*> > map;
   vector<vector<char> > levelmap;
   
-  void readLevel(const char*);
+  void readLevel(const int&);
 
 public:  
   GameMap();
-  void load(const char*);
+  void load(const int&);
   void draw();
  ~GameMap();
-  unsigned size()const;
   unsigned getColors()const;
 
   void addPath(const int&, const int&, ALLEGRO_COLOR);

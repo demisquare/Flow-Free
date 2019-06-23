@@ -4,6 +4,11 @@ pair<int, int> PathMap::getLastCoords(){return currentPath.back();}
 
 GameMap& PathMap::getLogic(){return gm;}
 
+void PathMap::load(const int& lvl)
+{
+    gm.load(lvl);
+}
+
 //verifica se è la coordinata è stata già inserita...
 bool PathMap::isSigned(pair<int, int> coord)
 {
