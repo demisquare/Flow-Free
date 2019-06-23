@@ -13,20 +13,35 @@ make && ./FlowFree
 Quit game with **Escape** key.
 
 ## History:
+#### 23-06-19:
+- More levels.
+- Added readLevel() in Setup class.
+- Now is possible to go back to menu after victory.
+- Now is possible to load a level simply using its number.
+
+#### 22-06-19:
+- GameMap is now included in PathMap.
+- Now the game is (almost) playable.
+
+#### 21-06-19:
+- **PATHS! FINALLY!**
+- Added antialiasing.
+- Minor bugfixes.
+
 #### 20-06-19:
-- Added PathMap class
-- Added victory conditions
-- Fixed colors list update
-- Now paths should close correctly
+- Added PathMap class.
+- Added victory conditions.
+- Fixed colors list update.
+- Now paths should close correctly.
 
 #### 19-06-19:
-- Added AddPath method in GameMap class
-- Added operator== for GameObj objects
-- Path creation improvements
+- Added AddPath method in GameMap class.
+- Added operator== for GameObj objects.
+- Path creation improvements.
 
 #### 17-06-19:
-- Changed GameObj*** to vector<vector<GameObj*> >
-- Path creation improvements
+- Changed GameObj*** to vector<vector<GameObj*> >.
+- Path creation improvements.
 
 #### 08-05-19:
 - Added Empty (extends GameObj) Class.
