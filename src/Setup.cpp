@@ -1,45 +1,5 @@
 #include "../head/Setup.h"
 
-void Setup::init_display()
-{
-  al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
-  al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
-  al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
-  al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
-
-  display = al_create_display(WIDTH, HEIGHT);
-  if(!display)
-  {
-   cerr << "Fatal error, unable to create a display\n";
-   exit(-1);
-  }
-  
-  buffer = al_create_bitmap(WIDTH, HEIGHT);
-  if(!buffer)
-  {
-    cout << "Fatal error, unable to create a buffer\n";
-    exit(-1);
-  }
-  
-  //operazione di resize...
-  windowHeight = al_get_display_height(display);
-  windowWidth = al_get_display_width(display);
-
-  sx = windowWidth / float(WIDTH);
-  sy = windowHeight / float(HEIGHT);
-
-  scale = std::min(sx, sy);
-
-  scaleW = WIDTH * scale;
-  scaleH = HEIGHT * scale;
-  
-  scaleX = (windowWidth - scaleW) / 2;
-  scaleY = (windowHeight - scaleH) / 2;
-
-  al_set_target_bitmap(buffer);
-  al_clear_to_color(BLACK);
-}
-
 Setup::Setup()
 {
   if(!al_init())
@@ -96,41 +56,7 @@ void Setup::runLevel(int mode)
   //level_c.run(3);
 
   //torna al menu
-  this->menu();
-
-  al_register_event_source(event_queue, al_get_mouse_event_source());
-  al_register_event_source(event_queue, al_get_keyboard_event_source());
-  
-  al_set_target_bitmap(al_get_backbuffer(display));
-}
-
-void Setup::drawMenu()
-{
-      //sono su "Play!"
-            if(mouseX >= 275 &&
-               mouseX <= 370 &&
-               mouseY >= 283 &&
-               mouseY <= 315)
-      
-	      al_draw_filled_circle(252, 300, 7, PINK);
-
-      //sono su "Options"
-      else if (mouseX >= 260 &&
-               mouseX <= 379 &&
-               mouseY >= 330 &&
-               mouseY <= 363)
-      
-        al_draw_filled_circle(252, 350, 7, GREEN);
-      
-      
-      //sono su "Quit"
-      else if (mouseX >= 283 &&
-               mouseX <= 356 &&
-               mouseY >= 421 &&
-               mouseX <= 460)
-      
-				al_draw_filled_circle(267, 444, 7, RED);
-          
+  menu();
 }
 
 void Setup::menu()
@@ -260,7 +186,7 @@ void Setup::menu()
 
     if(has_redraw && al_is_event_queue_empty(event_queue))
     {
-      drawMenu();
+      drawMenu(mouseX, mouseY);
       cursor(mouseX, mouseY);
       al_set_target_bitmap(al_get_backbuffer(display));
       al_clear_to_color(BLACK);
@@ -277,44 +203,6 @@ void Setup::menu()
    
   }
   al_destroy_event_queue(event_queue);
-}
-
-void Setup::drawOptions()
-{
-     //se sono su "Classic"
-        if (mouseX >= 243 &&
-            mouseX <= 395 &&
-            mouseY >= 132 &&
-            mouseY <= 188)
-                      
-		      al_draw_filled_circle(227, 164, 8, ORANGE);
-        
-        
-     //se sono su "Moves"
-        else if (mouseX >= 243 &&
-                 mouseX <= 395 &&
-                 mouseY >= 212 &&
-                 mouseY <= 268)
-               			
-		        al_draw_filled_circle(227, 244, 8, YELLOW);
-        
-        
-      //se sono su "Timer"
-        else if (mouseX >= 259 &&
-                 mouseX <= 376 &&
-                 mouseY >= 292 &&
-                 mouseY <= 348)
-                    	
-		 	      al_draw_filled_circle(243, 316, 8, AQUA);
-
-        //sono su "Back"
-        else if (mouseX >= 278 &&
-                 mouseX <= 361 &&
-                 mouseY >= 417 &&
-                 mouseY <= 450)
-
-            al_draw_filled_circle(267, 435, 7, RED);
-
 }
 
 void Setup::options()
@@ -449,7 +337,7 @@ void Setup::options()
 
     if(has_redraw && al_is_event_queue_empty(event_queue))
     {
-      drawOptions();
+      drawOptions(mouseX, mouseY);
       cursor(mouseX, mouseY);
 
       al_set_target_bitmap(al_get_backbuffer(display));
@@ -478,4 +366,6 @@ Setup::~Setup()
   al_destroy_timer(timer);
   al_uninstall_keyboard();
   al_uninstall_mouse();
+  al_destroy_bitmap(buffer);
+  al_destroy_display(display);
 }

@@ -2,6 +2,9 @@
 
 Level::Level(int mode):gameMode(mode)
 {
+
+  init_display();
+
   timer = al_create_timer(1.0/FPS);
   if(!timer)
     {
@@ -18,16 +21,22 @@ Level::Level(int mode):gameMode(mode)
 }
 void Level::redraw()
 {
-  al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
+  al_set_target_bitmap(buffer);
   al_clear_to_color(BLACK);
   
   //disegna la mappa...
-  map.draw();
+  drawMap(map);
+  drawScore();
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(mouseX, mouseY);
-      
+
+  al_set_target_backbuffer(display);
+  al_clear_to_color(BLACK);
+  al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
+  
   al_flip_display();
+
 }
 void Level::drawPath()
 {
@@ -111,8 +120,8 @@ void Level::run(const int& lvl)
 
       //evento hover del mouse...
       case ALLEGRO_EVENT_MOUSE_AXES:
-        mouseX = ev.mouse.x;
-        mouseY = ev.mouse.y;
+        mouseX = ev.mouse.x - scaleX;
+        mouseY = ev.mouse.y - scaleY;
         break;
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
@@ -143,4 +152,6 @@ void Level::run(const int& lvl)
 Level::~Level()
 {
   al_destroy_timer(timer);
+  al_destroy_bitmap(buffer);
+  al_destroy_display(display);
 }

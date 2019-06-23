@@ -1,3 +1,6 @@
+#ifndef BALL_H
+#define BALL_H
+
 #include "GameObj.h"
 
 class Ball:public GameObj
@@ -19,3 +22,5 @@ public:
   void draw();
 
 };
+
+ #endif

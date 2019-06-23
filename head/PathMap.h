@@ -14,7 +14,6 @@ private:
   vector<ALLEGRO_COLOR> colors;
   GameMap gm;
 
-  void drawPath(vector<pair<int,int> > );
   bool isClosed(vector<pair<int,int> > );
   bool isSigned(pair<int, int>);
   bool isUnique();
@@ -23,8 +22,8 @@ public:
   GameMap& getLogic();
   void load(const int&);
   void add(const int&, const int&, ALLEGRO_COLOR);
-  void draw();
-  vector<vector<pair<int, int> > > getPaths();
+  vector<vector<pair<int, int> > >& getPaths();
+  vector<pair<int, int> >& getCurrentPath();
   pair<int, int> getLastCoords();
   bool victory();
 };

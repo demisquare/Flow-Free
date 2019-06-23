@@ -1,3 +1,6 @@
+#ifndef PATH_H
+#define PATH_H
+
 #include "GameObj.h"
 
 class Path:public GameObj
@@ -18,3 +21,5 @@ public:
   //forse andrebbe aggiunto un metodo clear()
 
 };
+
+#endif

@@ -30,38 +30,26 @@ void GameMap::load(const int& lvl)
       switch (levelmap[i][j])
       {
         case 'r':
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, RED);
+           map[i][j] = new Ball(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), r, RED);
            break;
         case 'g':
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, GREEN);
+           map[i][j] = new Ball(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), r, GREEN);
            break;
         case 'b':
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, BLUE);
+           map[i][j] = new Ball(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), r, BLUE);
            break;
         case 'y':
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, YELLOW);
+           map[i][j] = new Ball(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), r, YELLOW);
            break;
         case 'o':
-           map[i][j] = new Ball(pos+j*(offset), pos+i*(offset), r, ORANGE);
+           map[i][j] = new Ball(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), r, ORANGE);
            break;
         default:
-           map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
+           map[i][j] = new Empty(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset));
            break; 
       }
     }  
   }   
-}
-
-void GameMap::draw()
-{
-  for(unsigned i = 0; i < n; i++)
-    for(unsigned j = 0; j < n; j++)
-      {
-        //disegna la griglia...
-        al_draw_rectangle(gap, gap, gap+offset*(i+1), gap+offset*(j+1), WHITE, 4);
-        //disegna le palline e i percorsi...
-          map[i][j]->draw();   //chiama il metodo draw() di Ball e Path
-      }
 }
 
 GameMap::~GameMap()
@@ -78,7 +66,7 @@ void GameMap::addPath(const int &i, const int &j, ALLEGRO_COLOR color)
   if(map[i][j]->getType() == EMPTY)
   {
     delete map[i][j];
-    map[i][j] = new Path(pos+j*(offset), pos+i*(offset), color);
+    map[i][j] = new Path(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), color);
     //cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
   }
 }
@@ -89,7 +77,7 @@ void GameMap::removePath(const int &i, const int &j)
   if(map[i][j]->getType()==PATH)
   {
     delete map[i][j];
-    map[i][j] = new Empty(pos+j*(offset), pos+i*(offset));
+    map[i][j] = new Empty(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset));
   }
 }
 
@@ -139,3 +127,5 @@ bool GameMap::isFull()const
         return false;
   return true;
 }
+
+unsigned GameMap::size()const{return n;}

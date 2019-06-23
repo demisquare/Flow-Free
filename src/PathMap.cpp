@@ -65,41 +65,10 @@ void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
     }
 }
 
-vector<vector<pair<int, int> > > PathMap::getPaths(){return map;}
+vector<vector<pair<int, int> > >& PathMap::getPaths(){return map;}
 
-void PathMap::drawPath(vector<pair<int,int> > path)
-{
-    if(path.size() >= 2)
-        {
-            ALLEGRO_COLOR color = gm.getLogicObj(path.front().first, path.front().second)->getColor();
-            
-            //scorri gli elementi del singolo percorso a coppie...
-            for(int i = 0; i < path.size()-1; i++)
-            {
-                int x1 = gm.getLogicObj(path.at(i).first, path.at(i).second)->getX();
-                int y1 = gm.getLogicObj(path.at(i).first, path.at(i).second)->getY();
+vector<pair<int, int> >& PathMap::getCurrentPath(){return currentPath;}
 
-                int x2 = gm.getLogicObj(path.at(i+1).first, path.at(i+1).second)->getX();
-                int y2 = gm.getLogicObj(path.at(i+1).first, path.at(i+1).second)->getY();
-
-                al_draw_line(x1, y1,
-                             x2, y2,
-                             color, 20); 
-            }
-        }
-}
-
-void PathMap::draw()
-{    
-    gm.draw();
-
-    
-    drawPath(currentPath);
-    //scorri per tutti i percorsi...
-    for(auto path: map)
-        drawPath(path);    
-        
-}
 
 bool PathMap::isClosed(vector<pair<int,int> > path)
 {

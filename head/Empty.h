@@ -1,3 +1,6 @@
+#ifndef EMPTY_H
+#define EMPTY_H
+
 #include "GameObj.h"
 
 /*segnaposto vuoto*/
@@ -10,3 +13,5 @@ public:
   void draw();
 
 };
+
+#endif

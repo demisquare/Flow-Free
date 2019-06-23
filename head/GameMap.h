@@ -24,7 +24,7 @@ private:
 public:  
   GameMap();
   void load(const int&);
-  void draw();
+  unsigned size()const;
  ~GameMap();
   unsigned getColors()const;
 
@@ -33,6 +33,7 @@ public:
   void clearPath();
 
   int get(const int&)const;
+
   GameObj* getObj(const int&, const int&)const;
   GameObj* getLogicObj(const int&, const int&)const;
   bool inMap(const int&, const int&)const;

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "PathMap.h"
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -17,11 +18,22 @@ using namespace std;
 //classe astratta di metodi comuni alle classi con materiale grafico
 class GameEngine
 {
+    private:
+    void drawPath(vector<pair<int,int> >, const GameMap&);
+    
     protected:
     ALLEGRO_DISPLAY* display;
     ALLEGRO_BITMAP* buffer;
     ALLEGRO_TIMER* timer;
     ALLEGRO_EVENT_QUEUE* event_queue;
+
+    float windowWidth = WIDTH, windowHeight = HEIGHT;
+    float sx, sy;
+
+    int scale;
+
+    int scaleW, scaleH;
+    int scaleX, scaleY;
 
     bool has_redraw = true;
     int mouseX, mouseY;
@@ -29,15 +41,20 @@ class GameEngine
     public:
     GameEngine():display(NULL), buffer(NULL), timer(NULL), event_queue(NULL){};
 
-    void cursor(int mouseX, int mouseY)
-    {
-        al_draw_filled_circle(mouseX, mouseY, 7, WHITE);
-    }
+    void init_display();
+    void resize(ALLEGRO_DISPLAY*);
+
+    void cursor(int, int);
+    
+    void drawMenu(int, int);
+    void drawOptions(int, int);
+    void drawScore();
+    void drawMap(PathMap&);
 
     ~GameEngine()
     {
-        al_destroy_bitmap(buffer);
-        al_destroy_display(display);
+        /* al_destroy_bitmap(buffer);
+        al_destroy_display(display); */
     }
     
 };

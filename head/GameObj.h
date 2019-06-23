@@ -5,10 +5,10 @@
 #include <allegro5/allegro_primitives.h>
 #include "Color.h"
 
-static const unsigned pos = 90;
-static const unsigned offset = 140;
-static const unsigned r = 65;
-static const unsigned gap = 20;
+const int pos = 45;
+const int offset = 70;
+const int r = 32;
+const int gap = 64;
 
 using namespace std;
 
