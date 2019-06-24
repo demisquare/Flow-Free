@@ -36,6 +36,7 @@ Setup::Setup()
 void Setup::runLevel(int mode)
 {
   al_destroy_event_queue(event_queue);
+  al_destroy_bitmap(buffer);
 
   /* int i = 1;
   while(i!=nLevels+1)
@@ -56,6 +57,7 @@ void Setup::runLevel(int mode)
   //level_c.run(3);
 
   //torna al menu
+  init_display();
   menu();
 }
 

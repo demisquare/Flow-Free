@@ -64,19 +64,23 @@ void Level::drawPath()
       current = map.getLogic().getObj(mouseX, mouseY);
      
       //se incontro celle adiacenti...
-      if( (start->getLogicX() == current->getLogicX()) || (start->getLogicY() == current->getLogicY()) )
-      {
+      /* if((current->getLogicX() == start->getLogicX()) && (current->getLogicY() != start->getLogicY())
+      || (current->getLogicX() != start->getLogicX()) && (current->getLogicY() == start->getLogicY()))
+      { */
         //se non ho segnato il percorso...
+        cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;
         map.add(current->getLogicY(), current->getLogicX(), start->getColor());
         map.getLogic().addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
-      }
+      //}
       //valuta prossima cella...    
       next = map.getLogic().getObj(mouseX, mouseY);
       
       //se incontro celle adiacenti...
-      if((current->getLogicX() == next->getLogicX()) || (current->getLogicY() == next->getLogicY()) )
+      if(((current->getLogicX() == next->getLogicX()) && (current->getLogicY() != next->getLogicY())
+      ||  (current->getLogicX() != next->getLogicX()) && (current->getLogicY() == next->getLogicY())))
       {
         //se non ho segnato il percorso...
+        cout << "next: " << next->getLogicY() << " - " << next->getLogicX() << endl;
         map.add(next->getLogicY(), next->getLogicX(), start->getColor());
         map.getLogic().addPath(next->getLogicY(), next->getLogicX(), start->getColor());   
       }
@@ -147,10 +151,15 @@ void Level::run(const int& lvl)
     }
   }
   cout << "you win!" << endl;
+
   al_destroy_event_queue(event_queue);
+  al_destroy_timer(timer);
+  al_destroy_bitmap(buffer);
+  al_destroy_display(display);
 }
 Level::~Level()
 {
+  al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
   al_destroy_display(display);
