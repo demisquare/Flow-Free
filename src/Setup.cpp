@@ -27,7 +27,7 @@ Setup::Setup()
     cerr << "failed to initialize primitives!\n";
     exit(-1);
   }
-  
+
   init_display();
 
   al_hide_mouse_cursor(display);
@@ -365,6 +365,7 @@ void Setup::options()
 
 Setup::~Setup()
 {
+  al_destroy_font(font);
   al_destroy_timer(timer);
   al_uninstall_keyboard();
   al_uninstall_mouse();

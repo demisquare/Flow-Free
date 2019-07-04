@@ -4,14 +4,17 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include "PathMap.h"
+#include "Score.h"
 
 #define WIDTH 640
 #define HEIGHT 480
-#define FPS 30
+#define FPS 60
 
 using namespace std;
 
@@ -26,6 +29,8 @@ class GameEngine
     ALLEGRO_BITMAP* buffer;
     ALLEGRO_TIMER* timer;
     ALLEGRO_EVENT_QUEUE* event_queue;
+
+    ALLEGRO_FONT* font;
 
     float windowWidth = WIDTH, windowHeight = HEIGHT;
     float sx, sy;
@@ -48,13 +53,14 @@ class GameEngine
     
     void drawMenu(int, int);
     void drawOptions(int, int);
-    void drawScore();
+    void drawScore(Score&, const unsigned&);
     void drawMap(PathMap&);
 
     ~GameEngine()
     {
         /* al_destroy_bitmap(buffer);
         al_destroy_display(display); */
+        //al_destroy_font(font);
     }
     
 };

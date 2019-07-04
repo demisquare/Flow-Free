@@ -1,5 +1,5 @@
 COMP = g++
-ALG = -lallegro -lallegro_image -lallegro_primitives
+ALG = -lallegro -lallegro_image -lallegro_primitives -lallegro_font -lallegro_ttf
 
 TARGET = FlowFree
 all: $(TARGET)

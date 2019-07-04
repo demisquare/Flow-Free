@@ -2,7 +2,6 @@
 
 Level::Level(int mode):gameMode(mode)
 {
-
   init_display();
 
   timer = al_create_timer(1.0/FPS);
@@ -26,7 +25,7 @@ void Level::redraw()
   
   //disegna la mappa...
   drawMap(map);
-  drawScore();
+  drawScore(score, gameMode);
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(mouseX, mouseY);
@@ -90,30 +89,41 @@ void Level::drawPath()
 void Level::run(const int& lvl)
 {
   map.getLogic().load(lvl);
-  //registra evento del timer...
+
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
-  //registra eventi sul display...
+
   al_register_event_source(event_queue, al_get_display_event_source(al_get_current_display()));
-  //registra eventi del mouse...
   al_register_event_source(event_queue, al_get_mouse_event_source());
-  //registra eventi della tastiera...
   al_register_event_source(event_queue, al_get_keyboard_event_source());
-  //nascondi il mouse...
+
   al_hide_mouse_cursor(al_get_current_display());
-  //avvia il timer...
+  
   al_start_timer(timer);
   
   while(!map.victory())
   {
-    //cattura eventi...
     ALLEGRO_EVENT ev;
     al_wait_for_event(event_queue, &ev);
     switch(ev.type)
     {
       case ALLEGRO_EVENT_TIMER:
+     
         drawPath();
+
+        counter++;
+        if(counter == FPS)
+        {
+          score.tick();
+          counter = 0;
+        }
+        if((score.timeElapsed() && gameMode == 2)||(score.noMoreMoves() == gameMode == 1))
+        {
+          cout << "you lose!" << endl;
+          return;
+        }
         
         has_redraw = true;
+        
         break;
 
       //eventi tastiera...
@@ -150,8 +160,9 @@ void Level::run(const int& lvl)
       redraw();
     }
   }
-  cout << "you win!" << endl;
+    cout << "you win!" << endl;
 
+  al_destroy_font(font);
   al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
@@ -159,6 +170,7 @@ void Level::run(const int& lvl)
 }
 Level::~Level()
 {
+  al_destroy_font(font);
   al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);

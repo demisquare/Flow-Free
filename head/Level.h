@@ -11,8 +11,6 @@ private:
   
   bool mouse_down = false;
 
-  //nuovo parametro aggiunto gameMode
-  //rimuoverlo e creare due classi figlie LevelMoves e LevelTimer
   int gameMode;
 
   GameObj* start = nullptr;
@@ -20,9 +18,13 @@ private:
   GameObj* next = nullptr;
   GameObj* end = nullptr;
 
+  Score score;
+  
+  unsigned counter = 0;
+
   void redraw();
   void drawPath();
-
+  
 public:
   Level(int mode);
   void run(const int&);

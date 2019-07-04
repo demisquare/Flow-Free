@@ -38,10 +38,28 @@ void GameEngine::init_display()
         cout << "Fatal error, unable to create a buffer\n";
         exit(-1);
     }
+
+    if(!al_init_font_addon())
+    {
+      cerr << "failed to initialize font!\n";
+      exit(-1);
+    }
+
+    if(!al_init_ttf_addon())
+    {
+     cerr << "failed to initialize ttf!\n";
+     exit(-1);
+    }
+
+    font = al_load_font("../images/Aberus.ttf", 30, 0);
+    if(!font)
+    {
+        cerr << "failed to load font!\n";
+        exit(-1);
+    }
     
     //operazione di resize...
-    resize(display);
-
+    resize(display);         
     al_set_target_bitmap(buffer);
     al_clear_to_color(BLACK);
 }
@@ -73,12 +91,18 @@ void GameEngine::drawPath(vector<pair<int,int> > path, const GameMap& gm)
     }
 }
 
-void GameEngine::drawScore()
+void GameEngine::drawScore(Score& score, const unsigned& mode)
 {
     al_draw_filled_rectangle(gap+(offset*5)+(offset/2),
                              gap,
                              gap+(offset*5)+(offset/2)*(offset*2),
-                             gap+(offset*5), YELLOW);
+                             gap+(offset*5), ORANGE);
+
+    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*2, ALLEGRO_ALIGN_CENTER, "Score:");
+    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*3, ALLEGRO_ALIGN_CENTER, "Moves: %i / %i", score.getMoves(), score.getRemainingMoves());
+
+    if(mode == 2)
+        al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*4, ALLEGRO_ALIGN_CENTER, "Time left: %i", score.getTimeLeft());
 }
 
 void GameEngine::drawMap(PathMap& pm)
