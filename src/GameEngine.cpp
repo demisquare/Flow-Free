@@ -71,6 +71,26 @@ void GameEngine::init_font()
     }
 }
 
+void GameEngine::init_timer()
+{
+    timer = al_create_timer(1.0/FPS);
+    if(!timer)
+    {
+      cerr << "failed to create timer!\n";
+      exit(-1);
+    }
+}
+
+void GameEngine::init_event_queue()
+{
+    event_queue = al_create_event_queue();
+    if(!event_queue)
+    {
+      cerr << "failed to create event queue!\n";
+      exit(-1);
+    }
+}
+
 void GameEngine::cursor(int mouseX, int mouseY)
 {
     al_draw_filled_circle(mouseX, mouseY, 7, WHITE);

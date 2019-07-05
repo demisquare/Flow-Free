@@ -65,19 +65,8 @@ void Setup::menu()
   }
   al_set_target_bitmap(buffer);
 
-  event_queue = al_create_event_queue();
-  if(!event_queue)
-  {
-      cout<<"Failed to load event queue!\n";
-      exit(-1);
-  }
-
-  timer = al_create_timer(1.0/FPS);
-  if(!timer)
-  {
-      cout<<"Failed to load timer!\n";
-      exit(-1);
-  }
+  init_event_queue();
+  init_timer();
 
   ALLEGRO_BITMAP *menu = al_load_bitmap("../images/background.png");
   if(!menu)
@@ -211,20 +200,8 @@ void Setup::options()
   }
   al_set_target_bitmap(buffer);
 
-  event_queue = al_create_event_queue();
-
-  if(!event_queue)
-  {
-    cout<<"Failed to create the event queue!\n";
-    exit(-1);
-  }
-
-  timer = al_create_timer(1.0/FPS);
-  if(!timer)
-  {
-    cout<<"Failed to create timer!\n";
-    exit(-1);
-  }
+  init_event_queue();
+  init_timer();
 
   ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
   if(!options)

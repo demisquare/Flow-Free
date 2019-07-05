@@ -1,26 +1,6 @@
 #include "../head/Level.h"
 
-Level::Level(int mode):gameMode(mode)
-{
-  /*resize(al_get_current_display());
-
-  init_buffer();
-  init_font();
-
-  timer = al_create_timer(1.0/FPS);
-  if(!timer)
-    {
-      cerr << "failed to create timer!\n";
-      exit(-1);
-    }
-
-  event_queue = al_create_event_queue();
-  if(!event_queue)
-  {
-    cerr << "failed to create event queue!\n";
-    exit(-1);
-  }*/
-}
+Level::Level(int mode):gameMode(mode){}
 void Level::redraw()
 {
   al_set_target_bitmap(buffer);
@@ -91,25 +71,12 @@ void Level::drawPath()
 }
 bool Level::run(const int& lvl)
 {
-
   resize(al_get_current_display());
 
   init_buffer();
   init_font();
-
-  timer = al_create_timer(1.0/FPS);
-  if(!timer)
-    {
-      cerr << "failed to create timer!\n";
-      exit(-1);
-    }
-
-  event_queue = al_create_event_queue();
-  if(!event_queue)
-  {
-    cerr << "failed to create event queue!\n";
-    exit(-1);
-  }
+  init_timer();
+  init_event_queue();
 
   level = lvl;
 
@@ -208,15 +175,9 @@ bool Level::run(const int& lvl)
     cout << "you win!" << endl;
     al_destroy_event_queue(event_queue);
     return 1;
-
-  //al_destroy_event_queue(event_queue);
-  //al_destroy_font(font);
-  //al_destroy_timer(timer);
-  //al_destroy_bitmap(buffer);
 }
 Level::~Level()
 {
-  //al_destroy_event_queue(event_queue);
   al_destroy_font(font);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);

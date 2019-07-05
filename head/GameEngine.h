@@ -49,6 +49,8 @@ class GameEngine
     void init_display();
     void init_buffer();
     void init_font();
+    void init_timer();
+    void init_event_queue();
 
     void resize(ALLEGRO_DISPLAY*);
 
