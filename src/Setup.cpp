@@ -40,14 +40,21 @@ void Setup::runLevel(int mode)
   al_destroy_event_queue(event_queue);
   al_destroy_bitmap(buffer);
 
-  /* int i = 1;
+  /*for(unsigned i = 1; i <= nLevels; i++)
+  {
+    Level level(mode);
+    levels.push_back(level);
+    levels.back().run(i);
+  }*/
+
+  /*int i = 1;
   while(i!=nLevels+1)
   {
     Level level(mode);
     levels.push_back(level);
     levels.back().run(i);
     ++i;
-  } */
+  }*/
 
   Level level_a(mode);
   level_a.run(1);
@@ -369,7 +376,7 @@ Setup::~Setup()
 {
   al_uninstall_keyboard();
   al_uninstall_mouse();
-  
+
   al_destroy_font(font);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);

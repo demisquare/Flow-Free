@@ -28,7 +28,7 @@ void Level::redraw()
   
   //disegna la mappa...
   drawMap(map);
-  drawScore(score, gameMode);
+  drawScore(score, gameMode, level, mouseX, mouseY);
 
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(mouseX, mouseY);
@@ -91,6 +91,8 @@ void Level::drawPath()
 }
 void Level::run(const int& lvl)
 {
+  level = lvl;
+
   map.getLogic().load(lvl);
 
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -136,8 +138,8 @@ void Level::run(const int& lvl)
       //eventi tastiera...
       case ALLEGRO_EVENT_KEY_DOWN:
         if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-          exit(1); 
-        break;
+          return;
+        //break;
 
       //evento hover del mouse...
       case ALLEGRO_EVENT_MOUSE_AXES:
@@ -152,9 +154,18 @@ void Level::run(const int& lvl)
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
         mouse_down = false;
+
         start = nullptr;
         current = nullptr;
-        next = nullptr;           
+        next = nullptr;
+
+        //turn back
+        if(mouseX >= 566 &&
+           mouseX <= 629 &&
+           mouseY >= 380 &&
+           mouseY <= 411)
+           return;
+
         break;
         
       default:
@@ -169,10 +180,10 @@ void Level::run(const int& lvl)
   }
     cout << "you win!" << endl;
 
-  al_destroy_font(font);
-  al_destroy_event_queue(event_queue);
-  al_destroy_timer(timer);
-  al_destroy_bitmap(buffer);
+  //al_destroy_font(font);
+  //al_destroy_event_queue(event_queue);
+  //al_destroy_timer(timer);
+  //al_destroy_bitmap(buffer);
 }
 Level::~Level()
 {

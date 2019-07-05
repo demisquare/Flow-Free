@@ -98,18 +98,30 @@ void GameEngine::drawPath(vector<pair<int,int> > path, const GameMap& gm)
     }
 }
 
-void GameEngine::drawScore(Score& score, const unsigned& mode)
+void GameEngine::drawScore(Score& score, const unsigned& mode, const unsigned& level, int mouseX, int mouseY)
 {
     al_draw_filled_rectangle(gap+(offset*5)+(offset/2),
                              gap,
                              gap+(offset*5)+(offset/2)*(offset*2),
                              gap+(offset*5), ORANGE);
 
-    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*2, ALLEGRO_ALIGN_CENTER, "Score:");
+    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*1.5, ALLEGRO_ALIGN_CENTER, "Level %i", level);
+    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*2.5, ALLEGRO_ALIGN_CENTER, "Score:");
     al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*3, ALLEGRO_ALIGN_CENTER, "Moves: %i / %i", score.getMoves(), score.getRemainingMoves());
 
     if(mode == 2)
         al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*4, ALLEGRO_ALIGN_CENTER, "Time left: %i", score.getTimeLeft());
+    
+    //al_draw_rectangle(gap+(offset*5)+(offset/2)*4, gap*6, gap+(offset*5)+(offset/2)*6, gap*6.4, WHITE, 5);
+
+
+    if(mouseX >= 566 &&
+       mouseX <= 629 &&
+       mouseY >= 380 &&
+       mouseY <= 411)
+        al_draw_filled_circle(gap+(offset*5)+(offset/2)*4.2, gap*6.2, 7, BLACK);
+
+    al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*6, gap*6, ALLEGRO_ALIGN_RIGHT, "Back");
 }
 
 void GameEngine::drawMap(PathMap& pm)

@@ -49,14 +49,14 @@ class GameEngine
     void init_display();
     void init_buffer();
     void init_font();
-    
+
     void resize(ALLEGRO_DISPLAY*);
 
     void cursor(int, int);
     
     void drawMenu(int, int);
     void drawOptions(int, int);
-    void drawScore(Score&, const unsigned&);
+    void drawScore(Score&, const unsigned&, const unsigned&, int, int);
     void drawMap(PathMap&);
 
     ~GameEngine()

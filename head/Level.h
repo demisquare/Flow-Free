@@ -12,6 +12,7 @@ private:
   bool mouse_down = false;
 
   int gameMode;
+  int level;
 
   GameObj* start = nullptr;
   GameObj* current = nullptr;
