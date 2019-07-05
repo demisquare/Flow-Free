@@ -47,6 +47,9 @@ class GameEngine
     GameEngine():display(NULL), buffer(NULL), timer(NULL), event_queue(NULL){};
 
     void init_display();
+    void init_buffer();
+    void init_font();
+    
     void resize(ALLEGRO_DISPLAY*);
 
     void cursor(int, int);

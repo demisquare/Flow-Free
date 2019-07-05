@@ -2,7 +2,10 @@
 
 Level::Level(int mode):gameMode(mode)
 {
-  init_display();
+  resize(al_get_current_display());
+
+  init_buffer();
+  init_font();
 
   timer = al_create_timer(1.0/FPS);
   if(!timer)
@@ -30,7 +33,7 @@ void Level::redraw()
   //disegna una pallina bianca per capire dove siamo col mouse...
   cursor(mouseX, mouseY);
 
-  al_set_target_backbuffer(display);
+  al_set_target_backbuffer(al_get_current_display());
   al_clear_to_color(BLACK);
   al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
   
@@ -110,13 +113,17 @@ void Level::run(const int& lvl)
      
         drawPath();
 
-        counter++;
-        if(counter == FPS)
+        if(gameMode == 2)
         {
-          score.tick();
-          counter = 0;
+          counter++;
+          if(counter == FPS)
+          {
+            score.tick();
+            counter = 0;
+          }
         }
-        if((score.timeElapsed() && gameMode == 2)||(score.noMoreMoves() == gameMode == 1))
+
+        if((score.timeElapsed() && gameMode == 2) || (score.noMoreMoves() && gameMode == 1))
         {
           cout << "you lose!" << endl;
           return;
@@ -166,7 +173,6 @@ void Level::run(const int& lvl)
   al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
-  al_destroy_display(display);
 }
 Level::~Level()
 {
@@ -174,5 +180,4 @@ Level::~Level()
   al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
-  al_destroy_display(display);
 }

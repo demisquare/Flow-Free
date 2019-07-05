@@ -29,6 +29,8 @@ Setup::Setup()
   }
 
   init_display();
+  init_buffer();
+  init_font();
 
   al_hide_mouse_cursor(display);
 }
@@ -57,7 +59,7 @@ void Setup::runLevel(int mode)
   //level_c.run(3);
 
   //torna al menu
-  init_display();
+  init_buffer();
   menu();
 }
 
@@ -365,10 +367,11 @@ void Setup::options()
 
 Setup::~Setup()
 {
-  al_destroy_font(font);
-  al_destroy_timer(timer);
   al_uninstall_keyboard();
   al_uninstall_mouse();
+  
+  al_destroy_font(font);
+  al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
   al_destroy_display(display);
 }
