@@ -40,32 +40,18 @@ void Setup::runLevel(int mode)
   al_destroy_event_queue(event_queue);
   al_destroy_bitmap(buffer);
 
-  /*for(unsigned i = 1; i <= nLevels; i++)
+  for(int i = 1; i <= nLevels; i++)
   {
     Level level(mode);
     levels.push_back(level);
-    levels.back().run(i);
-  }*/
+    if(!levels.back().run(i))
+    {
+      levels.clear();
+      break;
+    }
+    levels.pop_back();
+  }
 
-  /*int i = 1;
-  while(i!=nLevels+1)
-  {
-    Level level(mode);
-    levels.push_back(level);
-    levels.back().run(i);
-    ++i;
-  }*/
-
-  Level level_a(mode);
-  level_a.run(1);
-
-  //Level level_b(mode);
-  //level_b.run(2);
-
-  //Level level_c(mode);
-  //level_c.run(3);
-
-  //torna al menu
   init_buffer();
   menu();
 }

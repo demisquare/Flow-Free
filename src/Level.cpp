@@ -2,7 +2,7 @@
 
 Level::Level(int mode):gameMode(mode)
 {
-  resize(al_get_current_display());
+  /*resize(al_get_current_display());
 
   init_buffer();
   init_font();
@@ -19,7 +19,7 @@ Level::Level(int mode):gameMode(mode)
   {
     cerr << "failed to create event queue!\n";
     exit(-1);
-  }
+  }*/
 }
 void Level::redraw()
 {
@@ -89,8 +89,28 @@ void Level::drawPath()
     } //!=BALL
   } //&& mouse_down
 }
-void Level::run(const int& lvl)
+bool Level::run(const int& lvl)
 {
+
+  resize(al_get_current_display());
+
+  init_buffer();
+  init_font();
+
+  timer = al_create_timer(1.0/FPS);
+  if(!timer)
+    {
+      cerr << "failed to create timer!\n";
+      exit(-1);
+    }
+
+  event_queue = al_create_event_queue();
+  if(!event_queue)
+  {
+    cerr << "failed to create event queue!\n";
+    exit(-1);
+  }
+
   level = lvl;
 
   map.getLogic().load(lvl);
@@ -128,7 +148,8 @@ void Level::run(const int& lvl)
         if((score.timeElapsed() && gameMode == 2) || (score.noMoreMoves() && gameMode == 1))
         {
           cout << "you lose!" << endl;
-          return;
+          al_destroy_event_queue(event_queue);
+          return 0;
         }
         
         has_redraw = true;
@@ -138,7 +159,10 @@ void Level::run(const int& lvl)
       //eventi tastiera...
       case ALLEGRO_EVENT_KEY_DOWN:
         if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-          return;
+        {
+          al_destroy_event_queue(event_queue);
+          return 1;
+        }
         //break;
 
       //evento hover del mouse...
@@ -164,7 +188,10 @@ void Level::run(const int& lvl)
            mouseX <= 629 &&
            mouseY >= 380 &&
            mouseY <= 411)
-           return;
+           {
+              al_destroy_event_queue(event_queue);
+              return 0;
+           }
 
         break;
         
@@ -179,16 +206,18 @@ void Level::run(const int& lvl)
     }
   }
     cout << "you win!" << endl;
+    al_destroy_event_queue(event_queue);
+    return 1;
 
-  //al_destroy_font(font);
   //al_destroy_event_queue(event_queue);
+  //al_destroy_font(font);
   //al_destroy_timer(timer);
   //al_destroy_bitmap(buffer);
 }
 Level::~Level()
 {
+  //al_destroy_event_queue(event_queue);
   al_destroy_font(font);
-  al_destroy_event_queue(event_queue);
   al_destroy_timer(timer);
   al_destroy_bitmap(buffer);
 }

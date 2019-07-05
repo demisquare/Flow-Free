@@ -28,7 +28,7 @@ private:
   
 public:
   Level(int mode);
-  void run(const int&);
+  bool run(const int&);
   ~Level();
 
 };
