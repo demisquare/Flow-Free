@@ -6,10 +6,8 @@
 class Setup:public GameEngine
 {
 private:
-    vector<Level*> levels;
     int nLevels = 3;
     void runLevel(int);
-
 
 public:
     Setup();

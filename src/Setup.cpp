@@ -99,13 +99,9 @@ void Setup::menu()
           break;
 
       case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
-      //al_draw_filled_circle(ev.mouse.x, ev.mouse.y, 7, WHITE); //coordinate effettive
-      //al_draw_filled_circle(mouseX, mouseY, 3, RED); //coordinate traslate
-
-      mouseX = ev.mouse.x - scaleX;
-      mouseY = ev.mouse.y - scaleY;
-            
-      break;
+          mouseX = ev.mouse.x - scaleX;
+          mouseY = ev.mouse.y - scaleY;    
+          break;
       
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
       
@@ -115,8 +111,8 @@ void Setup::menu()
               mouseY >= 283 &&
               mouseY <= 315)
 	           {
-              runLevel(0);
-              break;
+                runLevel(0);
+                break;
              }
         
 
@@ -126,17 +122,17 @@ void Setup::menu()
                mouseY >= 330 &&
                mouseY <= 363)
         
-          {
-            al_destroy_event_queue(event_queue);
-            options();
-          }
+              {
+                al_destroy_event_queue(event_queue);
+                options();
+              }
 
       //sono su "Quit"
       else if (mouseX >= 283 &&
                mouseX <= 356 &&
                mouseY >= 421 &&
                mouseX <= 460)
-				exit(1);
+				      exit(1);
 
       break;
 
@@ -215,24 +211,21 @@ void Setup::options()
       break;
 
     case ALLEGRO_EVENT_MOUSE_AXES: //movimento mouse
-    
       mouseX = ev.mouse.x - scaleX;
       mouseY = ev.mouse.y - scaleY;
 
       break;
 
     case ALLEGRO_EVENT_MOUSE_BUTTON_UP: //click mouse
-      
       //sono su "Classic"
            if(mouseX >= 243 &&
               mouseX <= 395 &&
               mouseY >= 132 &&
               mouseY <= 188)
 	           {
-              runLevel(0);
-              done = true;
+                runLevel(0);
+                done = true;
              }
-        
 
       //sono su "Moves"
       else if (mouseX >= 243 &&
@@ -240,10 +233,10 @@ void Setup::options()
                mouseY >= 212 &&
                mouseY <= 268)
         
-          {
+            {
               runLevel(1);
               done = true;
-          }
+            }
 
       //sono su "Timer"
       else if (mouseX >= 259 &&
@@ -260,7 +253,7 @@ void Setup::options()
                mouseX <= 361 &&
                mouseY >= 417 &&
                mouseY <= 450)
-				done = true;
+				    done = true;
 
       break;
 
