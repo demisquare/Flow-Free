@@ -6,7 +6,7 @@
 class Setup:public GameEngine
 {
 private:
-    vector<Level> levels;
+    vector<Level*> levels;
     int nLevels = 3;
     void runLevel(int);
 

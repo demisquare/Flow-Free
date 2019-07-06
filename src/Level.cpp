@@ -46,14 +46,14 @@ void Level::drawPath()
       current = map.getLogic().getObj(mouseX, mouseY);
      
       //se incontro celle adiacenti...
-      /* if((current->getLogicX() == start->getLogicX()) && (current->getLogicY() != start->getLogicY())
+      if((current->getLogicX() == start->getLogicX()) && (current->getLogicY() != start->getLogicY())
       || (current->getLogicX() != start->getLogicX()) && (current->getLogicY() == start->getLogicY()))
-      { */
+      { 
         //se non ho segnato il percorso...
         cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;
         map.add(current->getLogicY(), current->getLogicX(), start->getColor());
         map.getLogic().addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
-      //}
+      }
       //valuta prossima cella...    
       next = map.getLogic().getObj(mouseX, mouseY);
       

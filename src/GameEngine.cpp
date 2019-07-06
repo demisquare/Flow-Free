@@ -22,7 +22,7 @@ void GameEngine::init_display()
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
     al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
-    al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+    al_set_new_display_flags(ALLEGRO_WINDOWED);
 
 
     display = al_create_display(WIDTH, HEIGHT);
@@ -161,8 +161,10 @@ void GameEngine::drawMap(PathMap& pm)
         drawPath(path, pm.getLogic());    
 }
 
-void GameEngine::drawMenu(int mouseX, int mouseY)
+void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
 {
+    al_draw_bitmap(menu, 0, 0, 0);
+
     //sono su "Play!"
         if(mouseX >= 275 &&
            mouseX <= 370 &&
@@ -189,8 +191,10 @@ void GameEngine::drawMenu(int mouseX, int mouseY)
           
 }
 
-void GameEngine::drawOptions(int mouseX, int mouseY)
+void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
 {
+    al_draw_bitmap(options, 0, 0, 0);
+
      //se sono su "Classic"
         if (mouseX >= 243 &&
             mouseX <= 395 &&

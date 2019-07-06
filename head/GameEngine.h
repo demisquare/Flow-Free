@@ -56,8 +56,8 @@ class GameEngine
 
     void cursor(int, int);
     
-    void drawMenu(int, int);
-    void drawOptions(int, int);
+    void drawMenu(ALLEGRO_BITMAP*, int, int);
+    void drawOptions(ALLEGRO_BITMAP*, int, int);
     void drawScore(Score&, const unsigned&, const unsigned&, int, int);
     void drawMap(PathMap&);
 
