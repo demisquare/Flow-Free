@@ -20,6 +20,7 @@ void Level::redraw()
   al_flip_display();
 
 }
+
 void Level::drawPath()
 {
   if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
@@ -27,16 +28,22 @@ void Level::drawPath()
     if(map.getLogic().getObj(mouseX, mouseY)->getType()==BALL)
     {
       //chiudi percorso...
-      if(start != nullptr && current != nullptr && next != nullptr)
+      if(start != nullptr && current != nullptr)
       {
         end = map.getLogic().getObj(mouseX, mouseY);
-        map.add(end->getLogicY(), end->getLogicX(), end->getColor());
+        //cout << "end: " << end->getLogicY() << " - " << end->getLogicX() << endl;
+        if(end->getColor() == start->getColor())
+          map.add(end->getLogicY(), end->getLogicX(), end->getColor());
+        else
+          end = nullptr;
       } 
       else
       {
         //valuta prima cella...
         start = map.getLogic().getObj(mouseX, mouseY);
-        map.add(start->getLogicY(), start->getLogicX(), start->getColor());
+        //cout << "start: " << start->getLogicY() << " - " << start->getLogicX() << endl;
+        if(map.getCurrentPath().empty())
+          map.add(start->getLogicY(), start->getLogicX(), start->getColor());
       }
     }
 
@@ -44,28 +51,9 @@ void Level::drawPath()
     { 
       //valuta la cella corrente   
       current = map.getLogic().getObj(mouseX, mouseY);
-     
-      //se incontro celle adiacenti...
-      if((current->getLogicX() == start->getLogicX()) && (current->getLogicY() != start->getLogicY())
-      || (current->getLogicX() != start->getLogicX()) && (current->getLogicY() == start->getLogicY()))
-      { 
-        //se non ho segnato il percorso...
-        cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;
-        map.add(current->getLogicY(), current->getLogicX(), start->getColor());
-        map.getLogic().addPath(current->getLogicY(), current->getLogicX(), start->getColor());      
-      }
-      //valuta prossima cella...    
-      next = map.getLogic().getObj(mouseX, mouseY);
-      
-      //se incontro celle adiacenti...
-      if(((current->getLogicX() == next->getLogicX()) && (current->getLogicY() != next->getLogicY())
-      ||  (current->getLogicX() != next->getLogicX()) && (current->getLogicY() == next->getLogicY())))
-      {
-        //se non ho segnato il percorso...
-        cout << "next: " << next->getLogicY() << " - " << next->getLogicX() << endl;
-        map.add(next->getLogicY(), next->getLogicX(), start->getColor());
-        map.getLogic().addPath(next->getLogicY(), next->getLogicX(), start->getColor());   
-      }
+      //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;  
+      map.add(current->getLogicY(), current->getLogicX(), start->getColor());
+
     } //!=BALL
   } //&& mouse_down
 }
@@ -148,7 +136,7 @@ bool Level::run(const int& lvl)
 
         start = nullptr;
         current = nullptr;
-        next = nullptr;
+        end = nullptr;
 
         //turn back
         if(mouseX >= 566 &&

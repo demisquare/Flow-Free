@@ -16,7 +16,6 @@ private:
 
   GameObj* start = nullptr;
   GameObj* current = nullptr;
-  GameObj* next = nullptr;
   GameObj* end = nullptr;
 
   Score score;

@@ -9,6 +9,26 @@ void PathMap::load(const int& lvl)
     gm.load(lvl);
 }
 
+//verifica se due coordinate sono adiacenti...
+bool PathMap::adj(pair<int, int> coord)
+{
+  if(currentPath.empty())
+    return true;
+
+
+  unsigned x1 = currentPath.back().first;
+  unsigned y1 = currentPath.back().second;
+
+  unsigned x2 = coord.first;
+  unsigned y2 = coord.second;
+
+  return
+    !((x2 == x1+1 && y2 == y1+1)
+    ||(x2 == x1+1 && y2 == y1-1)
+    ||(x2 == x1-1 && y2 == y1+1)
+    ||(x2 == x1-1 && y2 == y1-1));
+}
+
 //verifica se è la coordinata è stata già inserita...
 bool PathMap::isSigned(pair<int, int> coord)
 {
@@ -16,11 +36,26 @@ bool PathMap::isSigned(pair<int, int> coord)
         return false;
     else
     {
-    bool ok = false;
+        bool ok = false;
+            for(auto path:map)
+                if(find(path.begin(), path.end(), coord) != path.end())
+                    ok = true;
+        return ok;
+    }
+}
+
+//resituisce il percorso che contiene la coordinata...
+vector<pair<int, int> > PathMap::findPath(pair<int, int> coord)
+{
+    vector<pair<int, int> > found;
+    if(map.empty())
+        return found;
+    else
+    {
         for(auto path:map)
             if(find(path.begin(), path.end(), coord) != path.end())
-                ok = true;
-    return ok;
+                found = path;
+        return found;
     }
 }
 
@@ -40,20 +75,27 @@ bool PathMap::isUnique()
     }
 }
 
-void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
+//aggiunge un percorso alla mappa...
+bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
 {
-   //creiamo un percorso...
+   bool ok = false;
+   //creiamo una coordinata...
    pair<int, int> coord(i, j);
     
+    //se non è stata segnata...
     if(!isSigned(coord))
     {
         //aggiunge la coordinata...
-        if(find(currentPath.begin(), currentPath.end(), coord) == currentPath.end())
+        if(find(currentPath.begin(), currentPath.end(), coord) == currentPath.end()
+        &&  adj(coord))
         {
             currentPath.push_back(coord);
+            gm.addPath(coord.first, coord.second, color);
             cout << coord.first << " - " << coord.second << endl;
+            ok = true;
         }  
-    
+
+        //chiusura del percorso...
         if(isClosed(currentPath) && isUnique())
         {
             cout << "closed!" << endl;
@@ -63,8 +105,18 @@ void PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
             currentPath.clear();            
         }
     }
+    return ok;
 }
 
+//rimuove un percorso dalla mappa...
+/*bool PathMap::remove(const int &i, const int &j, ALLEGRO_COLOR color)
+{
+   bool ok = false;
+   //creiamo una coordinata...
+   pair<int, int> coord(i, j);
+
+   
+}*/
 vector<vector<pair<int, int> > >& PathMap::getPaths(){return map;}
 
 vector<pair<int, int> >& PathMap::getCurrentPath(){return currentPath;}
