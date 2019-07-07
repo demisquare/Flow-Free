@@ -10,6 +10,7 @@ private:
   PathMap map;
   
   bool mouse_down = false;
+  bool moved = false;
 
   int gameMode;
   int level;

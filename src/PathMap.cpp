@@ -102,7 +102,8 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
 
             map.push_back(currentPath);
             cout << "map: " << map.size() << endl;
-            currentPath.clear();            
+            currentPath.clear();    
+            ok = true;
         }
     }
     return ok;

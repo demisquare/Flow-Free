@@ -33,7 +33,7 @@ void Level::drawPath()
         end = map.getLogic().getObj(mouseX, mouseY);
         //cout << "end: " << end->getLogicY() << " - " << end->getLogicX() << endl;
         if(end->getColor() == start->getColor())
-          map.add(end->getLogicY(), end->getLogicX(), end->getColor());
+          moved = map.add(end->getLogicY(), end->getLogicX(), end->getColor());
         else
           end = nullptr;
       } 
@@ -43,7 +43,7 @@ void Level::drawPath()
         start = map.getLogic().getObj(mouseX, mouseY);
         //cout << "start: " << start->getLogicY() << " - " << start->getLogicX() << endl;
         if(map.getCurrentPath().empty())
-          map.add(start->getLogicY(), start->getLogicX(), start->getColor());
+          moved = map.add(start->getLogicY(), start->getLogicX(), start->getColor());
       }
     }
 
@@ -52,7 +52,7 @@ void Level::drawPath()
       //valuta la cella corrente   
       current = map.getLogic().getObj(mouseX, mouseY);
       //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;  
-      map.add(current->getLogicY(), current->getLogicX(), start->getColor());
+      moved = map.add(current->getLogicY(), current->getLogicX(), start->getColor());
 
     } //!=BALL
   } //&& mouse_down
@@ -69,6 +69,7 @@ bool Level::run(const int& lvl)
   level = lvl;
 
   map.getLogic().load(lvl);
+  score.setRemainingMoves(map.getLogic().getColors());
 
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
@@ -132,6 +133,12 @@ bool Level::run(const int& lvl)
 
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+        if(!moved)
+        {
+          score.addMoves();
+          moved = false;
+        }
+
         mouse_down = false;
 
         start = nullptr;

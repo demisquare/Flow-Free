@@ -109,7 +109,8 @@ unsigned GameMap::getColors()const
   vector<ALLEGRO_COLOR> colors;
   for(unsigned i = 0; i < n; i++)
     for(unsigned j = 0; j < n; j++)
-      if(find(colors.begin(), colors.end(), map[i][j]->getColor()) == colors.end())
+      if(find(colors.begin(), colors.end(), map[i][j]->getColor()) == colors.end()
+      && map[i][j]->getType() == BALL)
         colors.push_back(map[i][j]->getColor());
     
 
