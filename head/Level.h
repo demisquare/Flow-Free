@@ -25,10 +25,13 @@ private:
 
   void redraw();
   void drawPath();
+
+  int victory();
+  int lose();
   
 public:
   Level(int mode);
-  bool run(const int&);
+  int run(const int&);
   ~Level();
 
 };

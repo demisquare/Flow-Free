@@ -230,3 +230,47 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
             al_draw_filled_circle(267, 435, 7, RED);
 
 }
+
+void GameEngine::drawWin(ALLEGRO_BITMAP* win, int mouseX, int mouseY)
+{
+    al_draw_bitmap(win, 0, 0, 0);
+
+    //se sono su "Menu"
+        if (mouseX >= 140 &&
+            mouseX <= 262 &&
+            mouseY >= 317 &&
+            mouseY <= 356)
+                      
+		      al_draw_filled_circle(154, 338, 10, PINK);
+        
+        
+     //se sono su "Next"
+        else if (mouseX >= 380 &&
+                 mouseX <= 502 &&
+                 mouseY >= 317 &&
+                 mouseY <= 356)
+               			
+		        al_draw_filled_circle(392, 338, 10, GREEN);
+}
+
+void GameEngine::drawLose(ALLEGRO_BITMAP* lose, int mouseX, int mouseY)
+{
+    al_draw_bitmap(lose, 0, 0, 0);
+
+    //se sono su "Menu"
+        if (mouseX >= 140 &&
+            mouseX <= 262 &&
+            mouseY >= 317 &&
+            mouseY <= 356)
+                      
+		      al_draw_filled_circle(154, 338, 10, PINK);
+        
+        
+     //se sono su "Retry"
+        else if (mouseX >= 380 &&
+                 mouseX <= 502 &&
+                 mouseY >= 317 &&
+                 mouseY <= 356)
+               			
+		        al_draw_filled_circle(392, 338, 10, GREEN);
+}

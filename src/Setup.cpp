@@ -41,15 +41,23 @@ void Setup::runLevel(int mode)
   al_destroy_bitmap(buffer);
 
   Level* level = nullptr;
-  bool done = true;
+  int done = 1;
   int i = 1;
 
-  while(i <= nLevels && done)
+  /*
+    done:
+    0 = menu
+    1 = next
+   -1 = retry
+ */
+
+  while(i <= nLevels && done != 0)
   {
     level = new Level(mode);
     done = level->run(i);
     delete level;
-    i++;
+    if(done != -1)
+      i++;
   }
 
   init_buffer();
