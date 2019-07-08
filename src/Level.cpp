@@ -57,8 +57,8 @@ void Level::drawPath()
       if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
         moved = true;
 
-    } //!=BALL
-  } //&& mouse_down
+    }
+  }
 }
 
 int Level::run(const int& lvl)
