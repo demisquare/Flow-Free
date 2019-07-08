@@ -116,6 +116,11 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
    //creiamo una coordinata...
    pair<int, int> coord(i, j);
 
+   //cerco il percorso
+   vector<pair<int, int> > toRemove=find(coord);
+   if(!color==toRemove.getColor())
+    toRemove.setColor(BLACK);
+
    
 }*/
 vector<vector<pair<int, int> > >& PathMap::getPaths(){return map;}

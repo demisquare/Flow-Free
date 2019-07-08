@@ -60,6 +60,7 @@ void Level::drawPath()
     } //!=BALL
   } //&& mouse_down
 }
+
 int Level::run(const int& lvl)
 {
   resize(al_get_current_display());
