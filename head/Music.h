@@ -11,27 +11,32 @@ class Music
 {
 private:
     //songs
-    ALLEGRO_SAMPLE *song;
+    ALLEGRO_SAMPLE *menu;
+    ALLEGRO_SAMPLE *game;
 
     //sfx
-    ALLEGRO_SAMPLE *hover;
     ALLEGRO_SAMPLE *select;
 
     ALLEGRO_SAMPLE *win;
     ALLEGRO_SAMPLE *lose;
 
-    ALLEGRO_SAMPLE_INSTANCE* songInstance;
+    ALLEGRO_SAMPLE_INSTANCE* menuInstance;
+    ALLEGRO_SAMPLE_INSTANCE* gameInstance;
     
+    bool isMenuPlaying;
+    bool isGamePlaying;
+
 public:
     Music();
+    void init();
 
-    bool isRunning = true;
+    void playMenu();
+    void stopMenu();
 
-    void playSong();
-    void stopSong();
+    void playGame();
+    void stopGame();
 
     void playSelect();
-    void playHover();
 
     void playRes(bool);
 

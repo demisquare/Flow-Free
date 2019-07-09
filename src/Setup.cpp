@@ -30,6 +30,7 @@ Setup::Setup()
 
   init_display();
   init_buffer();
+  music.init();
 
   al_hide_mouse_cursor(display);
 }
@@ -39,6 +40,7 @@ void Setup::runLevel(int mode)
   al_destroy_timer(timer);
   al_destroy_event_queue(event_queue);
   al_destroy_bitmap(buffer);
+  music.stopMenu();
 
   Level* level = nullptr;
   int done = 1;
@@ -61,13 +63,12 @@ void Setup::runLevel(int mode)
   }
 
   init_buffer();
+  music.init();
   menu();
 }
 
 void Setup::menu()
 {
-  //if(!music.isRunning())
-    //music.playSong();
 
   ALLEGRO_BITMAP *menu = al_load_bitmap("../assets/images/background.png");
   if(!menu)
@@ -75,6 +76,8 @@ void Setup::menu()
       cout<<"Failed to load menu bitmap!\n";
       exit(-1);
   }
+  
+  music.playMenu();
 
   //primo frame...
   al_set_target_bitmap(buffer);
@@ -122,7 +125,7 @@ void Setup::menu()
               mouseY >= 283 &&
               mouseY <= 315)
 	           {
-                //music.playSelect();
+                music.playSelect();
                 runLevel(0);
                 break;
              }
@@ -135,7 +138,7 @@ void Setup::menu()
                mouseY <= 363)
         
               {
-                //music.playSelect();
+                music.playSelect();
                 al_destroy_event_queue(event_queue);
                 options();
               }
@@ -146,7 +149,7 @@ void Setup::menu()
                mouseY >= 421 &&
                mouseX <= 460)
               {
-                //music.playSelect();
+                music.playSelect();
 				        exit(1);
               }
 
@@ -239,7 +242,7 @@ void Setup::options()
               mouseY >= 132 &&
               mouseY <= 188)
 	           {
-                //music.playSelect();
+                music.playSelect();
                 runLevel(0);
                 done = true;
              }
@@ -251,7 +254,7 @@ void Setup::options()
                mouseY <= 268)
         
             {
-              //music.playSelect();
+              music.playSelect();
               runLevel(1);
               done = true;
             }
@@ -262,7 +265,7 @@ void Setup::options()
                mouseY >= 292 &&
                mouseY <= 340)
             {
-              //music.playSelect();
+              music.playSelect();
               runLevel(2);
               done = true;
             }
@@ -273,7 +276,7 @@ void Setup::options()
                mouseY >= 417 &&
                mouseY <= 450)
 				    {
-              //music.playSelect();
+              music.playSelect();
               done = true;
             }
 

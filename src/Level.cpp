@@ -63,15 +63,15 @@ void Level::drawPath()
 
 int Level::run(const int& lvl)
 {
-  //if(!music.IsRunning())
-    //music.playSong();
-
   resize(al_get_current_display());
 
   init_buffer();
   init_font();
   init_timer();
   init_event_queue();
+
+  music.init();
+  music.playGame();
 
   level = lvl;
 
@@ -158,7 +158,7 @@ int Level::run(const int& lvl)
            mouseY >= 380 &&
            mouseY <= 411)
            {
-              //music.playSelect();
+              music.playSelect();
               al_destroy_event_queue(event_queue);
               return 0;
            }
@@ -182,7 +182,7 @@ int Level::run(const int& lvl)
 
 int Level::result(bool res)
 {
-  //music.playRes(res);
+  music.playRes(res);
 
   ALLEGRO_BITMAP *win = al_load_bitmap("../assets/images/you_win.png");
   if(!win)
@@ -251,7 +251,7 @@ int Level::result(bool res)
             mouseY >= 317 &&
             mouseY <= 356)
         {
-          //music.playSelect();
+          music.playSelect();
           al_destroy_event_queue(event_queue);
           al_destroy_bitmap(win);
           al_destroy_bitmap(lose);
@@ -266,7 +266,7 @@ int Level::result(bool res)
                  mouseY <= 356)
                			
 		    {
-          //music.playSelect();
+          music.playSelect();
           al_destroy_event_queue(event_queue);
           al_destroy_bitmap(win);
           al_destroy_bitmap(lose);

@@ -33,7 +33,7 @@ class GameEngine
 
     ALLEGRO_FONT* font;
 
-    //Music music;
+    Music music;
 
     float windowWidth = WIDTH, windowHeight = HEIGHT;
     float sx, sy;
