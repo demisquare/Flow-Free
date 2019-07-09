@@ -26,8 +26,7 @@ private:
   void redraw();
   void drawPath();
 
-  int victory();
-  int lose();
+  int result(bool);
   
 public:
   Level(int mode);

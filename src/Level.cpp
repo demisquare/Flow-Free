@@ -109,7 +109,7 @@ int Level::run(const int& lvl)
         {
           cout << "you lose!" << endl;
           al_destroy_event_queue(event_queue);
-          return lose();
+          return result(0);
         }
         
         has_redraw = true;
@@ -173,10 +173,10 @@ int Level::run(const int& lvl)
   }
     cout << "you win!" << endl;
     al_destroy_event_queue(event_queue);
-    return victory();
+    return result(1);
 }
 
-int Level::victory()
+int Level::result(bool res)
 {
   ALLEGRO_BITMAP *win = al_load_bitmap("../assets/images/you_win.png");
   if(!win)
@@ -184,106 +184,8 @@ int Level::victory()
     cout<<"Failed to load the victory bitmap!\n";
     exit(-1);
   }
-
-  init_timer();
-  init_event_queue();
-
-  al_register_event_source(event_queue, al_get_timer_event_source(timer));
-
-  al_register_event_source(event_queue, al_get_display_event_source(al_get_current_display()));
-  al_register_event_source(event_queue, al_get_mouse_event_source());
-  al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-  al_hide_mouse_cursor(al_get_current_display());
-  
-  al_start_timer(timer);
-
-   while(true)
-  {
-    ALLEGRO_EVENT ev;
-    al_wait_for_event(event_queue, &ev);
-    switch(ev.type)
-    {
-      case ALLEGRO_EVENT_TIMER:
-        has_redraw = true;
-        break;
-
-      //eventi tastiera...
-      case ALLEGRO_EVENT_KEY_DOWN:
-        if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-        {
-          al_destroy_event_queue(event_queue);
-          al_destroy_bitmap(win);
-          return 1;
-        }
-        //break;
-
-      //evento hover del mouse...
-      case ALLEGRO_EVENT_MOUSE_AXES:
-        mouseX = ev.mouse.x - scaleX;
-        mouseY = ev.mouse.y - scaleY;
-        break;
-      
-      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-        mouse_down = true;
-        break;
-
-      //evento click del mouse...
-      case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-        mouse_down = false;
-
-        //se sono su "Menu"
-        if (mouseX >= 140 &&
-            mouseX <= 262 &&
-            mouseY >= 317 &&
-            mouseY <= 356)
-        {
-          al_destroy_event_queue(event_queue);
-          al_destroy_bitmap(win);
-          return 0;
-        }
-        
-        
-        //se sono su "Next"
-        else if (mouseX >= 380 &&
-                 mouseX <= 502 &&
-                 mouseY >= 317 &&
-                 mouseY <= 356)
-               			
-		    {
-          al_destroy_event_queue(event_queue);
-          al_destroy_bitmap(win);
-          return 1;
-        }
-
-        break;
-
-      default:
-        break;  
-    }
-    al_flush_event_queue(event_queue);
-    if(has_redraw && al_is_event_queue_empty(event_queue))
-    {
-      has_redraw = false;
-      al_set_target_bitmap(buffer);
-      al_clear_to_color(BLACK);
-
-      drawWin(win, mouseX, mouseY);
-      cursor(mouseX, mouseY);
-
-      al_set_target_backbuffer(al_get_current_display());
-      al_clear_to_color(BLACK);
-      al_draw_scaled_bitmap(buffer, 0, 0, WIDTH, HEIGHT, scaleX, scaleY, scaleW, scaleH, 0);
-
-      al_flip_display();
-    }
-  }
-}
-
-int Level::lose()
-{
   ALLEGRO_BITMAP *lose = al_load_bitmap("../assets/images/you_lose.png");
-  if(!lose)
+  if(!win)
   {
     cout<<"Failed to load the lose bitmap!\n";
     exit(-1);
@@ -317,6 +219,7 @@ int Level::lose()
         if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
         {
           al_destroy_event_queue(event_queue);
+          al_destroy_bitmap(win);
           al_destroy_bitmap(lose);
           return 1;
         }
@@ -343,12 +246,13 @@ int Level::lose()
             mouseY <= 356)
         {
           al_destroy_event_queue(event_queue);
+          al_destroy_bitmap(win);
           al_destroy_bitmap(lose);
           return 0;
         }
         
         
-        //se sono su "retry"
+        //se sono su "Next/Retry"
         else if (mouseX >= 380 &&
                  mouseX <= 502 &&
                  mouseY >= 317 &&
@@ -356,7 +260,10 @@ int Level::lose()
                			
 		    {
           al_destroy_event_queue(event_queue);
+          al_destroy_bitmap(win);
           al_destroy_bitmap(lose);
+          if(res)
+            return 1;
           return -1;
         }
 
@@ -372,7 +279,11 @@ int Level::lose()
       al_set_target_bitmap(buffer);
       al_clear_to_color(BLACK);
 
-      drawLose(lose, mouseX, mouseY);
+      if(res)
+        drawResult(win, mouseX, mouseY);
+      else
+        drawResult(lose, mouseX, mouseY);
+
       cursor(mouseX, mouseY);
 
       al_set_target_backbuffer(al_get_current_display());
