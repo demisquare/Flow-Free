@@ -53,8 +53,8 @@ void GameEngine::init_font()
 {
     if(!al_init_font_addon())
     {
-      cerr << "failed to initialize font!\n";
-      exit(-1);
+        cerr << "failed to initialize font!\n";
+        exit(-1);
     }
 
     if(!al_init_ttf_addon())
@@ -76,8 +76,8 @@ void GameEngine::init_timer()
     timer = al_create_timer(1.0/FPS);
     if(!timer)
     {
-      cerr << "failed to create timer!\n";
-      exit(-1);
+        cerr << "failed to create timer!\n";
+        exit(-1);
     }
 }
 
@@ -86,8 +86,8 @@ void GameEngine::init_event_queue()
     event_queue = al_create_event_queue();
     if(!event_queue)
     {
-      cerr << "failed to create event queue!\n";
-      exit(-1);
+        cerr << "failed to create event queue!\n";
+        exit(-1);
     }
 }
 
@@ -210,10 +210,10 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
             mouseY >= 132 &&
             mouseY <= 188)
             
-            {
-                //music.playHover();
-		        al_draw_filled_circle(227, 164, 8, ORANGE);
-            }
+        {
+            //music.playHover();
+		    al_draw_filled_circle(227, 164, 8, ORANGE);
+        }
         
         
      //se sono su "Moves"
@@ -262,10 +262,10 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
             mouseY >= 317 &&
             mouseY <= 356)
 
-            {
-                //music.playHover(); 
-		        al_draw_filled_circle(154, 338, 10, PINK);
-            }
+        {
+            //music.playHover(); 
+	        al_draw_filled_circle(154, 338, 10, PINK);
+        }
         
         
      //se sono su "Next/Retry"
@@ -274,8 +274,8 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
                  mouseY >= 317 &&
                  mouseY <= 356)
 
-            {
-                //music.playHover();      		
-		        al_draw_filled_circle(392, 338, 10, GREEN);
-            }
+        {
+            //music.playHover();      		
+		    al_draw_filled_circle(392, 338, 10, GREEN);
+        }
 }

@@ -63,6 +63,9 @@ void Level::drawPath()
 
 int Level::run(const int& lvl)
 {
+  //if(!music.IsRunning())
+    //music.playSong();
+
   resize(al_get_current_display());
 
   init_buffer();

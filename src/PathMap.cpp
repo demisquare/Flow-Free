@@ -29,7 +29,7 @@ bool PathMap::adj(pair<int, int> coord)
     ||(x2 == x1-1 && y2 == y1-1));
 }
 
-//verifica se è la coordinata è stata già inserita...
+//verifica se la coordinata è stata già inserita...
 bool PathMap::isSigned(pair<int, int> coord)
 {
     if(map.empty())
@@ -44,7 +44,7 @@ bool PathMap::isSigned(pair<int, int> coord)
     }
 }
 
-//resituisce il percorso che contiene la coordinata...
+//restituisce il percorso che contiene la coordinata...
 vector<pair<int, int> > PathMap::findPath(pair<int, int> coord)
 {
     vector<pair<int, int> > found;

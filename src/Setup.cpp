@@ -66,7 +66,7 @@ void Setup::runLevel(int mode)
 
 void Setup::menu()
 {
-  //if(!music.running())
+  //if(!music.isRunning())
     //music.playSong();
 
   ALLEGRO_BITMAP *menu = al_load_bitmap("../assets/images/background.png");
