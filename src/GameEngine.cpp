@@ -63,7 +63,7 @@ void GameEngine::init_font()
         exit(-1);
     }
 
-    font = al_load_font("../images/Aberus.ttf", 30, 0);
+    font = al_load_font("../assets/images/Aberus.ttf", 30, 0);
     if(!font)
     {
         cerr << "failed to load font!\n";

@@ -178,7 +178,7 @@ int Level::run(const int& lvl)
 
 int Level::victory()
 {
-  ALLEGRO_BITMAP *win = al_load_bitmap("../images/you_win.png");
+  ALLEGRO_BITMAP *win = al_load_bitmap("../assets/images/you_win.png");
   if(!win)
   {
     cout<<"Failed to load the victory bitmap!\n";
@@ -282,7 +282,7 @@ int Level::victory()
 
 int Level::lose()
 {
-  ALLEGRO_BITMAP *lose = al_load_bitmap("../images/you_lose.png");
+  ALLEGRO_BITMAP *lose = al_load_bitmap("../assets/images/you_lose.png");
   if(!lose)
   {
     cout<<"Failed to load the lose bitmap!\n";

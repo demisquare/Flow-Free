@@ -66,7 +66,7 @@ void Setup::runLevel(int mode)
 
 void Setup::menu()
 {
-  ALLEGRO_BITMAP *menu = al_load_bitmap("../images/background.png");
+  ALLEGRO_BITMAP *menu = al_load_bitmap("../assets/images/background.png");
   if(!menu)
   {
       cout<<"Failed to load menu bitmap!\n";
@@ -176,7 +176,7 @@ void Setup::menu()
 
 void Setup::options()
 {
-  ALLEGRO_BITMAP *options = al_load_bitmap("../images/GameMode.png");
+  ALLEGRO_BITMAP *options = al_load_bitmap("../assets/images/GameMode.png");
   if(!options)
   {
     cout<<"Failed to load the options bitmap!\n";
