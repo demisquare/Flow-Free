@@ -83,6 +83,7 @@ void Music::playSong()
 void Music::stopSong()
 {
     al_stop_sample_instance(songInstance);
+    isRunning = false;
 }
 void Music::playSelect()
 {
@@ -92,16 +93,15 @@ void Music::playHover()
 {
     al_play_sample(hover, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 }
-void Music::playWin()
+void Music::playRes(bool res)
 {
     stopSong();
-    al_play_sample(win, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+    if(res)
+        al_play_sample(win, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+    else
+        al_play_sample(lose, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 }
-void Music::playLose()
-{
-    stopSong();
-    al_play_sample(lose, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
-}
+
  Music::~Music()
 {
     al_destroy_sample(song);

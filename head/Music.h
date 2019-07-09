@@ -25,14 +25,15 @@ private:
 public:
     Music();
 
+    bool isRunning = true;
+
     void playSong();
     void stopSong();
 
     void playSelect();
     void playHover();
 
-    void playWin();
-    void playLose();
+    void playRes(bool);
 
     ~Music();
 };

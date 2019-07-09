@@ -131,15 +131,15 @@ void GameEngine::drawScore(Score& score, const unsigned& mode, const unsigned& l
 
     if(mode == 2)
         al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*3.75, gap*4, ALLEGRO_ALIGN_CENTER, "Time left: %i", score.getTimeLeft());
-    
-    //al_draw_rectangle(gap+(offset*5)+(offset/2)*4, gap*6, gap+(offset*5)+(offset/2)*6, gap*6.4, WHITE, 5);
-
 
     if(mouseX >= 566 &&
        mouseX <= 629 &&
        mouseY >= 380 &&
        mouseY <= 411)
-        al_draw_filled_circle(gap+(offset*5)+(offset/2)*4.2, gap*6.2, 7, BLACK);
+       {
+            //music.playHover();
+            al_draw_filled_circle(gap+(offset*5)+(offset/2)*4.2, gap*6.2, 7, BLACK);
+       }
 
     al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*6, gap*6, ALLEGRO_ALIGN_RIGHT, "Back");
 }
@@ -171,7 +171,10 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
            mouseY >= 283 &&
            mouseY <= 315)
 
-        al_draw_filled_circle(252, 300, 7, PINK);
+        {
+            //music.playHover();
+            al_draw_filled_circle(252, 300, 7, PINK);
+        }
 
     //sono su "Options"
     else if (mouseX >= 260 &&
@@ -179,7 +182,10 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
              mouseY >= 330 &&
              mouseY <= 363)
 
-        al_draw_filled_circle(252, 350, 7, GREEN);
+        {
+            //music.playHover();
+            al_draw_filled_circle(252, 350, 7, GREEN);
+        }
 
     //sono su "Quit"
     else if (mouseX >= 283 &&
@@ -187,7 +193,10 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
              mouseY >= 421 &&
              mouseX <= 460)
 
-        al_draw_filled_circle(267, 444, 7, RED);
+        {
+            //music.playHover();
+            al_draw_filled_circle(267, 444, 7, RED);
+        }
           
 }
 
@@ -200,8 +209,11 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
             mouseX <= 395 &&
             mouseY >= 132 &&
             mouseY <= 188)
-                      
-		      al_draw_filled_circle(227, 164, 8, ORANGE);
+            
+            {
+                //music.playHover();
+		        al_draw_filled_circle(227, 164, 8, ORANGE);
+            }
         
         
      //se sono su "Moves"
@@ -209,8 +221,11 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseX <= 395 &&
                  mouseY >= 212 &&
                  mouseY <= 268)
-               			
+
+            {
+                //music.playHover();		
 		        al_draw_filled_circle(227, 244, 8, YELLOW);
+            }
         
         
       //se sono su "Timer"
@@ -218,8 +233,11 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseX <= 376 &&
                  mouseY >= 292 &&
                  mouseY <= 348)
-                    	
-		 	      al_draw_filled_circle(243, 316, 8, AQUA);
+            
+            {
+                //music.playHover();
+		 	    al_draw_filled_circle(243, 316, 8, AQUA);
+            }
 
         //sono su "Back"
         else if (mouseX >= 278 &&
@@ -227,7 +245,10 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseY >= 417 &&
                  mouseY <= 450)
 
-            al_draw_filled_circle(267, 435, 7, RED);
+            {
+                //music.playHover();
+                al_draw_filled_circle(267, 435, 7, RED);
+            }
 
 }
 
@@ -240,8 +261,11 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
             mouseX <= 262 &&
             mouseY >= 317 &&
             mouseY <= 356)
-                      
-		    al_draw_filled_circle(154, 338, 10, PINK);
+
+            {
+                //music.playHover(); 
+		        al_draw_filled_circle(154, 338, 10, PINK);
+            }
         
         
      //se sono su "Next/Retry"
@@ -249,6 +273,9 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
                  mouseX <= 502 &&
                  mouseY >= 317 &&
                  mouseY <= 356)
-               			
-		    al_draw_filled_circle(392, 338, 10, GREEN);
+
+            {
+                //music.playHover();      		
+		        al_draw_filled_circle(392, 338, 10, GREEN);
+            }
 }

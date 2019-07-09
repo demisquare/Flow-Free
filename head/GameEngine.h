@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "PathMap.h"
 #include "Score.h"
+#include "Music.h"
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -31,6 +32,8 @@ class GameEngine
     ALLEGRO_EVENT_QUEUE* event_queue;
 
     ALLEGRO_FONT* font;
+
+    //Music music;
 
     float windowWidth = WIDTH, windowHeight = HEIGHT;
     float sx, sy;

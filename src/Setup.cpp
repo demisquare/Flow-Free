@@ -66,6 +66,9 @@ void Setup::runLevel(int mode)
 
 void Setup::menu()
 {
+  //if(!music.running())
+    //music.playSong();
+
   ALLEGRO_BITMAP *menu = al_load_bitmap("../assets/images/background.png");
   if(!menu)
   {
@@ -119,6 +122,7 @@ void Setup::menu()
               mouseY >= 283 &&
               mouseY <= 315)
 	           {
+                //music.playSelect();
                 runLevel(0);
                 break;
              }
@@ -131,6 +135,7 @@ void Setup::menu()
                mouseY <= 363)
         
               {
+                //music.playSelect();
                 al_destroy_event_queue(event_queue);
                 options();
               }
@@ -140,7 +145,10 @@ void Setup::menu()
                mouseX <= 356 &&
                mouseY >= 421 &&
                mouseX <= 460)
-				      exit(1);
+              {
+                //music.playSelect();
+				        exit(1);
+              }
 
       break;
 
@@ -231,6 +239,7 @@ void Setup::options()
               mouseY >= 132 &&
               mouseY <= 188)
 	           {
+                //music.playSelect();
                 runLevel(0);
                 done = true;
              }
@@ -242,6 +251,7 @@ void Setup::options()
                mouseY <= 268)
         
             {
+              //music.playSelect();
               runLevel(1);
               done = true;
             }
@@ -252,6 +262,7 @@ void Setup::options()
                mouseY >= 292 &&
                mouseY <= 340)
             {
+              //music.playSelect();
               runLevel(2);
               done = true;
             }
@@ -261,7 +272,10 @@ void Setup::options()
                mouseX <= 361 &&
                mouseY >= 417 &&
                mouseY <= 450)
-				    done = true;
+				    {
+              //music.playSelect();
+              done = true;
+            }
 
       break;
 
