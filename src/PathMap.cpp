@@ -82,7 +82,7 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
     {
         //aggiunge la coordinata...
         if(find(currentPath.begin(), currentPath.end(), coord) == currentPath.end()
-        &&  adj(coord))
+        &&  adj(coord) && !isClosed(currentPath))
         {
             currentPath.push_back(coord);
             gm.addPath(coord.first, coord.second, color);
@@ -146,6 +146,8 @@ vector<pair<int, int> >& PathMap::getCurrentPath(){return currentPath;}
 
 bool PathMap::isClosed(vector<pair<int,int> > path)
 {
+    if(path.empty())
+        return false;
     //un percorso è chiuso se gli estremi di un percorso sono Ball e se hanno lo stesso colore...
     return ((gm.getLogicObj(path.front().first, path.front().second)->getType() == BALL
         &&   gm.getLogicObj(path.back().first, path.back().second)->getType() == BALL)
