@@ -100,7 +100,7 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
 bool PathMap::closePath()
 {
     //chiusura del percorso...
-    if(!currentPath.empty() && isClosed(currentPath) && isUnique())
+    if(isClosed(currentPath) && isUnique())
     {
         cout << "closed!" << endl;
 
