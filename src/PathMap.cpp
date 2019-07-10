@@ -90,6 +90,10 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
             ok = true;
         }  
 
+        else if(!currentPath.empty() && coord != currentPath.back()
+        && gm.getLogicObj(coord.first, coord.second)->getType()!=BALL)
+            shrink(coord);
+
         //chiusura del percorso...
         if(isClosed(currentPath) && isUnique())
         {
@@ -109,8 +113,7 @@ bool PathMap::removeCurrentPath()
     if(!currentPath.empty())
     {
         for(auto coord : currentPath)
-            if(gm.getLogicObj(coord.first, coord.second)->getType()==PATH)
-                gm.removePath(coord.first, coord.second);
+            gm.removePath(coord.first, coord.second);
         
         currentPath.clear();
         return true;
@@ -118,20 +121,20 @@ bool PathMap::removeCurrentPath()
     return false;
 }
 
-//rimuove un percorso dalla mappa...
-/*bool PathMap::remove(const int &i, const int &j, ALLEGRO_COLOR color)
+//accorcia il percorso corrente...
+void PathMap::shrink(pair<int, int> coord)
 {
-   bool ok = false;
-   //creiamo una coordinata...
-   pair<int, int> coord(i, j);
+   //segna la posizione di coord con un iteratore ed elimina tutto da coord a end
+   vector<pair<int, int> >::iterator it = find(currentPath.begin(), currentPath.end(), coord);
 
-   //cerco il percorso
-   vector<pair<int, int> > toRemove=find(coord);
-   if(!color==toRemove.getColor())
-    toRemove.setColor(BLACK);
+   //scorri da end ad it e fai pop_back...
+   while(currentPath.end() != it)
+   {
+        gm.removePath(currentPath.back().first, currentPath.back().second);
+        currentPath.pop_back();
+   }
 
-   
-}*/
+}
 vector<vector<pair<int, int> > >& PathMap::getPaths(){return map;}
 
 vector<pair<int, int> >& PathMap::getCurrentPath(){return currentPath;}

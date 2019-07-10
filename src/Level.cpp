@@ -49,7 +49,7 @@ void Level::drawPath()
       }
     }
 
-    if(map.getLogic().getObj(mouseX, mouseY)->getType()==EMPTY && start!=nullptr)
+    if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL && start!=nullptr)
     { 
       //valuta la cella corrente   
       current = map.getLogic().getObj(mouseX, mouseY);
@@ -58,6 +58,17 @@ void Level::drawPath()
         moved = true;
 
     }
+
+    /*if(map.getLogic().getObj(mouseX, mouseY)->getType()==PATH && start!=nullptr)
+    { 
+      //valuta la cella corrente   
+      current = map.getLogic().getObj(mouseX, mouseY);
+      //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl; 
+      //cout << "sto toccando un path" << endl; 
+      if(map.remove(current->getLogicY(), current->getLogicX(), start->getColor()))
+        moved = true;
+
+    }*/
   }
 }
 

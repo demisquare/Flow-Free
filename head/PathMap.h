@@ -20,12 +20,13 @@ private:
   bool isSigned(pair<int, int>);
   bool isUnique();
 
+  void shrink(pair<int, int>);
+
 
 public:  
   GameMap& getLogic();
   void load(const int&);
   bool add(const int&, const int&, ALLEGRO_COLOR);
-  bool remove(const int&, const int&, ALLEGRO_COLOR);
   bool removeCurrentPath();
   vector<vector<pair<int, int> > >& getPaths();
   vector<pair<int, int> >& getCurrentPath();
