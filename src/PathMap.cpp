@@ -108,12 +108,10 @@ bool PathMap::removeCurrentPath()
 {
     if(!currentPath.empty())
     {
-        for(int i = 0; i < currentPath.size(); i++)
-        {
-            pair<int, int> coord = currentPath.at(i);
+        for(auto coord : currentPath)
             if(gm.getLogicObj(coord.first, coord.second)->getType()==PATH)
                 gm.removePath(coord.first, coord.second);
-        }
+        
         currentPath.clear();
         return true;
     }
