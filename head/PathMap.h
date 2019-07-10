@@ -27,6 +27,7 @@ public:
   GameMap& getLogic();
   void load(const int&);
   bool add(const int&, const int&, ALLEGRO_COLOR);
+  bool closePath();
   bool removeCurrentPath();
   vector<vector<pair<int, int> > >& getPaths();
   vector<pair<int, int> >& getCurrentPath();

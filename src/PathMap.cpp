@@ -93,19 +93,23 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
         else if(!currentPath.empty() && coord != currentPath.back()
         && gm.getLogicObj(coord.first, coord.second)->getType()!=BALL)
             shrink(coord);
-
-        //chiusura del percorso...
-        if(isClosed(currentPath) && isUnique())
-        {
-            cout << "closed!" << endl;
-
-            map.push_back(currentPath);
-            cout << "map: " << map.size() << endl;
-            currentPath.clear();    
-            ok = true;
-        }
     }
     return ok;
+}
+
+bool PathMap::closePath()
+{
+    //chiusura del percorso...
+    if(isClosed(currentPath) && isUnique())
+    {
+        cout << "closed!" << endl;
+
+        map.push_back(currentPath);
+        cout << "map: " << map.size() << endl;
+        currentPath.clear();    
+        return true;
+    }
+    return false;
 }
 
 bool PathMap::removeCurrentPath()

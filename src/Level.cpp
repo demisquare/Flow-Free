@@ -140,6 +140,9 @@ int Level::run(const int& lvl)
 
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+        if(map.closePath())
+          moved = true;
+        
         if(moved)
         {
           score.addMoves();
