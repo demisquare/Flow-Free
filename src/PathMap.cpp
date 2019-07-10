@@ -32,47 +32,42 @@ bool PathMap::adj(pair<int, int> coord)
 //verifica se la coordinata è stata già inserita...
 bool PathMap::isSigned(pair<int, int> coord)
 {
-    if(map.empty())
-        return false;
-    else
-    {
-        bool ok = false;
-            for(auto path:map)
-                if(find(path.begin(), path.end(), coord) != path.end())
-                    ok = true;
-        return ok;
-    }
+    bool ok = false;
+
+    if(!map.empty())
+        for(auto path:map)
+            if(find(path.begin(), path.end(), coord) != path.end())
+                ok = true;
+    return ok;
+    
 }
 
 //restituisce il percorso che contiene la coordinata...
 vector<pair<int, int> > PathMap::findPath(pair<int, int> coord)
 {
     vector<pair<int, int> > found;
-    if(map.empty())
-        return found;
-    else
-    {
+
+    if(!map.empty())
         for(auto path:map)
             if(find(path.begin(), path.end(), coord) != path.end())
                 found = path;
-        return found;
-    }
+
+    return found;
+    
 }
 
 //verifica se il percorso è stato già inserito...
 bool PathMap::isUnique()
-{
-    if(map.empty())
-        return true;
-    else
-    {
-        bool unique = true;
+{   
+    bool unique = true;
+
+    if(!map.empty())
         for(auto path:map)
             for(auto p:currentPath)
                 if(find(path.begin(), path.end(), p) != path.end())
                     unique = false;
-        return unique;
-    }
+    return unique;
+    
 }
 
 //aggiunge un percorso alla mappa...
@@ -107,6 +102,22 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
         }
     }
     return ok;
+}
+
+bool PathMap::removeCurrentPath()
+{
+    if(!currentPath.empty())
+    {
+        for(int i = 0; i < currentPath.size(); i++)
+        {
+            pair<int, int> coord = currentPath.at(i);
+            if(gm.getLogicObj(coord.first, coord.second)->getType()==PATH)
+                gm.removePath(coord.first, coord.second);
+        }
+        currentPath.clear();
+        return true;
+    }
+    return false;
 }
 
 //rimuove un percorso dalla mappa...

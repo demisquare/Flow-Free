@@ -152,6 +152,8 @@ int Level::run(const int& lvl)
         current = nullptr;
         end = nullptr;
 
+        map.removeCurrentPath();
+
         //turn back
         if(mouseX >= 566 &&
            mouseX <= 629 &&

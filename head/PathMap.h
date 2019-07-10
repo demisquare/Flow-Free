@@ -26,6 +26,7 @@ public:
   void load(const int&);
   bool add(const int&, const int&, ALLEGRO_COLOR);
   bool remove(const int&, const int&, ALLEGRO_COLOR);
+  bool removeCurrentPath();
   vector<vector<pair<int, int> > >& getPaths();
   vector<pair<int, int> >& getCurrentPath();
   pair<int, int> getLastCoords();
