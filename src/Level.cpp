@@ -23,41 +23,47 @@ void Level::redraw()
 
 void Level::drawPath()
 {
-  if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
+  if(map.getLogic().inMap(mouseX, mouseY))
   {
-    if(map.getLogic().getObj(mouseX, mouseY)->getType()==BALL)
+    if(mouse_down)
     {
-      //chiudi percorso...
-      if(start != nullptr && current != nullptr)
+      if(map.getLogic().getObj(mouseX, mouseY)->getType()==BALL)
       {
-        end = map.getLogic().getObj(mouseX, mouseY);
-        //cout << "end: " << end->getLogicY() << " - " << end->getLogicX() << endl;
-        if(end->getColor() == start->getColor())
-          if(map.add(end->getLogicY(), end->getLogicX(), end->getColor()))
-            moved = true;
+        //chiudi percorso...
+        if(start != nullptr && current != nullptr)
+        {
+          end = map.getLogic().getObj(mouseX, mouseY);
+          //cout << "end: " << end->getLogicY() << " - " << end->getLogicX() << endl;
+          if(end->getColor() == start->getColor())
+            if(map.add(end->getLogicY(), end->getLogicX(), end->getColor()))
+              moved = true;
+          else
+            end = nullptr;
+        } 
         else
-          end = nullptr;
-      } 
-      else
-      {
-        //valuta prima cella...
-        start = map.getLogic().getObj(mouseX, mouseY);
-        //cout << "start: " << start->getLogicY() << " - " << start->getLogicX() << endl;
-        if(map.getCurrentPath().empty())
-          if(map.add(start->getLogicY(), start->getLogicX(), start->getColor()))
-            moved = true;
+        {
+          //valuta prima cella...
+          start = map.getLogic().getObj(mouseX, mouseY);
+          //cout << "start: " << start->getLogicY() << " - " << start->getLogicX() << endl;
+          if(map.getCurrentPath().empty())
+            if(map.add(start->getLogicY(), start->getLogicX(), start->getColor()))
+              moved = true;
+        }
+      }
+
+      if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL && start!=nullptr)
+      { 
+        //valuta la cella corrente   
+        current = map.getLogic().getObj(mouseX, mouseY);
+        //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;  
+        if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
+          moved = true;
+
       }
     }
-
-    if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL && start!=nullptr)
-    { 
-      //valuta la cella corrente   
-      current = map.getLogic().getObj(mouseX, mouseY);
-      //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;  
-      if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
+    else
+      if(map.closePath())
         moved = true;
-
-    }
   }
 }
 
@@ -140,9 +146,6 @@ int Level::run(const int& lvl)
 
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-        if(map.closePath())
-          moved = true;
-        
         if(moved)
         {
           score.addMoves();
