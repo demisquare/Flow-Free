@@ -23,8 +23,8 @@ private:
     ALLEGRO_SAMPLE_INSTANCE* menuInstance;
     ALLEGRO_SAMPLE_INSTANCE* gameInstance;
     
-    bool isMenuPlaying;
-    bool isGamePlaying;
+    bool isMenuPlaying = false;
+    bool isGamePlaying = false;
 
 public:
     Music();
