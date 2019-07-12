@@ -21,6 +21,7 @@ void Level::redraw()
 
 }
 
+//traccia percorsi...
 void Level::drawPath()
 {
   if(map.getLogic().inMap(mouseX, mouseY) && mouse_down)
@@ -31,7 +32,6 @@ void Level::drawPath()
       if(start != nullptr && current != nullptr)
       {
         end = map.getLogic().getObj(mouseX, mouseY);
-        //cout << "end: " << end->getLogicY() << " - " << end->getLogicX() << endl;
         if(end->getColor() == start->getColor())
           if(map.add(end->getLogicY(), end->getLogicX(), end->getColor()))
             moved = true;
@@ -42,26 +42,23 @@ void Level::drawPath()
       {
         //valuta prima cella...
         start = map.getLogic().getObj(mouseX, mouseY);
-        //cout << "start: " << start->getLogicY() << " - " << start->getLogicX() << endl;
         if(map.getCurrentPath().empty())
           if(map.add(start->getLogicY(), start->getLogicX(), start->getColor()))
             moved = true;
-        //if(!map.findPath(start->getLogicY(), start->getLogicX()).empty())
       }
     }
 
     if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL && start!=nullptr)
     { 
       //valuta la cella corrente   
-      current = map.getLogic().getObj(mouseX, mouseY);
-      //cout << "current: " << current->getLogicY() << " - " << current->getLogicX() << endl;  
+      current = map.getLogic().getObj(mouseX, mouseY); 
       if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
         moved = true;
-
     }
   }
 }
 
+//lancia livello...
 int Level::run(const int& lvl)
 {
   resize(al_get_current_display());
@@ -99,6 +96,7 @@ int Level::run(const int& lvl)
      
         drawPath();
 
+        //conteggio del tempo...
         if(gameMode == 2)
         {
           counter++;
@@ -109,6 +107,7 @@ int Level::run(const int& lvl)
           }
         }
 
+        //condizioni di sconfitta...
         if((score.timeElapsed() && gameMode == 2) || (score.noMoreMoves() && gameMode == 1))
         {
           cout << "you lose!" << endl;
@@ -141,10 +140,13 @@ int Level::run(const int& lvl)
 
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+
+        //chiusura e/o rimozione al click...
         if(map.getLogic().inMap(mouseX, mouseY)
         && (map.closePath() || map.remove(start->getLogicY(), start->getLogicX())))
           moved = true;
         
+        //conteggio delle mosse...
         if(moved)
         {
           score.addMoves();
@@ -157,6 +159,7 @@ int Level::run(const int& lvl)
         current = nullptr;
         end = nullptr;
 
+        //cancella percorso corrente se incompleto...
         map.removePath(map.getCurrentPath());
 
         //turn back
@@ -182,11 +185,13 @@ int Level::run(const int& lvl)
       redraw();
     }
   }
+  //vittoria del gioco...
     cout << "you win!" << endl;
     al_destroy_event_queue(event_queue);
     return result(1);
 }
 
+//visualizza il risultato della partita...
 int Level::result(bool res)
 {
   music.playRes(res);

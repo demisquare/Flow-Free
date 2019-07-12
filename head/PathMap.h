@@ -22,7 +22,6 @@ private:
 
   void shrink(pair<int, int>);
 
-
 public:  
   GameMap& getLogic();
   void load(const int&);
@@ -32,7 +31,6 @@ public:
   bool closePath();
   vector<vector<pair<int, int> > >& getPaths();
   vector<pair<int, int> >& getCurrentPath();
-  pair<int, int> getLastCoords();
   bool victory();
 };
 

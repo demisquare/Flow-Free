@@ -1,7 +1,5 @@
 #include "../head/PathMap.h"
 
-pair<int, int> PathMap::getLastCoords(){return currentPath.back();}
-
 GameMap& PathMap::getLogic(){return gm;}
 
 void PathMap::load(const int& lvl)
@@ -14,7 +12,6 @@ bool PathMap::adj(pair<int, int> coord)
 {
   if(currentPath.empty())
     return true;
-
 
   unsigned x1 = currentPath.back().first;
   unsigned y1 = currentPath.back().second;
@@ -89,13 +86,20 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
             ok = true;
         }  
 
+        //accorcia il percorso corrente se si interseca da solo...
         else if(!currentPath.empty() && coord != currentPath.back()
         && gm.getLogicObj(coord.first, coord.second)->getType()!=BALL)
             shrink(coord);
     }
+    //se è stata già segnata...
+    else
+        //elimina intersezioni tra currentPath e altri percorsi nella mappa...
+        remove(i, j);
+    
     return ok;
 }
 
+//rimuove un percorso attraverso una sua coordinata...
 bool PathMap::remove(const int &i, const int &j)
 {
     //creiamo una coordinata...
@@ -115,9 +119,9 @@ bool PathMap::remove(const int &i, const int &j)
     return false;
 }
 
+//chiude il percorso corrente e lo aggiunge alla mappa...
 bool PathMap::closePath()
 {
-    //chiusura del percorso...
     if(isClosed(currentPath) && isUnique())
     {
         cout << "closed!" << endl;
@@ -130,12 +134,13 @@ bool PathMap::closePath()
     return false;
 }
 
+//rimuove un percorso selezionato...
 bool PathMap::removePath(vector<pair<int, int> >& path)
 {
     if(!path.empty())
     {
         for(auto coord : path)
-            gm.GameMap::removePath(coord.first, coord.second);
+            gm.removePath(coord.first, coord.second);
         
         path.clear();
         return true;
@@ -161,7 +166,7 @@ vector<vector<pair<int, int> > >& PathMap::getPaths(){return map;}
 
 vector<pair<int, int> >& PathMap::getCurrentPath(){return currentPath;}
 
-
+//verifica se un percorso è chiudibile...
 bool PathMap::isClosed(vector<pair<int,int> > path)
 {
     if(path.empty())
@@ -170,8 +175,10 @@ bool PathMap::isClosed(vector<pair<int,int> > path)
     return ((gm.getLogicObj(path.front().first, path.front().second)->getType() == BALL
         &&   gm.getLogicObj(path.back().first, path.back().second)->getType() == BALL)
 
-        && (gm.getLogicObj(path.front().first, path.front().second)->getColor()
-        ==  gm.getLogicObj(path.back().first, path.back().second)->getColor()) && path.size() >= 2);
+        &&  (gm.getLogicObj(path.front().first, path.front().second)->getColor()
+        ==   gm.getLogicObj(path.back().first, path.back().second)->getColor())
+
+        &&   path.size() >= 2);
 }
 
 //condizione di vittoria: tutti i percorsi sono chiusi e la mappa è piena...
