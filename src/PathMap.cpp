@@ -45,15 +45,14 @@ bool PathMap::isSigned(pair<int, int> coord)
 //restituisce il percorso che contiene la coordinata...
 vector<pair<int, int> > PathMap::findPath(pair<int, int> coord)
 {
-    vector<pair<int, int> > found;
+    vector<pair<int, int> > not_found;
 
     if(!map.empty())
         for(auto path:map)
             if(find(path.begin(), path.end(), coord) != path.end())
-                found = path;
-
-    return found;
+                return path;
     
+    return not_found;
 }
 
 //verifica se il percorso è stato già inserito...
@@ -97,6 +96,25 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
     return ok;
 }
 
+bool PathMap::remove(const int &i, const int &j)
+{
+    //creiamo una coordinata...
+    pair<int, int> coord(i, j);
+
+    //individua il percorso da eliminare...
+    vector<pair<int, int> > path = findPath(coord);
+
+    //se elimina il percorso...
+    if(removePath(path))
+    {
+        //elimina il percorso dalla mappa...
+        map.erase(find(map.begin(), map.end(), path));
+
+        return true;
+    }
+    return false;
+}
+
 bool PathMap::closePath()
 {
     //chiusura del percorso...
@@ -112,14 +130,14 @@ bool PathMap::closePath()
     return false;
 }
 
-bool PathMap::removeCurrentPath()
+bool PathMap::removePath(vector<pair<int, int> >& path)
 {
-    if(!currentPath.empty())
+    if(!path.empty())
     {
-        for(auto coord : currentPath)
-            gm.removePath(coord.first, coord.second);
+        for(auto coord : path)
+            gm.GameMap::removePath(coord.first, coord.second);
         
-        currentPath.clear();
+        path.clear();
         return true;
     }
     return false;

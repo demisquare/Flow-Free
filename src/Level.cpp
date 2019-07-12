@@ -46,6 +46,7 @@ void Level::drawPath()
         if(map.getCurrentPath().empty())
           if(map.add(start->getLogicY(), start->getLogicX(), start->getColor()))
             moved = true;
+        //if(!map.findPath(start->getLogicY(), start->getLogicX()).empty())
       }
     }
 
@@ -140,7 +141,8 @@ int Level::run(const int& lvl)
 
       //evento click del mouse...
       case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-        if(map.getLogic().inMap(mouseX, mouseY) && map.closePath())
+        if(map.getLogic().inMap(mouseX, mouseY)
+        && (map.closePath() || map.remove(start->getLogicY(), start->getLogicX())))
           moved = true;
         
         if(moved)
@@ -155,7 +157,7 @@ int Level::run(const int& lvl)
         current = nullptr;
         end = nullptr;
 
-        map.removeCurrentPath();
+        map.removePath(map.getCurrentPath());
 
         //turn back
         if(mouseX >= 566 &&
