@@ -13,17 +13,15 @@ bool PathMap::adj(pair<int, int> coord)
   if(currentPath.empty())
     return true;
 
-  unsigned x1 = currentPath.back().first;
-  unsigned y1 = currentPath.back().second;
+  int x1 = currentPath.back().first;
+  int y1 = currentPath.back().second;
 
-  unsigned x2 = coord.first;
-  unsigned y2 = coord.second;
+  int x2 = coord.first;
+  int y2 = coord.second;
 
   return
-    !((x2 == x1+1 && y2 == y1+1)
-    ||(x2 == x1+1 && y2 == y1-1)
-    ||(x2 == x1-1 && y2 == y1+1)
-    ||(x2 == x1-1 && y2 == y1-1));
+       (abs(x1 - x2) == 1 && y1 == y2)
+    || (abs(y1 - y2) == 1 && x1 == x2);
 }
 
 //verifica se la coordinata è stata già inserita...

@@ -91,7 +91,7 @@ void Music::init()
     }
 
     al_set_sample_instance_playmode(gameInstance, ALLEGRO_PLAYMODE_LOOP);
-    al_set_sample_instance_gain(gameInstance, 0.15);
+    al_set_sample_instance_gain(gameInstance, 0.3);
     al_attach_sample_instance_to_mixer(gameInstance, al_get_default_mixer());
 
 }

@@ -4,6 +4,7 @@
 #include <utility>
 #include <iostream>
 #include "GameMap.h"
+#include <cmath>
 
 //crea una matrice di percorsi
 class PathMap
