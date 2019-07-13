@@ -13,6 +13,52 @@ make && ./FlowFree
 Quit game with **Escape** key.
 
 ## History:
+#### 13-07-19:
+- Adj bugfix and fixed game music volume.
+
+#### 12-07-19:
+- Now you can delete paths by clicking on balls.
+- Now current path delete other paths if overlaps them.
+- Music bugfix.
+
+#### 10-07-19:
+- Now is possible to delete paths leaving mouse.
+- Now is possible to shrink current path if overlaps itself.
+- Added a lock on balls when you create a path.
+- Improved path closure.
+
+#### 09-07-19:
+- Added Music class.
+- Re-organized assets in folders.
+- Victory and Lose now use the same methods.
+
+#### 08-07-19:
+- Improved moves count.
+- Added victory and lose screens.
+
+#### 07-07-19:
+- PathMap now checks more logic constraints.
+- Added moves count.
+
+#### 06-07-19:
+- Buffer and level fixes.
+
+#### 05-07-19:
+- Added turn back button in Score tab.
+- Added multiple level handling.
+- Fixed Buffer issues.
+
+#### 04-07-19:
+- Added Score class.
+- Added font Aberus.
+- Timer mode works.
+
+#### 24-06-19:
+- Added GameEngine.cpp.
+- Added display and buffer in level class.
+- Fixed map drawing methods.
+- Updating path conditions.
+
 #### 23-06-19:
 - More levels.
 - Added readLevel() in Setup class.
@@ -119,10 +165,6 @@ Quit game with **Escape** key.
 #### 09-03-19:
 - First release.
 - Added text file input to generate the levelmap.
-
-## Next changes:
-- Adding Score, Music.
-- Timer and Moves Level mode.
 
 ## Authors:
 * **demisquare** - (https://github.com/demisquare)
