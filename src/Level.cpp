@@ -48,13 +48,14 @@ void Level::drawPath()
       }
     }
 
-    if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL && start!=nullptr)
-    { 
-      //valuta la cella corrente   
-      current = map.getLogic().getObj(mouseX, mouseY); 
-      if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
-        moved = true;
-    }
+    if(map.getLogic().getObj(mouseX, mouseY)->getType()!=BALL)
+      if(start != nullptr)
+      { 
+        //valuta la cella corrente   
+        current = map.getLogic().getObj(mouseX, mouseY); 
+        if(map.add(current->getLogicY(), current->getLogicX(), start->getColor()))
+          moved = true;
+      }
   }
 }
 
@@ -143,7 +144,8 @@ int Level::run(const int& lvl)
 
         //chiusura e/o rimozione al click...
         if(map.getLogic().inMap(mouseX, mouseY)
-        && (map.closePath() || map.remove(start->getLogicY(), start->getLogicX())))
+        && (map.closePath() || (start != nullptr
+        &&  map.remove(start->getLogicY(), start->getLogicX()))))
           moved = true;
         
         //conteggio delle mosse...
