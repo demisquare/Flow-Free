@@ -1,4 +1,6 @@
 #include "../head/GameMap.h"
+
+// legge un file di testo...
 void GameMap::readLevel(const int& lvl)
 {
   ifstream OpenFile("../levels/level" + to_string(lvl) + ".txt");
@@ -67,7 +69,6 @@ void GameMap::addPath(const int &i, const int &j, ALLEGRO_COLOR color)
   {
     delete map[i][j];
     map[i][j] = new Path(gap+(offset/2)+(j*offset), gap+(offset/2)+(i*offset), color);
-    //cout << "added: " << map[i][j]->getLogicY() << " - " << map[i][j]->getLogicX() << endl;
   }
 }
 
@@ -115,8 +116,6 @@ unsigned GameMap::getColors()const
     
 
   return colors.size();
-            
-    
 }
 
 //verifica se la mappa è piena...

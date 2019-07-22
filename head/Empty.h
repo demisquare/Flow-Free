@@ -3,7 +3,7 @@
 
 #include "GameObj.h"
 
-/*segnaposto vuoto*/
+//segnaposto vuoto...
 class Empty:public GameObj
 {
 public:

@@ -35,6 +35,7 @@ Setup::Setup()
   al_hide_mouse_cursor(display);
 }
 
+// avvia livelli...
 void Setup::runLevel(int mode)
 {
   al_destroy_timer(timer);
@@ -67,6 +68,7 @@ void Setup::runLevel(int mode)
   menu();
 }
 
+// avvia menu...
 void Setup::menu()
 {
 
@@ -98,7 +100,6 @@ void Setup::menu()
   al_register_event_source(event_queue, al_get_mouse_event_source());
   al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-  //avvia il timer...
   al_start_timer(timer);
 
   while(true)
@@ -185,6 +186,7 @@ void Setup::menu()
   al_destroy_bitmap(menu);
 }
 
+// avvia opzioni...
 void Setup::options()
 {
   ALLEGRO_BITMAP *options = al_load_bitmap("../assets/images/GameMode.png");
@@ -213,7 +215,6 @@ void Setup::options()
   al_register_event_source(event_queue, al_get_mouse_event_source());
   al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-  //avvia il timer...
   al_start_timer(timer);
   
   bool done = false;

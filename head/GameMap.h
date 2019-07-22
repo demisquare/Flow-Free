@@ -9,13 +9,12 @@
 #include <vector>
 #include <algorithm>
 
-//crea una matrice di oggetti (palline o percorsi)
+//crea una matrice logica di oggetti (palline o percorsi)
 class GameMap
 {
 private:
   const unsigned n = 5;
 
-  //GameObj*** map;
   vector<vector<GameObj*> > map;
   vector<vector<char> > levelmap;
   

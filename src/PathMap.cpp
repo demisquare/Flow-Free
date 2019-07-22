@@ -80,7 +80,6 @@ bool PathMap::add(const int &i, const int &j, ALLEGRO_COLOR color)
         {
             currentPath.push_back(coord);
             gm.addPath(coord.first, coord.second, color);
-            cout << coord.first << " - " << coord.second << endl;
             ok = true;
         }  
 
@@ -122,10 +121,7 @@ bool PathMap::closePath()
 {
     if(isClosed(currentPath) && isUnique())
     {
-        cout << "closed!" << endl;
-
         map.push_back(currentPath);
-        cout << "map: " << map.size() << endl;
         currentPath.clear();    
         return true;
     }

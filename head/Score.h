@@ -12,22 +12,18 @@ class Score
     unsigned timeLeft = 60;
 
     public:
-    unsigned getMoves()const{return moves;}
-    unsigned getRemainingMoves()const{return remainingMoves;}
-    void setRemainingMoves(unsigned m){remainingMoves = m;}
+    unsigned getMoves()const;
+    unsigned getRemainingMoves()const;
+    void setRemainingMoves(unsigned m);
 
-    unsigned getTimeLeft()const{return timeLeft;}
+    unsigned getTimeLeft()const;
 
-    void addMoves() {moves++;}
+    void addMoves();
 
-    void tick()
-    {
-        if(timeLeft > 0)
-            timeLeft--;
-    }
+    void tick();
 
-    bool timeElapsed()const{return timeLeft == 0;}
-    bool noMoreMoves()const{return moves > remainingMoves;}
+    bool timeElapsed()const;
+    bool noMoreMoves()const;
 };
 
 #endif

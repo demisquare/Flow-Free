@@ -5,6 +5,7 @@
 #include <allegro5/allegro_primitives.h>
 #include "Color.h"
 
+//valori grafici per costruire la mappa...
 const int pos = 45;
 const int offset = 70;
 const int r = 32;
@@ -13,7 +14,7 @@ const int gap = 64;
 using namespace std;
 
 enum type { BALL, PATH, EMPTY };
-//classe astratta; implementare i metodi getType() e draw() nelle classi figlie
+
 class GameObj
 {
 protected:
@@ -23,9 +24,11 @@ public:
   GameObj(const unsigned x, const unsigned y, const ALLEGRO_COLOR c):
     source_x(x), source_y(y), color(c){}
 
+  // coordinate in pixel...
   unsigned getX()const{return source_x;}
   unsigned getY()const{return source_y;}
   
+  // coordinate rispetto alla mappa logica...
   unsigned getLogicX()const{return (int(source_x-gap)/offset);} 
   unsigned getLogicY()const{return (int(source_y-gap)/offset);}
 
@@ -42,8 +45,5 @@ public:
             this->getColor() == g->getColor());
             
   }
-
-  //forse andrebbe aggiunto il metodo clear() come in Ball.h
-
 };
 #endif

@@ -7,19 +7,22 @@
 
 using namespace std;
 
+// gestore musica...
 class Music
 {
 private:
-    //songs
+    //background...
     ALLEGRO_SAMPLE *menu;
     ALLEGRO_SAMPLE *game;
 
-    //sfx
+    //sfx selezione...
     ALLEGRO_SAMPLE *select;
 
+    //sfx risultati...
     ALLEGRO_SAMPLE *win;
     ALLEGRO_SAMPLE *lose;
 
+    // istanze per gestire i background...
     ALLEGRO_SAMPLE_INSTANCE* menuInstance;
     ALLEGRO_SAMPLE_INSTANCE* gameInstance;
     

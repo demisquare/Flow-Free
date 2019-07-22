@@ -111,7 +111,6 @@ int Level::run(const int& lvl)
         //condizioni di sconfitta...
         if((score.timeElapsed() && gameMode == 2) || (score.noMoreMoves() && gameMode == 1))
         {
-          cout << "you lose!" << endl;
           al_destroy_event_queue(event_queue);
           return result(0);
         }
@@ -127,7 +126,6 @@ int Level::run(const int& lvl)
           al_destroy_event_queue(event_queue);
           return 1;
         }
-        //break;
 
       //evento hover del mouse...
       case ALLEGRO_EVENT_MOUSE_AXES:
@@ -188,9 +186,8 @@ int Level::run(const int& lvl)
     }
   }
   //vittoria del gioco...
-    cout << "you win!" << endl;
-    al_destroy_event_queue(event_queue);
-    return result(1);
+  al_destroy_event_queue(event_queue);
+  return result(1);
 }
 
 //visualizza il risultato della partita...
@@ -243,7 +240,6 @@ int Level::result(bool res)
           al_destroy_bitmap(lose);
           return 1;
         }
-        //break;
 
       //evento hover del mouse...
       case ALLEGRO_EVENT_MOUSE_AXES:
@@ -271,7 +267,6 @@ int Level::result(bool res)
           al_destroy_bitmap(lose);
           return 0;
         }
-        
         
         //se sono su "Next/Retry"
         else if (mouseX >= 380 &&

@@ -1,5 +1,6 @@
 #include "../head/GameEngine.h"
 
+// resize del display...
 void GameEngine::resize(ALLEGRO_DISPLAY* display)
 {
     windowHeight = al_get_display_height(display);
@@ -17,6 +18,7 @@ void GameEngine::resize(ALLEGRO_DISPLAY* display)
     scaleY = (windowHeight - scaleH) / 2;
 }
 
+// avvio display...
 void GameEngine::init_display()
 {
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
@@ -36,6 +38,7 @@ void GameEngine::init_display()
     resize(display);         
 }
 
+// avvio buffer...
 void GameEngine::init_buffer()
 {
     buffer = al_create_bitmap(WIDTH, HEIGHT);
@@ -49,6 +52,7 @@ void GameEngine::init_buffer()
     al_clear_to_color(BLACK);
 }
 
+// avvio font...
 void GameEngine::init_font()
 {
     if(!al_init_font_addon())
@@ -71,6 +75,7 @@ void GameEngine::init_font()
     }
 }
 
+// avvio timer...
 void GameEngine::init_timer()
 {
     timer = al_create_timer(1.0/FPS);
@@ -81,6 +86,7 @@ void GameEngine::init_timer()
     }
 }
 
+// avvio coda di eventi...
 void GameEngine::init_event_queue()
 {
     event_queue = al_create_event_queue();
@@ -91,11 +97,13 @@ void GameEngine::init_event_queue()
     }
 }
 
+// visualizza il cursore...
 void GameEngine::cursor(int mouseX, int mouseY)
 {
     al_draw_filled_circle(mouseX, mouseY, 7, WHITE);
 }
 
+// disegna i percorsi sulla mappa...
 void GameEngine::drawPath(vector<pair<int,int> > path, const GameMap& gm)
 {
     if(path.size() >= 2)
@@ -118,6 +126,7 @@ void GameEngine::drawPath(vector<pair<int,int> > path, const GameMap& gm)
     }
 }
 
+// disegna il pannello dei punteggi...
 void GameEngine::drawScore(Score& score, const unsigned& mode, const unsigned& level, int mouseX, int mouseY)
 {
     al_draw_filled_rectangle(gap+(offset*5)+(offset/2),
@@ -144,6 +153,7 @@ void GameEngine::drawScore(Score& score, const unsigned& mode, const unsigned& l
     al_draw_textf(font, BLACK, gap+(offset*5)+(offset/2)*6, gap*6, ALLEGRO_ALIGN_RIGHT, "Back");
 }
 
+// disegna la mappa...
 void GameEngine::drawMap(PathMap& pm)
 {    
     for(unsigned i = 0; i < pm.getLogic().size(); i++)
@@ -161,6 +171,7 @@ void GameEngine::drawMap(PathMap& pm)
         drawPath(path, pm.getLogic());    
 }
 
+// disegna i pallini del menu principale...
 void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
 {
     al_draw_bitmap(menu, 0, 0, 0);
@@ -171,10 +182,8 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
            mouseY >= 283 &&
            mouseY <= 315)
 
-        {
-            //music.playHover();
             al_draw_filled_circle(252, 300, 7, PINK);
-        }
+        
 
     //sono su "Options"
     else if (mouseX >= 260 &&
@@ -182,10 +191,8 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
              mouseY >= 330 &&
              mouseY <= 363)
 
-        {
-            //music.playHover();
             al_draw_filled_circle(252, 350, 7, GREEN);
-        }
+        
 
     //sono su "Quit"
     else if (mouseX >= 283 &&
@@ -193,13 +200,11 @@ void GameEngine::drawMenu(ALLEGRO_BITMAP* menu, int mouseX, int mouseY)
              mouseY >= 421 &&
              mouseX <= 460)
 
-        {
-            //music.playHover();
             al_draw_filled_circle(267, 444, 7, RED);
-        }
           
 }
 
+// disegna i pallini del menu delle opzioni...
 void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
 {
     al_draw_bitmap(options, 0, 0, 0);
@@ -210,10 +215,7 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
             mouseY >= 132 &&
             mouseY <= 188)
             
-        {
-            //music.playHover();
 		    al_draw_filled_circle(227, 164, 8, ORANGE);
-        }
         
         
      //se sono su "Moves"
@@ -221,11 +223,8 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseX <= 395 &&
                  mouseY >= 212 &&
                  mouseY <= 268)
-
-            {
-                //music.playHover();		
+		
 		        al_draw_filled_circle(227, 244, 8, YELLOW);
-            }
         
         
       //se sono su "Timer"
@@ -233,11 +232,8 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseX <= 376 &&
                  mouseY >= 292 &&
                  mouseY <= 348)
-            
-            {
-                //music.playHover();
+
 		 	    al_draw_filled_circle(243, 316, 8, AQUA);
-            }
 
         //sono su "Back"
         else if (mouseX >= 278 &&
@@ -245,13 +241,10 @@ void GameEngine::drawOptions(ALLEGRO_BITMAP* options, int mouseX, int mouseY)
                  mouseY >= 417 &&
                  mouseY <= 450)
 
-            {
-                //music.playHover();
                 al_draw_filled_circle(267, 435, 7, RED);
-            }
-
 }
 
+// disegna pallini della schermata dei risultati...
 void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
 {
     al_draw_bitmap(screen, 0, 0, 0);
@@ -262,10 +255,7 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
             mouseY >= 317 &&
             mouseY <= 356)
 
-        {
-            //music.playHover(); 
 	        al_draw_filled_circle(154, 338, 10, PINK);
-        }
         
         
      //se sono su "Next/Retry"
@@ -273,9 +263,6 @@ void GameEngine::drawResult(ALLEGRO_BITMAP* screen, int mouseX, int mouseY)
                  mouseX <= 502 &&
                  mouseY >= 317 &&
                  mouseY <= 356)
-
-        {
-            //music.playHover();      		
+     		
 		    al_draw_filled_circle(392, 338, 10, GREEN);
-        }
 }

@@ -3,6 +3,8 @@
 
 #include <allegro5/allegro.h>
 
+// mappa di alcuni colori utilizzati...
+
 #define RED al_map_rgb(255, 0, 0)
 #define GREEN al_map_rgb(0, 255, 0)
 #define BLUE al_map_rgb(0, 0, 255)

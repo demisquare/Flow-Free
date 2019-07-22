@@ -64,13 +64,5 @@ class GameEngine
     void drawResult(ALLEGRO_BITMAP*, int, int);
     void drawScore(Score&, const unsigned&, const unsigned&, int, int);
     void drawMap(PathMap&);
-
-    ~GameEngine()
-    {
-        /* al_destroy_bitmap(buffer);
-        al_destroy_display(display); */
-        //al_destroy_font(font);
-    }
-    
 };
 #endif

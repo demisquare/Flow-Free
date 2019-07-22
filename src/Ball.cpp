@@ -3,8 +3,6 @@
 Ball::Ball(const unsigned x, const unsigned y, const unsigned r, const ALLEGRO_COLOR c):
   GameObj(x, y, c), radius(r){}
 
-void Ball::clear(){color = BLACK;}
-
 unsigned Ball::getRadius()const{return radius;}
 
 type Ball::getType()const{return BALL;}
